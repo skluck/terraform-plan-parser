@@ -1,0 +1,24 @@
+{
+    "name": "skluck/terraform-plan-parser",
+    "description": "A PHP parser for Hashicorp's Terraform plans",
+    "type": "library",
+    "keywords": [
+        "terraform",
+        "hashicorp"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Steve Kluck",
+            "email": "steve@kluck.engineering"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "SK\\TerraformParser\\": "src"
+        }
+    },
+    "require": {
+        "php": "~5.6 || ~7.1"
+    }
+}
