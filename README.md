@@ -107,6 +107,13 @@ var_export($output);
 //         ResourceChange,
 //     ],
 // ];
+
+var_export($output->errors());
+// [
+//     'Failed to parse resource name (line 63)',
+//     'Failed to parse attribute name (line 102)',
+//     'Failed to parse attribute name (line 103)',
+// ],
 ```
 
 The output of this parser also implements `jsonSerialize` so it can be safely encoded and output with JSON.
