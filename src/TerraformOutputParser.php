@@ -68,6 +68,7 @@ class TerraformOutputParser
         $this->resetErrors();
 
         $input = $this->stripANSICodes($input);
+        $input = $this->sanitizeWindowsLineEndings($input);
 
         if (strpos($input, self::NO_CHANGES_STRING) !== false) {
             return [
@@ -76,8 +77,12 @@ class TerraformOutputParser
             ];
         }
 
+        $changes = [];
+
         $output = $this->getChangeOutput($input);
-        $changes = $this->parseChanges($output);
+        if ($output !== null) {
+            $changes = $this->parseChanges($output);
+        }
 
         return [
             'errors' => $this->errors(),
@@ -88,7 +93,7 @@ class TerraformOutputParser
     /**
      * @param string $input
      *
-     * @return string
+     * @return string|null
      */
     private function getChangeOutput($input)
     {
@@ -97,6 +102,7 @@ class TerraformOutputParser
             $input = substr($input, $begin + strlen(self::CONTENT_START_STRING));
         } else {
             $this->addError(self::ERR_START_NOT_FOUND);
+            return null;
         }
 
         $end = strpos($input, self::CONTENT_END_STRING);
@@ -104,6 +110,7 @@ class TerraformOutputParser
             $input = substr($input, 0, $end);
         } else {
             $this->addError(self::ERR_END_NOT_FOUND);
+            return null;
         }
 
         return $input;
@@ -163,6 +170,11 @@ class TerraformOutputParser
             }
         }
 
+        // If there is an unrecorded change, record it.
+        if ($lastChange) {
+            $resources[] = $lastChange;
+        }
+
         return $resources;
     }
 
@@ -192,6 +204,17 @@ class TerraformOutputParser
     private function stripANSICodes($input)
     {
         $output = preg_replace('#\\x1b[[][^A-Za-z]*[A-Za-z]#', '', $input);
+        return $output;
+    }
+
+    /**
+     * @param string $input
+     *
+     * @return string
+     */
+    private function sanitizeWindowsLineEndings($input)
+    {
+        $output = str_replace("\r\n", "\n", $input);
         return $output;
     }
 }
