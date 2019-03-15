@@ -1,6 +1,4 @@
 
-------------------------------------------------------------------------
-
 Terraform will perform the following actions:
 
  <= data.external.this_is_a_read

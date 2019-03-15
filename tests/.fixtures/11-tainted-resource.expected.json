@@ -1,0 +1,25 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "replace",
+            "name": "sample_app",
+            "type": "aws_ecs_task_definition",
+            "fully_qualified_name": "aws_ecs_task_definition.sample_app",
+            "module_path": "",
+            "is_new": true,
+            "is_tainted": true,
+            "attributes": {
+                "id": {
+                    "name": "id",
+                    "force_new_resource": true,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "myservice"
+                    }
+                }
+            }
+        }
+    ]
+}

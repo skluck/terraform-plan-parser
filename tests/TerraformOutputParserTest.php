@@ -35,11 +35,14 @@ class TerraformOutputParserTest extends TestCase
             'no-attribute-name' => '08-no-attribute-name',
             'windows' => '09-terraform-plan-windows-line-end',
             'issue-4' => '10-issue-4',
+            'tainted' => '11-tainted-resource',
+            'modules' => '12-modules',
+            'no-changes' => '13-no-changes',
         ];
 
         return array_map(function ($case) use ($fixturesDir) {
             return [
-                trim(file_get_contents("${fixturesDir}/${case}.stdout.txt")),
+                file_get_contents("${fixturesDir}/${case}.stdout.txt"),
                 trim(file_get_contents("${fixturesDir}/${case}.expected.json"))
             ];
         }, $cases);

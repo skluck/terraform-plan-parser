@@ -1,0 +1,119 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "create",
+            "name": "test0",
+            "type": "null_resource",
+            "fully_qualified_name": "null_resource.test0",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "triggers.%": {
+                    "name": "triggers.%",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "1"
+                    }
+                },
+                "triggers.trigger": {
+                    "name": "triggers.trigger",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "test0"
+                    }
+                }
+            }
+        },
+        {
+            "action": "create",
+            "name": "test1",
+            "type": "null_resource",
+            "fully_qualified_name": "module.test1.null_resource.test1",
+            "module_path": "test1",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "triggers.%": {
+                    "name": "triggers.%",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "1"
+                    }
+                },
+                "triggers.trigger": {
+                    "name": "triggers.trigger",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "test1"
+                    }
+                }
+            }
+        },
+        {
+            "action": "create",
+            "name": "test2",
+            "type": "null_resource",
+            "fully_qualified_name": "module.test1.module.test2.null_resource.test2",
+            "module_path": "test1.test2",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "triggers.%": {
+                    "name": "triggers.%",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "1"
+                    }
+                },
+                "triggers.trigger": {
+                    "name": "triggers.trigger",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "test2"
+                    }
+                }
+            }
+        }
+    ]
+}
