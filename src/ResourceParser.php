@@ -99,6 +99,7 @@ class ResourceParser
         $fq = $this->collapse([$module, $dataSource, $type, $name]);
 
         $change = (new ResourceChange($action, $name))
+            ->withType($type)
             ->withFullyQualifiedName($fq)
             ->withIsNew($isNew)
             ->withIsTainted($isTainted);

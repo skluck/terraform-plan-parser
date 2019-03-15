@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<phpunit
+    backupGlobals="false"
+    backupStaticAttributes="false"
+    cacheTokens="true"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    forceCoversAnnotation="false"
+    mapTestClassNameToCoveredClassName="true"
+    processIsolation="false"
+
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+
+    beStrictAboutTestsThatDoNotTestAnything="false"
+    beStrictAboutOutputDuringTests="true"
+    beStrictAboutTestSize="true"
+    checkForUnintentionallyCoveredCode="false"
+
+    timeoutForSmallTests="2"
+    verbose="true">
+
+    <logging>
+        <log type="coverage-html" target=".phpunit/coverage" charset="UTF-8" highlight="true" lowUpperBound="50" highLowerBound="80"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+    </logging>
+
+    <testsuites>
+        <testsuite>
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory>src/</directory>
+        </whitelist>
+    </filter>
+
+    <php>
+        <ini name="display_errors" value="On" />
+        <ini name="error_reporting" value="32767" />
+        <ini name="memory_limit" value="1G" />
+    </php>
+</phpunit>

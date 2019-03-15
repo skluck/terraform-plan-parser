@@ -146,17 +146,42 @@ class TerraformOutputParser
             } elseif (preg_match(self::ATTRIBUTE_LINE_REGEX, $original) === 1) {
                 // This is an attribute for a resource
                 if ($lastChange && ($attribute = $this->attributeParser->parseLineForAttribute($line))) {
-                    $lastChange->withAttribute($attribute->name(), $attribute);
+                    $this->addChangedAttribute($lastChange, $attribute);
+
+                    if ($this->attributeParser->hasErrors()) {
+                        foreach ($this->attributeParser->errors() as $error) {
+                            $this->addError($error);
+                        }
+                    }
+
                 } else {
                     $this->addError(sprintf(self::ERR_INVALID_ATTRIBUTE, $lineNumber));
                 }
+
             } else {
-                // echo $original . "\n";
                 $this->addError(sprintf(self::ERR_INVALID_RESOURCE, $lineNumber));
             }
         }
 
         return $resources;
+    }
+
+    /**
+     * @param ResourceChange $change
+     * @param AttributeChange $attribute
+     *
+     * @return void
+     */
+    private function addChangedAttribute(ResourceChange $change, AttributeChange $attribute)
+    {
+        $old = $attribute->oldValue();
+        $new = $attribute->newValue();
+
+        if ($old && $old['value'] === $new['value']) {
+            return;
+        }
+
+        $change->withAttribute($attribute->name(), $attribute);
     }
 
     /**

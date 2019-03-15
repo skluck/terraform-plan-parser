@@ -1,0 +1,98 @@
+{
+    "errors": [
+        "Failed to parse resource name (line 1)",
+        "Failed to parse attribute (line 3)",
+        "Found unterminated string",
+        "Found unterminated bracket",
+        "Failed to parse attribute (line 17)"
+    ],
+    "changedResources": [
+        {
+            "action": "read",
+            "name": "ecr_image_digests",
+            "type": "external",
+            "fully_qualified_name": "data.external.ecr_image_digests",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "attribute-with-no-value": {
+                    "name": "attribute-with-no-value",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": ""
+                    }
+                }
+            }
+        },
+        {
+            "action": "update",
+            "name": "sample_app",
+            "type": "aws_ecs_service",
+            "fully_qualified_name": "aws_ecs_service.sample_app",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "unterminated_string": {
+                    "name": "unterminated_string",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": "\"arn:aws:ecs:us-east-1:123123123123"
+                    }
+                },
+                "unterminated_computed": {
+                    "name": "unterminated_computed",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": "<computed"
+                    }
+                },
+                "unrecognized_attribute_value": {
+                    "name": "unrecognized_attribute_value",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": "blah"
+                    }
+                },
+                "some_value_that_is_not_a_string": {
+                    "name": "some_value_that_is_not_a_string",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": "1234"
+                    }
+                }
+            }
+        },
+        {
+            "action": "replace",
+            "name": "sample_app",
+            "type": "aws_ecs_task_definition",
+            "fully_qualified_name": "aws_ecs_task_definition.sample_app",
+            "module_path": "",
+            "is_new": true,
+            "is_tainted": false,
+            "attributes": {
+                "id": {
+                    "name": "id",
+                    "force_new_resource": true,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "myservice"
+                    }
+                }
+            }
+        }
+    ]
+}

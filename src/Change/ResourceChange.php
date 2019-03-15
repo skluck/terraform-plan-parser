@@ -24,6 +24,11 @@ class ResourceChange implements JsonSerializable
     /**
      * @var string
      */
+    private $type;
+
+    /**
+     * @var string
+     */
     private $fullyQualifiedName;
 
     /**
@@ -55,6 +60,7 @@ class ResourceChange implements JsonSerializable
         $this->action = $action;
         $this->name = $name;
 
+        $this->type = '';
         $this->fullyQualifiedName = '';
         $this->modulePath = '';
         $this->isTainted = false;
@@ -76,6 +82,14 @@ class ResourceChange implements JsonSerializable
     public function name()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function type()
+    {
+        return $this->type;
     }
 
     /**
@@ -116,6 +130,17 @@ class ResourceChange implements JsonSerializable
     public function attributes()
     {
         return $this->attributes;
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return self
+     */
+    public function withType($type)
+    {
+        $this->type = $type;
+        return $this;
     }
 
     /**
@@ -182,6 +207,7 @@ class ResourceChange implements JsonSerializable
         return [
             'action' => $this->action(),
             'name' => $this->name(),
+            'type' => $this->type(),
             'fully_qualified_name' => $this->fullyQualifiedName(),
             'module_path' => $this->modulePath(),
             'is_new' => $this->isNew(),

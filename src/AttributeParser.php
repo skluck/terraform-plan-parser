@@ -30,6 +30,8 @@ class AttributeParser
      */
     public function parseLineForAttribute($line)
     {
+        $this->resetErrors();
+
         if (($end = strpos($line, ':')) === false) {
             return null;
         }
@@ -49,7 +51,7 @@ class AttributeParser
         }
 
         if ($end === null) {
-            $change->withNewValue($value);
+            $change->withNewValue($type, $value);
 
         } elseif (substr($data, $end, strlen(self::OLD_NEW_SEPARATOR)) === self::OLD_NEW_SEPARATOR) {
             // there is a " => " so we have an old and new value
@@ -105,7 +107,7 @@ class AttributeParser
                 if ($contents === 'computed') {
                     $type = self::TYPE_COMPUTED;
                 } else {
-                    $value = $content;
+                    $value = $contents;
                 }
             }
 

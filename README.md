@@ -72,6 +72,10 @@ into this:
 }
 ```
 
+This library is inspired and based on similar libraries for other languages. Check them out if PHP is not for you:
+- [lifeomic/terraform-plan-parser](https://github.com/lifeomic/terraform-plan-parser) (typescript - cli)
+- [chrislewisdev/prettyplan](https://github.com/chrislewisdev/prettyplan) (typescript - browser-based)
+
 ## Installation
 
 Download this package with composer:
