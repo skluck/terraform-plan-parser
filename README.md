@@ -150,7 +150,6 @@ echo json_encode($output, JSON_PRETTY_PRINT);
 //                         "type": "computed",
 //                         "value": null
 //                     }
-                    
 //                 }
 //             }
 //         }
