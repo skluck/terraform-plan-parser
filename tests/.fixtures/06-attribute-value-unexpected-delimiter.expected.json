@@ -1,0 +1,25 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "update",
+            "name": "sample_app",
+            "type": "aws_ecs_service",
+            "fully_qualified_name": "aws_ecs_service.sample_app",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "task_definition": {
+                    "name": "task_definition",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": "this is a test"
+                    }
+                }
+            }
+        }
+    ]
+}

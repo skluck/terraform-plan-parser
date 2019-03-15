@@ -1,0 +1,17 @@
+{
+    "errors": [
+        "Failed to parse resource name (line 2)"
+    ],
+    "changedResources": [
+        {
+            "action": "update",
+            "name": "blah",
+            "type": "aws_ecs_service",
+            "fully_qualified_name": "aws_ecs_service.blah",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": []
+        }
+    ]
+}

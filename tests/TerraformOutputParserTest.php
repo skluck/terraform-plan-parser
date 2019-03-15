@@ -24,9 +24,17 @@ class TerraformOutputParserTest extends TestCase
         $fixturesDir = __DIR__ . '/.fixtures';
 
         $cases = [
-            'standard-with-color' => '00-terraform-plan',
-            'standard' => '01-terraform-plan',
-            'with-errors' => '02-terraform-plan',
+            // 'standard-with-color' => '00-terraform-plan',
+            // 'standard' => '01-terraform-plan',
+            // 'with-errors' => '02-terraform-plan',
+            // 'no-attributes' => '03-terraform-plan',
+            // 'no-magic-start' => '04-no-magic-start',
+            // 'no-magic-end' => '05-no-magic-end',
+            // 'attribute-value-unxpected-delimiter' => '06-attribute-value-unexpected-delimiter',
+            // 'invalid-action-line' => '07-invalid-action-line',
+            // 'no-attribute-name' => '08-no-attribute-name',
+            // 'windows' => '09-terraform-plan-windows-line-end',
+            'issue-4' => '10-issue-4',
         ];
 
         return array_map(function ($case) use ($fixturesDir) {

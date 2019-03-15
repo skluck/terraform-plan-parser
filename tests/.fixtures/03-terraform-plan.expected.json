@@ -1,0 +1,57 @@
+{
+    "errors": [
+        "Failed to parse resource name (line 11)"
+    ],
+    "changedResources": [
+        {
+            "action": "read",
+            "name": "this_is_a_read",
+            "type": "external",
+            "fully_qualified_name": "data.external.this_is_a_read",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": []
+        },
+        {
+            "action": "create",
+            "name": "this_is_created",
+            "type": "aws_ecs_service",
+            "fully_qualified_name": "aws_ecs_service.this_is_created",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": []
+        },
+        {
+            "action": "destroy",
+            "name": "this_is_destroyed",
+            "type": "aws_ecs_service",
+            "fully_qualified_name": "aws_ecs_service.this_is_destroyed",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": []
+        },
+        {
+            "action": "replace",
+            "name": "this_is_replaced",
+            "type": "aws_ecs_service",
+            "fully_qualified_name": "aws_ecs_service.this_is_replaced",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": []
+        },
+        {
+            "action": "update",
+            "name": "this_is_updated",
+            "type": "aws_ecs_service",
+            "fully_qualified_name": "aws_ecs_service.this_is_updated",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": []
+        }
+    ]
+}

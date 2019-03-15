@@ -1,0 +1,97 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "create",
+            "name": "terraform_demo",
+            "type": "aws_iam_role",
+            "fully_qualified_name": "aws_iam_role.terraform_demo",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "arn": {
+                    "name": "arn",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "assume_role_policy": {
+                    "name": "assume_role_policy",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "{\n \"Version\": \"2012-10-17\",\n \"Statement\": [\n   {\n     \"Action\": \"sts:AssumeRole\",\n     \"Principal\": {\n       \"Service\": \"ec2.amazonaws.com\"\n     },\n     \"Effect\": \"Allow\",\n     \"Sid\": \"\"\n   }\n ]\n}\n"
+                    }
+                },
+                "create_date": {
+                    "name": "create_date",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "description": {
+                    "name": "description",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "test IAM role"
+                    }
+                },
+                "force_detach_policies": {
+                    "name": "force_detach_policies",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "false"
+                    }
+                },
+                "name": {
+                    "name": "name",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "terraform_demo"
+                    }
+                },
+                "path": {
+                    "name": "path",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "/"
+                    }
+                },
+                "unique_id": {
+                    "name": "unique_id",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                }
+            }
+        }
+    ]
+}
