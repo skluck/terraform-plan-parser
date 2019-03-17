@@ -34,7 +34,12 @@ run_tests_steps: &run_tests_steps
         - *attach_workspace
         - run:
             name: 'Run unit tests'
-            command: 'phpdbg -qrr vendor/bin/phpunit'
+            command: |
+                if [ "${PHP_VERSION}" == "php56" ] ; then
+                    vendor/bin/phpunit
+                else
+                    phpdbg -qrr vendor/bin/phpunit
+                fi
         - store_test_results:
             path: '.phpunit/report'
 
@@ -70,6 +75,20 @@ workflows:
             - php71_tests:
                 requires: [ php71_linting ]
 
+            - php72_install_dependencies:
+                requires: [ fetch_code ]
+            - php72_linting:
+                requires: [ php72_install_dependencies ]
+            - php72_tests:
+                requires: [ php72_linting ]
+
+            - php73_install_dependencies:
+                requires: [ fetch_code ]
+            - php73_linting:
+                requires: [ php73_install_dependencies ]
+            - php73_tests:
+                requires: [ php73_linting ]
+
 jobs:
     fetch_code:
         <<: *php56_defaults
@@ -79,6 +98,7 @@ jobs:
 
     php56_install_dependencies:
         <<: *php56_defaults
+        environment: [ {PHP_VERSION: 'php56'} ]
         steps:
             - *attach_workspace
 
@@ -95,13 +115,16 @@ jobs:
     php56_linting:
         <<: *php56_defaults
         <<: *run_sniff_steps
+        environment: [ {PHP_VERSION: 'php56'} ]
 
     php56_tests:
         <<: *php56_defaults
         <<: *run_tests_steps
+        environment: [ {PHP_VERSION: 'php56'} ]
 
     php71_install_dependencies:
         <<: *php71_defaults
+        environment: [ {PHP_VERSION: 'php71'} ]
         steps:
             - *attach_workspace
 
@@ -118,7 +141,61 @@ jobs:
     php71_linting:
         <<: *php71_defaults
         <<: *run_sniff_steps
+        environment: [ {PHP_VERSION: 'php71'} ]
 
     php71_tests:
         <<: *php71_defaults
         <<: *run_tests_steps
+        environment: [ {PHP_VERSION: 'php71'} ]
+
+    php72_install_dependencies:
+        <<: *php72_defaults
+        environment: [ {PHP_VERSION: 'php72'} ]
+        steps:
+            - *attach_workspace
+
+            - restore_cache: { keys: [ 'v1-php72-deps-{{ checksum "composer.json" }}', 'v1-php72-deps' ] }
+
+            - run:
+                name: 'Install PHP dependencies'
+                command: 'composer --no-interaction --no-progress install && composer show'
+
+            - save_cache: { key: 'v1-php72-deps-{{ checksum "composer.json" }}', paths: [ 'vendor' ] }
+
+            - *persist_workspace
+
+    php72_linting:
+        <<: *php72_defaults
+        <<: *run_sniff_steps
+        environment: [ {PHP_VERSION: 'php72'} ]
+
+    php72_tests:
+        <<: *php72_defaults
+        <<: *run_tests_steps
+        environment: [ {PHP_VERSION: 'php72'} ]
+
+    php73_install_dependencies:
+        <<: *php73_defaults
+        environment: [ {PHP_VERSION: 'php73'} ]
+        steps:
+            - *attach_workspace
+
+            - restore_cache: { keys: [ 'v1-php73-deps-{{ checksum "composer.json" }}', 'v1-php73-deps' ] }
+
+            - run:
+                name: 'Install PHP dependencies'
+                command: 'composer --no-interaction --no-progress install && composer show'
+
+            - save_cache: { key: 'v1-php73-deps-{{ checksum "composer.json" }}', paths: [ 'vendor' ] }
+
+            - *persist_workspace
+
+    php73_linting:
+        <<: *php73_defaults
+        <<: *run_sniff_steps
+        environment: [ {PHP_VERSION: 'php73'} ]
+
+    php73_tests:
+        <<: *php73_defaults
+        <<: *run_tests_steps
+        environment: [ {PHP_VERSION: 'php73'} ]
