@@ -63,7 +63,7 @@ class ResourceParser
             $symbol = substr($line, 0, $divider);
         }
 
-        $action = isset(self::ACTIONS[$symbol]) ? self::ACTIONS[$symbol] : null;
+        $action = array_key_exists($symbol, self::ACTIONS) ? self::ACTIONS[$symbol] : null;
         if (!$action) {
             return null;
         }
