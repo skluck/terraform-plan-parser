@@ -37,7 +37,7 @@ class ResourceParser
     /**
      * Parse a line such as this:
      * -/+ aws_ecs_task_definition.sample_app (new resource required)
-     * 
+     *
      * into ResourceChange object such that:
      *  - $change->action() : "replace"
      *  - $change->name() : "sample_app"
@@ -45,7 +45,7 @@ class ResourceParser
      *  - $change->isTainted() : false
      *  - $change->fullyQualifiedName() : "aws_ecs_task_definition.sample_app"
      *  - $change->modulePath() : ""
-     * 
+     *
      * @param string $line
      *
      * @return ResourceChange|null

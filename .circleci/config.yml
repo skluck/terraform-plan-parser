@@ -1,0 +1,124 @@
+version: 2
+
+php56_defaults: &php71_defaults
+    working_directory: '~/project'
+    docker:
+        - image: 'circleci/php:5.6'
+
+php71_defaults: &php71_defaults
+    working_directory: '~/project'
+    docker:
+        - image: 'circleci/php:7.1'
+
+php72_defaults: &php72_defaults
+    working_directory: '~/project'
+    docker:
+        - image: 'circleci/php:7.2'
+
+php73_defaults: &php72_defaults
+    working_directory: '~/project'
+    docker:
+        - image: 'circleci/php:7.3'
+
+attach_workspace: &attach_workspace
+    attach_workspace:
+        at: '.'
+
+persist_workspace: &persist_workspace
+    persist_to_workspace:
+        root: '.'
+        paths: [ '.' ]
+
+run_tests_steps: &run_tests_steps
+    steps:
+        - *attach_workspace
+        - run:
+            name: 'Run unit tests'
+            command: 'phpdbg -qrr vendor/bin/phpunit'
+        - store_test_results:
+            path: '.phpunit/report'
+
+run_sniff_steps: &run_sniff_steps
+    steps:
+        - *attach_workspace
+        - run:
+            name: 'Run syntax check'
+            command: 'composer lint'
+        - run:
+            name: 'Run code formatting check'
+            command: 'composer sniff'
+
+workflows:
+
+    version: 2
+
+    pipeline:
+        jobs:
+            - fetch_code
+
+            - php56_install_dependencies:
+                requires: [ fetch_code ]
+            - php56_linting:
+                requires: [ php56_install_dependencies ]
+            - php56_tests:
+                requires: [ php56_linting ]
+
+            - php71_install_dependencies:
+                requires: [ fetch_code ]
+            - php71_linting:
+                requires: [ php71_install_dependencies ]
+            - php71_tests:
+                requires: [ php71_linting ]
+
+jobs:
+    fetch_code:
+        <<: *php56_defaults
+        steps:
+            - checkout
+            - *persist_workspace
+
+    php56_install_dependencies:
+        <<: *php56_defaults
+        steps:
+            - *attach_workspace
+
+            - restore_cache: { keys: [ 'v1-php56-deps-{{ checksum "composer.json" }}', 'v1-php56-deps' ] }
+
+            - run:
+                name: 'Install PHP dependencies'
+                command: 'composer --no-interaction --no-progress install && composer show'
+
+            - save_cache: { key: 'v1-php56-deps-{{ checksum "composer.json" }}', paths: [ 'vendor' ] }
+
+            - *persist_workspace
+
+    php56_linting:
+        <<: *php56_defaults
+        <<: *run_sniff_steps
+
+    php56_tests:
+        <<: *php56_defaults
+        <<: *run_tests_steps
+
+    php71_install_dependencies:
+        <<: *php71_defaults
+        steps:
+            - *attach_workspace
+
+            - restore_cache: { keys: [ 'v1-php71-deps-{{ checksum "composer.json" }}', 'v1-php71-deps' ] }
+
+            - run:
+                name: 'Install PHP dependencies'
+                command: 'composer --no-interaction --no-progress install && composer show'
+
+            - save_cache: { key: 'v1-php71-deps-{{ checksum "composer.json" }}', paths: [ 'vendor' ] }
+
+            - *persist_workspace
+
+    php71_linting:
+        <<: *php71_defaults
+        <<: *run_sniff_steps
+
+    php71_tests:
+        <<: *php71_defaults
+        <<: *run_tests_steps

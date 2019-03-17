@@ -47,5 +47,4 @@ class TerraformOutputParserTest extends TestCase
             ];
         }, $cases);
     }
-
 }
