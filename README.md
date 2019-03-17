@@ -7,7 +7,15 @@
 
 This is a PHP library for parsing output from `terraform plan`.
 
-It turns this:
+## Table of Contents
+
+- [Use Case](#use-case)
+- [Installation](#installation)
+- [Usage](#usage)
+
+## Use Case
+
+This library turns this:
 ```bash
 An execution plan has been generated and is shown below.
 Resource actions are indicated with the following symbols:
