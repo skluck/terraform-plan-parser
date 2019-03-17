@@ -1,3 +1,8 @@
+[![CircleCI](https://circleci.com/gh/skluck/terraform-plan-parser.svg?style=shield)](https://circleci.com/gh/skluck/terraform-plan-parser)
+[![Latest Stable Version](https://img.shields.io/packagist/v/skluck/terraform-plan-parser.svg?label=stable)](https://packagist.org/packages/skluck/terraform-plan-parser)
+[![GitHub License](https://img.shields.io/github/license/skluck/terraform-plan-parser.svg)](https://packagist.org/packages/skluck/terraform-plan-parser)
+![GitHub Language](https://img.shields.io/github/languages/top/skluck/terraform-plan-parser.svg)
+
 # Terraform Plan Parser
 
 This is a PHP library for parsing output from `terraform plan`.
