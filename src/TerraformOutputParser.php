@@ -10,18 +10,6 @@ namespace SK\TerraformParser;
 use SK\TerraformParser\Change\AttributeChange;
 use SK\TerraformParser\Change\ResourceChange;
 
-// Copying configuration from "git::https://git.rockfin.com/terraform/aws-ecs-fargate-tf.git?ref=0.1.3"...
-// Terraform initialized in an empty directory!
-
-// Initializing modules...
-// - module.cloudinit
-//   Getting source "./modules/cloudinit-v1"
-
-// Initializing modules...
-// - module.alb
-//   Getting source "git::https://git.example.com/custom-modules/module-load-balancer.git//modules/alb?ref=v0.12.0"
-
-
 class TerraformOutputParser
 {
     use ErrorHandlingTrait;
