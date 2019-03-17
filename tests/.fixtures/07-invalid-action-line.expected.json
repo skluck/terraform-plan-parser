@@ -3,5 +3,6 @@
         "Failed to parse resource name (line 1)",
         "Failed to parse attribute (line 2)"
     ],
-    "changedResources": []
+    "changedResources": [],
+    "modules": []
 }

@@ -10,6 +10,18 @@ namespace SK\TerraformParser;
 use SK\TerraformParser\Change\AttributeChange;
 use SK\TerraformParser\Change\ResourceChange;
 
+// Copying configuration from "git::https://git.rockfin.com/terraform/aws-ecs-fargate-tf.git?ref=0.1.3"...
+// Terraform initialized in an empty directory!
+
+// Initializing modules...
+// - module.cloudinit
+//   Getting source "./modules/cloudinit-v1"
+
+// Initializing modules...
+// - module.alb
+//   Getting source "git::https://git.example.com/custom-modules/module-load-balancer.git//modules/alb?ref=v0.12.0"
+
+
 class TerraformOutputParser
 {
     use ErrorHandlingTrait;
@@ -17,6 +29,15 @@ class TerraformOutputParser
     const NO_CHANGES_STRING = "\nNo changes. Infrastructure is up-to-date.\n";
     const CONTENT_START_STRING = "\nTerraform will perform the following actions:\n";
     const CONTENT_END_STRING = "\nPlan:";
+
+    const MODULES_START_STRING = "Initializing modules...\n";
+    const MODULES_END_STRING = "\nInitializing provider plugins...";
+    const MODULE_NAME_REGEX = '/^(module\.(?:.+))/';
+    const MODULE_SOURCE_REGEX = '/^Getting source "(.+)"/';
+    const MODULE_VERSION_REGEX = '/\?ref\=(.+)/';
+
+    const PRIMARY_MODULE_START_STRING = "\nCopying configuration from ";
+    const PRIMARY_MODULE_REGEX = '/^Copying configuration from "(.+)"/';
 
     const ATTRIBUTE_LINE_REGEX = '/^ {6}.+[:]{1}/';
     const ATTRIBUTE_FORCES_NEW_RESOURCE_SUFFIX = ' (forces new resource)';
@@ -74,19 +95,32 @@ class TerraformOutputParser
             return [
                 'errors' => $this->errors(),
                 'changedResources' => [],
+                'modules' => [],
             ];
         }
 
         $changes = [];
+        $modules = [];
 
         $output = $this->getChangeOutput($input);
         if ($output !== null) {
             $changes = $this->parseChanges($output);
         }
 
+        $output = $this->getModulesOutput($input);
+        if ($output !== null) {
+            $modules = $this->parseUsedModules($output);
+        }
+
+        $output = $this->getPrimaryModulesOutput($input);
+        if ($output !== null && ($primary = $this->parsePrimaryModule($output))) {
+            $modules[] = $primary;
+        }
+
         return [
             'errors' => $this->errors(),
             'changedResources' => $changes,
+            'modules' => $modules,
         ];
     }
 
@@ -111,6 +145,54 @@ class TerraformOutputParser
         } else {
             $this->addError(self::ERR_END_NOT_FOUND);
             return null;
+        }
+
+        return $input;
+    }
+
+    /**
+     * @param string $input
+     *
+     * @return string|null
+     */
+    private function getModulesOutput($input)
+    {
+        $begin = strpos($input, self::MODULES_START_STRING);
+        if ($begin !== false) {
+            $input = substr($input, $begin + strlen(self::MODULES_START_STRING));
+        } else {
+            return '';
+        }
+
+        $end = strpos($input, self::MODULES_END_STRING);
+        if ($end !== false) {
+            $input = substr($input, 0, $end);
+        } else {
+            return '';
+        }
+
+        return $input;
+    }
+
+    /**
+     * @param string $input
+     *
+     * @return string|null
+     */
+    private function getPrimaryModulesOutput($input)
+    {
+        $begin = strpos($input, self::PRIMARY_MODULE_START_STRING);
+        if ($begin !== false) {
+            $input = substr($input, $begin);
+        } else {
+            return '';
+        }
+
+        $end = strpos($input, self::MODULES_END_STRING);
+        if ($end !== false) {
+            $input = substr($input, 0, $end);
+        } else {
+            return '';
         }
 
         return $input;
@@ -176,6 +258,84 @@ class TerraformOutputParser
         }
 
         return $resources;
+    }
+
+    /**
+     * @param string $input
+     *
+     * @return array
+     */
+    private function parseUsedModules($input)
+    {
+        if (!$input) {
+            return [];
+        }
+
+        $modules = [];
+
+        $lines = explode("\n", $input);
+        foreach ($lines as $lineNumber => $original) {
+            $line = trim($original);
+
+            if (strpos($line, '- module.') === 0) {
+                $next = $lines[$lineNumber + 1];
+                $next = trim($next);
+                if (strpos($next, 'Getting source ') === 0) {
+                    $line = substr($line, 2);
+                    if (preg_match(self::MODULE_NAME_REGEX, $line, $matches1) === 1 && preg_match(self::MODULE_SOURCE_REGEX, $next, $matches2) === 1) {
+                        $module = array_pop($matches1);
+                        $source = array_pop($matches2);
+
+                        $version = null;
+                        if (preg_match(self::MODULE_VERSION_REGEX, $source, $matches) === 1) {
+                            $version = array_pop($matches);
+                        }
+
+                        $modules[] = [
+                            'name' => $module,
+                            'source' => $source,
+                            'version' => $version,
+                        ];
+                    }
+                }
+            }
+        }
+
+        return $modules;
+    }
+
+    /**
+     * @param string $input
+     *
+     * @return array|null
+     */
+    private function parsePrimaryModule($input)
+    {
+        if (!$input) {
+            return [];
+        }
+
+        $lines = explode("\n", $input);
+        foreach ($lines as $lineNumber => $original) {
+            $line = trim($original);
+
+            if (preg_match(self::PRIMARY_MODULE_REGEX, $line, $matches) === 1) {
+                $source = array_pop($matches);
+
+                $version = null;
+                if (preg_match(self::MODULE_VERSION_REGEX, $source, $matches) === 1) {
+                    $version = array_pop($matches);
+                }
+
+                return [
+                    'name' => 'root',
+                    'source' => $source,
+                    'version' => $version,
+                ];
+            }
+        }
+
+        return null;
     }
 
     /**

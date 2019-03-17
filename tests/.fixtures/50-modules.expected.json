@@ -1,0 +1,36 @@
+{
+    "errors": [],
+    "changedResources": [],
+    "modules": [
+        {
+            "name": "module.consul_servers",
+            "source": "./modules/consul-cluster",
+            "version": null
+        },
+        {
+            "name": "module.consul_clients",
+            "source": "./modules/consul-cluster",
+            "version": null
+        },
+        {
+            "name": "module.consul_servers.security_group_rules",
+            "source": "../consul-security-group-rules",
+            "version": null
+        },
+        {
+            "name": "module.consul_servers.iam_policies",
+            "source": "../consul-iam-policies",
+            "version": null
+        },
+        {
+            "name": "module.consul_clients.security_group_rules",
+            "source": "../consul-security-group-rules",
+            "version": null
+        },
+        {
+            "name": "module.consul_clients.iam_policies",
+            "source": "../consul-iam-policies",
+            "version": null
+        }
+    ]
+}

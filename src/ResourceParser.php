@@ -81,7 +81,7 @@ class ResourceParser
      */
     private function parseResourceHeader($action, $name)
     {
-        if (1 !== preg_match(self::ACTION_LINE_REGEX, $name, $matches)) {
+        if (preg_match(self::ACTION_LINE_REGEX, $name, $matches) !== 1) {
             $this->addError(self::ERR_FAILED_PARSE);
             return null;
         }

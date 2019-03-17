@@ -7,6 +7,8 @@
 
 This is a PHP library for parsing output from `terraform plan`.
 
+It will attempt to parse out **changed attributes** of modified resources from `terraform plan` as well as **used modules** from `terraform init`.
+
 ## Table of Contents
 
 - [Use Case](#use-case)
@@ -17,6 +19,16 @@ This is a PHP library for parsing output from `terraform plan`.
 
 This library turns this:
 ```bash
+Copying configuration from "git::https://git.example.com/terraform/module.git?ref=2.3.1"...
+
+Initializing modules...
+- module.fargate
+  Getting source "./modules/fargate"
+
+Initializing provider plugins...
+- Checking for available provider plugins on https://releases.hashicorp.com...
+- Downloading plugin for provider "aws" (2.2.0)...
+
 An execution plan has been generated and is shown below.
 Resource actions are indicated with the following symbols:
     ~ update in-place
@@ -81,6 +93,18 @@ into this:
                 }
             }
         }
+    ],
+    "modules": [
+        {
+            "name": "module.fargate",
+            "source": "./modules/fargate",
+            "version": null
+        },
+        {
+            "name": "root",
+            "source": "git::https://git.example.com/terraform/cloudfront-waf-tf.git?ref=2.3.1",
+            "version": "2.3.1"
+        }
     ]
 }
 ```
@@ -119,14 +143,19 @@ var_export($output);
 //         ResourceChange,
 //         ResourceChange,
 //     ],
+//     "modules": [
+//         {
+//             "name": "module.mymodule",
+//             "source": "./path/to/submodule",
+//             "version": null
+//         },
+//         {
+//             "name": "root",
+//             "source": "git::https://git.example.com/terraform/mymodule2.git?ref=2.3.1",
+//             "version": "2.3.1"
+//         }
+//     ]
 // ];
-
-var_export($output->errors());
-// [
-//     'Failed to parse resource name (line 63)',
-//     'Failed to parse attribute name (line 102)',
-//     'Failed to parse attribute name (line 103)',
-// ],
 ```
 
 The output of this parser also implements `jsonSerialize` so it can be safely encoded and output with JSON.
@@ -172,6 +201,18 @@ echo json_encode($output, JSON_PRETTY_PRINT);
 //                     }
 //                 }
 //             }
+//         }
+//     ],
+//     "modules": [
+//         {
+//             "name": "module.mymodule",
+//             "source": "./path/to/submodule",
+//             "version": null
+//         },
+//         {
+//             "name": "root",
+//             "source": "git::https://git.example.com/terraform/mymodule2.git?ref=2.3.1",
+//             "version": "2.3.1"
 //         }
 //     ]
 // }

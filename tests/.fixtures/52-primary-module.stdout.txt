@@ -1,0 +1,30 @@
+[terragrunt] [/build/test/static-site] 2019/03/15 12:10:15 Running command: terraform init -backend-config=path=/custom/path/terraform.tfstate -get=false -get-plugins=false -backend=false -from-module=git::https://git.example.com/terraform/cloudfront-waf-tf.git?ref=2.3.1 -no-color /path
+Copying configuration from "git::https://git.example.com/terraform/cloudfront-waf-tf.git?ref=2.3.1"...
+
+Error: Error loading modules: module waf: not found, may need to run 'terraform init'
+
+Initializing modules...
+- module.fargate
+  Getting source "./modules/fargate"
+
+Initializing provider plugins...
+- Checking for available provider plugins on https://releases.hashicorp.com...
+- Downloading plugin for provider "aws" (2.2.0)...
+- Downloading plugin for provider "template" (2.1.0)...
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+Plan: 1 to change.
+
+------------------------------------------------------------------------
+
+This plan was saved to: terraform.plan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "terraform.plan"

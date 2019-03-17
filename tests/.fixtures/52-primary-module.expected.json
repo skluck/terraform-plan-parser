@@ -1,0 +1,16 @@
+{
+    "errors": [],
+    "changedResources": [],
+    "modules": [
+        {
+            "name": "module.fargate",
+            "source": "./modules/fargate",
+            "version": null
+        },
+        {
+            "name": "root",
+            "source": "git::https://git.example.com/terraform/cloudfront-waf-tf.git?ref=2.3.1",
+            "version": "2.3.1"
+        }
+    ]
+}

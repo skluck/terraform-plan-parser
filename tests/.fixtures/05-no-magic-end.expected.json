@@ -2,5 +2,6 @@
     "errors": [
         "Could not find end of plan output."
     ],
-    "changedResources": []
+    "changedResources": [],
+    "modules": []
 }
