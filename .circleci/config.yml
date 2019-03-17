@@ -1,6 +1,6 @@
 version: 2
 
-php56_defaults: &php71_defaults
+php56_defaults: &php56_defaults
     working_directory: '~/project'
     docker:
         - image: 'circleci/php:5.6'
@@ -15,7 +15,7 @@ php72_defaults: &php72_defaults
     docker:
         - image: 'circleci/php:7.2'
 
-php73_defaults: &php72_defaults
+php73_defaults: &php73_defaults
     working_directory: '~/project'
     docker:
         - image: 'circleci/php:7.3'
