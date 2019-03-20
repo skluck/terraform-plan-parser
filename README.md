@@ -102,7 +102,7 @@ into this:
         },
         {
             "name": "root",
-            "source": "git::https://git.example.com/terraform/cloudfront-waf-tf.git?ref=2.3.1",
+            "source": "git::https://git.example.com/terraform/module.git?ref=2.3.1",
             "version": "2.3.1"
         }
     ]
