@@ -36,7 +36,7 @@ class TerraformOutputParser implements TerraformPlanParserInterface
      *
      * @return array
      */
-    public function parseFile($filename)
+    public function parseFile(string $filename): array
     {
         $content = file_get_contents($filename);
         return $this->parse($content);
@@ -47,7 +47,7 @@ class TerraformOutputParser implements TerraformPlanParserInterface
      *
      * @return array
      */
-    public function parse($input)
+    public function parse(string $input): array
     {
         $parser = $this->terraform11Parser;
 
