@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/).
 > Sections: (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`)
 
-## [1.1.0] - 2020-01-02
+## [1.1.0] - 2019-12-31
 
 ### Added
 - This package is now capable of parsing plan output from Terraform 0.12.
