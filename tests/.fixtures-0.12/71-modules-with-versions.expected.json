@@ -1,0 +1,26 @@
+{
+    "errors": [],
+    "changedResources": [],
+    "modules": [
+        {
+            "name": "cloudfront",
+            "source": "git::https://git.example.com/custom-modules/static-assets.git?ref=v0.8.1",
+            "version": "v0.8.1"
+        },
+        {
+            "name": "static_website",
+            "source": "modules/static-site",
+            "version": null
+        },
+        {
+            "name": "static_website.static_website",
+            "source": "git::https://git.example.com/custom-modules/static-assets.git?ref=v0.8.2",
+            "version": "v0.8.2"
+        },
+        {
+            "name": "waf",
+            "source": "modules/waf",
+            "version": null
+        }
+    ]
+}

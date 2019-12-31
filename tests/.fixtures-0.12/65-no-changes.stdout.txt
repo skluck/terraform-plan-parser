@@ -1,0 +1,17 @@
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+tls_private_key.cert: Refreshing state... [id=d3e74520324610d76a19f5fff537d86acf685864]
+tls_private_key.ca: Refreshing state... [id=ac863ce4cf34cd7dee81b5486ada7f4e5e24acfc]
+tls_cert_request.cert: Refreshing state... [id=5d0d46133da75f5b678b43561799201563de8e8d]
+tls_self_signed_cert.ca: Refreshing state... [id=211445744356713344334187897408169759017]
+tls_locally_signed_cert.cert: Refreshing state... [id=130847580463536857373479959346876196046]
+
+------------------------------------------------------------------------
+
+No changes. Infrastructure is up-to-date.
+
+This means that Terraform did not detect any differences between your
+configuration and real physical resources that exist. As a result, no
+actions need to be performed.

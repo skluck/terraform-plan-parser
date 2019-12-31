@@ -1,0 +1,16 @@
+{
+    "errors": [],
+    "changedResources": [],
+    "modules": [
+        {
+            "name": "consul_clients",
+            "source": "modules/consul-cluster",
+            "version": null
+        },
+        {
+            "name": "root",
+            "source": "git::https://git.example.com/terraform/mymodule.git?ref=3.1.1",
+            "version": "3.1.1"
+        }
+    ]
+}

@@ -1,0 +1,342 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "replace",
+            "name": "cert",
+            "type": "tls_locally_signed_cert",
+            "fully_qualified_name": "tls_locally_signed_cert.cert",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "allowed_uses": {
+                    "name": "allowed_uses",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "ca_cert_pem": {
+                    "name": "ca_cert_pem",
+                    "force_new_resource": true,
+                    "old": {
+                        "type": "string",
+                        "value": "edaf1e650e6aea770713e408bcd55a83065435c8"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "ca_key_algorithm": {
+                    "name": "ca_key_algorithm",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "RSA"
+                    }
+                },
+                "ca_private_key_pem": {
+                    "name": "ca_private_key_pem",
+                    "force_new_resource": true,
+                    "old": {
+                        "type": "string",
+                        "value": "a8b52345bf26605dbea00661b447449ebf327ef0"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "cert_pem": {
+                    "name": "cert_pem",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": null
+                    }
+                },
+                "cert_request_pem": {
+                    "name": "cert_request_pem",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "9fd9d71c882f74db90fedb4322c460557066f558"
+                    }
+                },
+                "early_renewal_hours": {
+                    "name": "early_renewal_hours",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "number",
+                        "value": "0"
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "181745533546588601139903980299099941214"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "validity_end_time": {
+                    "name": "validity_end_time",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "2039-12-25T15:39:19.529804-05:00"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "validity_period_hours": {
+                    "name": "validity_period_hours",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "number",
+                        "value": "175200"
+                    }
+                },
+                "validity_start_time": {
+                    "name": "validity_start_time",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "2019-12-30T15:39:19.529804-05:00"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                }
+            }
+        },
+        {
+            "action": "replace",
+            "name": "ca",
+            "type": "tls_private_key",
+            "fully_qualified_name": "tls_private_key.ca",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": true,
+            "attributes": {
+                "algorithm": {
+                    "name": "algorithm",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "RSA"
+                    }
+                },
+                "ecdsa_curve": {
+                    "name": "ecdsa_curve",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "P256"
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "7bb7e8123d487e12d7bb9e4d271421ac5e71613f"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "private_key_pem": {
+                    "name": "private_key_pem",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": null
+                    }
+                },
+                "public_key_fingerprint_md5": {
+                    "name": "public_key_fingerprint_md5",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "3b:4b:43:7a:f0:1d:9f:b8:f6:be:1c:99:1a:c0:e2:72"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "public_key_openssh": {
+                    "name": "public_key_openssh",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": null
+                    }
+                },
+                "public_key_pem": {
+                    "name": "public_key_pem",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": null
+                    }
+                },
+                "rsa_bits": {
+                    "name": "rsa_bits",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "number",
+                        "value": "2048"
+                    }
+                }
+            }
+        },
+        {
+            "action": "replace",
+            "name": "ca",
+            "type": "tls_self_signed_cert",
+            "fully_qualified_name": "tls_self_signed_cert.ca",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "allowed_uses": {
+                    "name": "allowed_uses",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "cert_pem": {
+                    "name": "cert_pem",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": null
+                    }
+                },
+                "early_renewal_hours": {
+                    "name": "early_renewal_hours",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "number",
+                        "value": "0"
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "272568354176656725449567750822544305064"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "is_ca_certificate": {
+                    "name": "is_ca_certificate",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "bool",
+                        "value": "true"
+                    }
+                },
+                "key_algorithm": {
+                    "name": "key_algorithm",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "RSA"
+                    }
+                },
+                "private_key_pem": {
+                    "name": "private_key_pem",
+                    "force_new_resource": true,
+                    "old": {
+                        "type": "string",
+                        "value": "a8b52345bf26605dbea00661b447449ebf327ef0"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "validity_end_time": {
+                    "name": "validity_end_time",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "2039-12-25T15:39:19.51342-05:00"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "validity_period_hours": {
+                    "name": "validity_period_hours",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "number",
+                        "value": "175200"
+                    }
+                },
+                "validity_start_time": {
+                    "name": "validity_start_time",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "2019-12-30T15:39:19.51342-05:00"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "subject": {
+                    "name": "subject",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "block",
+                        "value": null
+                    }
+                }
+            }
+        }
+    ],
+    "modules": []
+}

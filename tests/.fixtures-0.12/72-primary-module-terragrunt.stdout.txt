@@ -1,0 +1,28 @@
+[terragrunt] 2019/12/30 16:52:07 Reading Terragrunt config file at /build/myterraform/terragrunt.hcl
+[terragrunt] [/build/myterraform] 2019/12/30 16:52:07 Running command: terraform --version
+[terragrunt] 2019/12/30 16:52:07 WARNING: no double-slash (//) found in source URL /terraform/mymodule.git. Relative paths in downloaded Terraform code may not work.
+[terragrunt] 2019/12/30 16:52:07 Downloading Terraform configurations from git::https://git.example.com/terraform/mymodule.git?ref=3.1.1 into /build/myterraform/.terragrunt-cache/aGVsbG8gdGhlcmUsIGN1cmlvdXMgZ2VvcmdlCg/YnllIGJ5ZSwgbm93Cg
+[terragrunt] 2019/12/30 16:52:08 Copying files from /build/myterraform into /build/myterraform/.terragrunt-cache/aGVsbG8gdGhlcmUsIGN1cmlvdXMgZ2VvcmdlCg/YnllIGJ5ZSwgbm93Cg
+[terragrunt] 2019/12/30 16:52:08 Setting working directory to /build/myterraform/.terragrunt-cache/aGVsbG8gdGhlcmUsIGN1cmlvdXMgZ2VvcmdlCg/YnllIGJ5ZSwgbm93Cg
+[terragrunt] 2019/12/30 16:52:08 Skipping var-file /build/myterraform/ignore as it does not exist
+[terragrunt] [/build/myterraform] 2019/12/30 16:52:08 Running command: terraform init -backend-config=/terraform/backend.tfvars -lock-timeout=5m
+
+Initializing modules...
+- consul_clients in modules/consul-cluster
+
+Initializing the backend...
+
+Successfully configured the backend "http"! Terraform will automatically
+use this backend unless the backend configuration changes.
+
+Initializing provider plugins...
+- Checking for available provider plugins...
+- Downloading plugin for provider "aws" (hashicorp/aws) 2.43.0...
+
+Terraform has been successfully initialized!
+
+------------------------------------------------------------------------
+
+Terraform will perform the following actions:
+
+Plan: 1 to change.

@@ -1,0 +1,33 @@
+[terragrunt] 2019/10/06 01:46:15 WARNING: no double-slash (//) found in source URL /build/modules/beanstalk-bluegreen. Relative paths in downloaded Terraform code may not work.
+[terragrunt] 2019/10/06 01:46:15 Downloading Terraform configurations from file:///build/modules/beanstalk-bluegreen into /build/myterraform/.terragrunt-cache/temp_path_1/temp_path_2
+[terragrunt] 2019/10/06 01:46:15 Copying files from /build/myterraform into /build/myterraform/.terragrunt-cache/temp_path_1/temp_path_2
+[terragrunt] 2019/10/06 01:46:15 Setting working directory to /build/myterraform/.terragrunt-cache/temp_path_1/temp_path_2
+[terragrunt] [/build/myterraform] 2019/10/06 01:46:15 Running command: terraform init -backend-config=/terraform/backend.tfvars -lock-timeout=5m
+
+Initializing modules...
+Downloading git::https://git.rockfin.com/terraform/aws-beanstalk-tf.git?ref=fix-new-create for beanstalk_application...
+- beanstalk_application in .terraform/modules/beanstalk_application
+- beanstalk_application.application in .terraform/modules/beanstalk_application/modules/application
+- beanstalk_application.dns in .terraform/modules/beanstalk_application/modules/dns-record
+- beanstalk_application.environment in .terraform/modules/beanstalk_application/modules/environment
+- beanstalk_application.instance_role in .terraform/modules/beanstalk_application/modules/beanstalk-role
+- beanstalk_application.service_role in .terraform/modules/beanstalk_application/modules/beanstalk-service-role
+Downloading git::https://git.rockfin.com/terraform/aws-beanstalk-tf.git?ref=fix-new-create for environment...
+- environment in .terraform/modules/environment/modules/environment
+
+Initializing the backend...
+
+Successfully configured the backend "local"! Terraform will automatically
+use this backend unless the backend configuration changes.
+
+Initializing provider plugins...
+- Checking for available provider plugins...
+- Downloading plugin for provider "aws" (hashicorp/aws) 2.31.0...
+
+Terraform has been successfully initialized!
+
+------------------------------------------------------------------------
+
+Terraform will perform the following actions:
+
+Plan: 1 to change.
