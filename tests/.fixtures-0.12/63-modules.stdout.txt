@@ -1,0 +1,39 @@
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+  - destroy
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+  # module.consul_servers.aws_security_group.lc_security_group will be created
+  + resource "aws_security_group" "lc_security_group" {
+      + arn                    = (known after apply)
+      + description            = "Security group for the consul-example-server launch configuration"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "consul-example-server"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "consul-example-server"
+        }
+      + vpc_id                 = "vpc-abcd1234abcd"
+    }
+
+  # aws_iam_instance_profile.instance_profile will be destroyed
+  - resource "aws_iam_instance_profile" "instance_profile" {
+      - id = "arn:aws:iam::0000aaaa1111bbbb:instance-profile/myprofile" -> null
+    }
+
+  # module.mymodule1.module.mymodule2.data.aws_iam_role.selected[0] will be read during apply
+  # (config refers to values not yet known)
+ <= data "aws_iam_role" "selected"  {
+      + arn   = (known after apply)
+      + name  = "aws-elasticbeanstalk-service-role"
+    }
+
+
+Plan: 1 to add, 0 to change, 1 to destroy.

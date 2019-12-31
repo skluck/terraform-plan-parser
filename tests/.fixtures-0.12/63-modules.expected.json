@@ -1,0 +1,143 @@
+{
+    "errors": [
+        "Failed to parse resource name (line 23)",
+        "Failed to parse resource name (line 24)",
+        "Failed to parse resource name (line 25)"
+    ],
+    "changedResources": [
+        {
+            "action": "create",
+            "name": "lc_security_group",
+            "type": "aws_security_group",
+            "fully_qualified_name": "module.consul_servers.aws_security_group.lc_security_group",
+            "module_path": "consul_servers",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "arn": {
+                    "name": "arn",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "description": {
+                    "name": "description",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "Security group for the consul-example-server launch configuration"
+                    }
+                },
+                "egress": {
+                    "name": "egress",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "ingress": {
+                    "name": "ingress",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "name": {
+                    "name": "name",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "name_prefix": {
+                    "name": "name_prefix",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "consul-example-server"
+                    }
+                },
+                "owner_id": {
+                    "name": "owner_id",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "revoke_rules_on_delete": {
+                    "name": "revoke_rules_on_delete",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "bool",
+                        "value": "false"
+                    }
+                },
+                "tags": {
+                    "name": "tags",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "map",
+                        "value": null
+                    }
+                },
+                "vpc_id": {
+                    "name": "vpc_id",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "vpc-abcd1234abcd"
+                    }
+                }
+            }
+        },
+        {
+            "action": "destroy",
+            "name": "instance_profile",
+            "type": "aws_iam_instance_profile",
+            "fully_qualified_name": "aws_iam_instance_profile.instance_profile",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "arn:aws:iam::0000aaaa1111bbbb:instance-profile/myprofile"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                }
+            }
+        }
+    ],
+    "modules": []
+}

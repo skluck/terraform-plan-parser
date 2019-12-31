@@ -1,0 +1,478 @@
+provider.aws.region
+  The region where AWS operations will take place. Examples
+  are us-east-1, us-west-2, etc.
+
+  Enter a value: us-east-1
+
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+data.template_file.user_data_client: Refreshing state...
+data.template_file.user_data_server: Refreshing state...
+module.consul_servers.module.iam_policies.data.aws_iam_policy_document.auto_discover_cluster: Refreshing state...
+data.aws_ami.consul: Refreshing state...
+module.consul_servers.data.aws_iam_policy_document.instance_role: Refreshing state...
+data.aws_region.current: Refreshing state...
+data.aws_vpc.default: Refreshing state...
+module.consul_clients.module.iam_policies.data.aws_iam_policy_document.auto_discover_cluster: Refreshing state...
+module.consul_clients.data.aws_iam_policy_document.instance_role: Refreshing state...
+data.aws_subnet_ids.default: Refreshing state...
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.consul_clients.aws_autoscaling_group.autoscaling_group will be created
+  + resource "aws_autoscaling_group" "autoscaling_group" {
+      + arn                       = (known after apply)
+      + availability_zones        = (known after apply)
+      + default_cooldown          = (known after apply)
+      + desired_capacity          = 6
+      + force_delete              = false
+      + health_check_grace_period = 300
+      + health_check_type         = "EC2"
+      + id                        = (known after apply)
+      + launch_configuration      = (known after apply)
+      + load_balancers            = (known after apply)
+      + max_size                  = 6
+      + metrics_granularity       = "1Minute"
+      + min_size                  = 6
+      + name                      = (known after apply)
+      + name_prefix               = "consul-example-client"
+      + protect_from_scale_in     = false
+      + service_linked_role_arn   = (known after apply)
+      + tags                      = [
+          + {
+              + "key"                 = "Name"
+              + "propagate_at_launch" = "true"
+              + "value"               = "consul-example-client"
+            },
+          + {
+              + "key"                 = "consul-clients"
+              + "propagate_at_launch" = "true"
+              + "value"               = "consul-example"
+            },
+        ]
+      + target_group_arns         = (known after apply)
+      + termination_policies      = [
+          + "Default",
+        ]
+      + vpc_zone_identifier       = [
+          + "subnet-aaaa1111",
+          + "subnet-bbbb2222",
+          + "subnet-cccc3333",
+          + "subnet-dddd4444",
+        ]
+      + wait_for_capacity_timeout = "10m"
+    }
+
+  # module.consul_clients.aws_iam_instance_profile.instance_profile[0] will be created
+  + resource "aws_iam_instance_profile" "instance_profile" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + name_prefix = "consul-example-client"
+      + path        = "/"
+      + role        = (known after apply)
+      + roles       = (known after apply)
+      + unique_id   = (known after apply)
+    }
+
+  # module.consul_clients.aws_iam_role.instance_role[0] will be created
+  + resource "aws_iam_role" "instance_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                      + Sid       = ""
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "consul-example-client"
+      + path                  = "/"
+      + unique_id             = (known after apply)
+    }
+
+  # module.consul_clients.aws_launch_configuration.launch_configuration will be created
+  + resource "aws_launch_configuration" "launch_configuration" {
+      + associate_public_ip_address = false
+      + ebs_optimized               = false
+      + enable_monitoring           = true
+      + iam_instance_profile        = (known after apply)
+      + id                          = (known after apply)
+      + image_id                    = "ami-aaaa1111bbbb2222"
+      + instance_type               = "t2.micro"
+      + key_name                    = (known after apply)
+      + name                        = (known after apply)
+      + name_prefix                 = "consul-example-client-"
+      + security_groups             = (known after apply)
+      + user_data                   = "97e031d0aa6d1e6b2cd1838301fbecde7751eefb"
+
+      + ebs_block_device {
+          + delete_on_termination = (known after apply)
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + no_device             = (known after apply)
+          + snapshot_id           = (known after apply)
+          + volume_size           = (known after apply)
+          + volume_type           = (known after apply)
+        }
+
+      + root_block_device {
+          + delete_on_termination = true
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + volume_size           = 50
+          + volume_type           = "standard"
+        }
+    }
+
+  # module.consul_clients.aws_security_group.lc_security_group will be created
+  + resource "aws_security_group" "lc_security_group" {
+      + arn                    = (known after apply)
+      + description            = "Security group for the consul-example-client launch configuration"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "consul-example-client"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "consul-example-client"
+        }
+      + vpc_id                 = "vpc-abcd1234abcd"
+    }
+
+  # module.consul_clients.aws_security_group_rule.allow_all_outbound will be created
+  + resource "aws_security_group_rule" "allow_all_outbound" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 0
+      + id                       = (known after apply)
+      + protocol                 = "-1"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 0
+      + type                     = "egress"
+    }
+
+  # module.consul_clients.aws_security_group_rule.allow_ssh_inbound[0] will be created
+  + resource "aws_security_group_rule" "allow_ssh_inbound" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 22
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 22
+      + type                     = "ingress"
+    }
+
+  # module.consul_servers.aws_autoscaling_group.autoscaling_group will be created
+  + resource "aws_autoscaling_group" "autoscaling_group" {
+      + arn                       = (known after apply)
+      + availability_zones        = (known after apply)
+      + default_cooldown          = (known after apply)
+      + desired_capacity          = 3
+      + force_delete              = false
+      + health_check_grace_period = 300
+      + health_check_type         = "EC2"
+      + id                        = (known after apply)
+      + launch_configuration      = (known after apply)
+      + load_balancers            = (known after apply)
+      + max_size                  = 3
+      + metrics_granularity       = "1Minute"
+      + min_size                  = 3
+      + name                      = (known after apply)
+      + name_prefix               = "consul-example-server"
+      + protect_from_scale_in     = false
+      + service_linked_role_arn   = (known after apply)
+      + tags                      = [
+          + {
+              + "key"                 = "Name"
+              + "propagate_at_launch" = "true"
+              + "value"               = "consul-example-server"
+            },
+          + {
+              + "key"                 = "consul-servers"
+              + "propagate_at_launch" = "true"
+              + "value"               = "consul-example"
+            },
+          + {
+              + "key"                 = "Environment"
+              + "propagate_at_launch" = "true"
+              + "value"               = "development"
+            },
+        ]
+      + target_group_arns         = (known after apply)
+      + termination_policies      = [
+          + "Default",
+        ]
+      + vpc_zone_identifier       = [
+          + "subnet-aaaa1111",
+          + "subnet-bbbb2222",
+          + "subnet-cccc3333",
+          + "subnet-dddd4444",
+        ]
+      + wait_for_capacity_timeout = "10m"
+    }
+
+  # module.consul_servers.aws_iam_instance_profile.instance_profile[0] will be created
+  + resource "aws_iam_instance_profile" "instance_profile" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = (known after apply)
+      + name_prefix = "consul-example-server"
+      + path        = "/"
+      + role        = (known after apply)
+      + roles       = (known after apply)
+      + unique_id   = (known after apply)
+    }
+
+  # module.consul_servers.aws_iam_role.instance_role[0] will be created
+  + resource "aws_iam_role" "instance_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                      + Sid       = ""
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = (known after apply)
+      + name_prefix           = "consul-example-server"
+      + path                  = "/"
+      + unique_id             = (known after apply)
+    }
+
+  # module.consul_servers.aws_launch_configuration.launch_configuration will be created
+  + resource "aws_launch_configuration" "launch_configuration" {
+      + associate_public_ip_address = false
+      + ebs_optimized               = false
+      + enable_monitoring           = true
+      + iam_instance_profile        = (known after apply)
+      + id                          = (known after apply)
+      + image_id                    = "ami-aaaa1111bbbb2222"
+      + instance_type               = "t2.micro"
+      + key_name                    = (known after apply)
+      + name                        = (known after apply)
+      + name_prefix                 = "consul-example-server-"
+      + security_groups             = (known after apply)
+      + user_data                   = "bea44523b6e01d16013cc9699c268cc65005f72f"
+
+      + ebs_block_device {
+          + delete_on_termination = (known after apply)
+          + device_name           = (known after apply)
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + no_device             = (known after apply)
+          + snapshot_id           = (known after apply)
+          + volume_size           = (known after apply)
+          + volume_type           = (known after apply)
+        }
+
+      + root_block_device {
+          + delete_on_termination = true
+          + encrypted             = (known after apply)
+          + iops                  = (known after apply)
+          + volume_size           = 50
+          + volume_type           = "standard"
+        }
+    }
+
+  # module.consul_servers.aws_security_group.lc_security_group will be created
+  + resource "aws_security_group" "lc_security_group" {
+      + arn                    = (known after apply)
+      + description            = "Security group for the consul-example-server launch configuration"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = (known after apply)
+      + name                   = (known after apply)
+      + name_prefix            = "consul-example-server"
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "consul-example-server"
+        }
+      + vpc_id                 = "vpc-abcd1234abcd"
+    }
+
+  # module.consul_servers.aws_security_group_rule.allow_all_outbound will be created
+  + resource "aws_security_group_rule" "allow_all_outbound" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 0
+      + id                       = (known after apply)
+      + protocol                 = "-1"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 0
+      + type                     = "egress"
+    }
+
+  # module.consul_servers.aws_security_group_rule.allow_ssh_inbound[0] will be created
+  + resource "aws_security_group_rule" "allow_ssh_inbound" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 22
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 22
+      + type                     = "ingress"
+    }
+
+  # module.consul_clients.module.iam_policies.aws_iam_role_policy.auto_discover_cluster[0] will be created
+  + resource "aws_iam_role_policy" "auto_discover_cluster" {
+      + id     = (known after apply)
+      + name   = "auto-discover-cluster"
+      + policy = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "ec2:DescribeTags",
+                          + "ec2:DescribeInstances",
+                          + "autoscaling:DescribeAutoScalingGroups",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "*"
+                      + Sid      = ""
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + role   = (known after apply)
+    }
+
+  # module.consul_clients.module.security_group_rules.aws_security_group_rule.allow_cli_rpc_inbound[0] will be created
+  + resource "aws_security_group_rule" "allow_cli_rpc_inbound" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 8400
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 8400
+      + type                     = "ingress"
+    }
+
+  # module.consul_clients.module.security_group_rules.aws_security_group_rule.allow_cli_rpc_inbound_from_self will be created
+  + resource "aws_security_group_rule" "allow_cli_rpc_inbound_from_self" {
+      + from_port                = 8400
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 8400
+      + type                     = "ingress"
+    }
+
+  # module.consul_servers.module.iam_policies.aws_iam_role_policy.auto_discover_cluster[0] will be created
+  + resource "aws_iam_role_policy" "auto_discover_cluster" {
+      + id     = (known after apply)
+      + name   = "auto-discover-cluster"
+      + policy = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action   = [
+                          + "ec2:DescribeTags",
+                          + "ec2:DescribeInstances",
+                          + "autoscaling:DescribeAutoScalingGroups",
+                        ]
+                      + Effect   = "Allow"
+                      + Resource = "*"
+                      + Sid      = ""
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + role   = (known after apply)
+    }
+
+  # module.consul_servers.module.security_group_rules.aws_security_group_rule.allow_cli_rpc_inbound[0] will be created
+  + resource "aws_security_group_rule" "allow_cli_rpc_inbound" {
+      + cidr_blocks              = [
+          + "0.0.0.0/0",
+        ]
+      + from_port                = 8400
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + self                     = false
+      + source_security_group_id = (known after apply)
+      + to_port                  = 8400
+      + type                     = "ingress"
+    }
+
+  # module.consul_servers.module.security_group_rules.aws_security_group_rule.allow_cli_rpc_inbound_from_self will be created
+  + resource "aws_security_group_rule" "allow_cli_rpc_inbound_from_self" {
+      + from_port                = 8400
+      + id                       = (known after apply)
+      + protocol                 = "tcp"
+      + security_group_id        = (known after apply)
+      + self                     = true
+      + source_security_group_id = (known after apply)
+      + to_port                  = 8400
+      + type                     = "ingress"
+    }
+
+Plan: 20 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
+

@@ -1,0 +1,24 @@
+Initializing modules...
+Downloading git::https://git.example.com/custom-modules/static-assets.git?ref=v0.8.1 for cloudfront...
+- cloudfront in .terraform/modules/cloudfront/modules/s3-cloudfront
+- static_website in modules/static-site
+Downloading git::https://git.example.com/custom-modules/static-assets.git?ref=v0.8.2 for static_website.static_website...
+- static_website.static_website in .terraform/modules/static_website.static_website/modules/s3-static-website
+- waf in modules/waf
+
+Initializing the backend...
+
+Successfully configured the backend "http"! Terraform will automatically
+use this backend unless the backend configuration changes.
+
+Initializing provider plugins...
+- Checking for available provider plugins...
+- Downloading plugin for provider "aws" (hashicorp/aws) 2.43.0...
+
+Terraform has been successfully initialized!
+
+------------------------------------------------------------------------
+
+Terraform will perform the following actions:
+
+Plan: 1 to change.

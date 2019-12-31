@@ -5,11 +5,12 @@
  * For full license information, please view the LICENSE distributed with this source code.
  */
 
-namespace SK\TerraformParser;
+namespace SK\TerraformParser\Parsers;
 
 use SK\TerraformParser\Change\ResourceChange;
+use SK\TerraformParser\ErrorHandlingTrait;
 
-class ResourceParser
+class Terraform11ResourceParser
 {
     use ErrorHandlingTrait;
 

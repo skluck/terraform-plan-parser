@@ -1,0 +1,211 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "replace",
+            "name": "cert",
+            "type": "tls_cert_request",
+            "fully_qualified_name": "tls_cert_request.cert",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "cert_request_pem": {
+                    "name": "cert_request_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "-----BEGIN CERTIFICATE REQUEST-----\ntesting1\n-----END CERTIFICATE REQUEST-----\n"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "dns_names": {
+                    "name": "dns_names",
+                    "force_new_resource": true,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "e53138b6f80195bb35cf3ed14d405e8b620d1294"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "ip_addresses": {
+                    "name": "ip_addresses",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "key_algorithm": {
+                    "name": "key_algorithm",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "RSA"
+                    }
+                },
+                "private_key_pem": {
+                    "name": "private_key_pem",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "d0a6837b6c4bf341d993e385b2090a4f567905e1"
+                    }
+                },
+                "subject": {
+                    "name": "subject",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "block",
+                        "value": null
+                    }
+                }
+            }
+        },
+        {
+            "action": "replace",
+            "name": "cert",
+            "type": "tls_locally_signed_cert",
+            "fully_qualified_name": "tls_locally_signed_cert.cert",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "allowed_uses": {
+                    "name": "allowed_uses",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "ca_cert_pem": {
+                    "name": "ca_cert_pem",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "e391ea022c4cbe02fb5ad816e878c4bfe8724f15"
+                    }
+                },
+                "ca_key_algorithm": {
+                    "name": "ca_key_algorithm",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "RSA"
+                    }
+                },
+                "ca_private_key_pem": {
+                    "name": "ca_private_key_pem",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "3ccf21cdbbf3d64f63cc3e18ebf5ca24661b3aca"
+                    }
+                },
+                "cert_pem": {
+                    "name": "cert_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "-----BEGIN CERTIFICATE-----\ntesting2\n-----END CERTIFICATE-----\n"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "cert_request_pem": {
+                    "name": "cert_request_pem",
+                    "force_new_resource": true,
+                    "old": {
+                        "type": "string",
+                        "value": "e7050729bffae102efdf962dd09d0eaf99468dfc"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "early_renewal_hours": {
+                    "name": "early_renewal_hours",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "number",
+                        "value": "0"
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "204851858782430959296080468168713899418"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "validity_end_time": {
+                    "name": "validity_end_time",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "2039-08-22T09:44:13.7247-05:00"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "validity_period_hours": {
+                    "name": "validity_period_hours",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "number",
+                        "value": "175200"
+                    }
+                },
+                "validity_start_time": {
+                    "name": "validity_start_time",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "2019-08-27T10:44:13.7247-04:00"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                }
+            }
+        }
+    ],
+    "modules": []
+}

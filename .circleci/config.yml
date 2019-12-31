@@ -1,57 +1,53 @@
-version: 2
+version: 2.1
 
-php56_defaults: &php56_defaults
+executors:
+  php71:
     working_directory: '~/project'
     docker:
-        - image: 'circleci/php:5.6'
+      - image: 'circleci/php:7.1'
 
-php71_defaults: &php71_defaults
+  php72:
     working_directory: '~/project'
     docker:
-        - image: 'circleci/php:7.1'
+      - image: 'circleci/php:7.2'
 
-php72_defaults: &php72_defaults
+  php73:
     working_directory: '~/project'
     docker:
-        - image: 'circleci/php:7.2'
+      - image: 'circleci/php:7.3'
 
-php73_defaults: &php73_defaults
+  php74:
     working_directory: '~/project'
     docker:
-        - image: 'circleci/php:7.3'
+      - image: 'circleci/php:7.4'
 
-attach_workspace: &attach_workspace
-    attach_workspace:
-        at: '.'
+commands:
+    php--run-unit-tests:
+        steps:
+            - attach_workspace:
+                at: '.'
+            - run:
+                name: 'Run unit tests'
+                command: 'phpdbg -qrr vendor/bin/phpunit'
+
+            - store_test_results:
+                path: '.phpunit/report'
+
+    php--run-static-analysis:
+        steps:
+            - attach_workspace:
+                at: '.'
+            - run:
+                name: 'Run syntax check'
+                command: 'composer lint'
+            - run:
+                name: 'Run code formatting check'
+                command: 'composer sniff'
 
 persist_workspace: &persist_workspace
     persist_to_workspace:
         root: '.'
         paths: [ '.' ]
-
-run_tests_steps: &run_tests_steps
-    steps:
-        - *attach_workspace
-        - run:
-            name: 'Run unit tests'
-            command: |
-                if [ "${PHP_VERSION}" == "php56" ] ; then
-                    vendor/bin/phpunit
-                else
-                    phpdbg -qrr vendor/bin/phpunit
-                fi
-        - store_test_results:
-            path: '.phpunit/report'
-
-run_sniff_steps: &run_sniff_steps
-    steps:
-        - *attach_workspace
-        - run:
-            name: 'Run syntax check'
-            command: 'composer lint'
-        - run:
-            name: 'Run code formatting check'
-            command: 'composer sniff'
 
 workflows:
 
@@ -61,72 +57,44 @@ workflows:
         jobs:
             - fetch_code
 
-            - php56_install_dependencies:
-                requires: [ fetch_code ]
-            - php56_linting:
-                requires: [ php56_install_dependencies ]
-            - php56_tests:
-                requires: [ php56_linting ]
-
             - php71_install_dependencies:
                 requires: [ fetch_code ]
-            - php71_linting:
+            - php71_testing:
                 requires: [ php71_install_dependencies ]
-            - php71_tests:
-                requires: [ php71_linting ]
 
             - php72_install_dependencies:
                 requires: [ fetch_code ]
-            - php72_linting:
+            - php72_testing:
                 requires: [ php72_install_dependencies ]
-            - php72_tests:
-                requires: [ php72_linting ]
 
             - php73_install_dependencies:
                 requires: [ fetch_code ]
-            - php73_linting:
+            - php73_testing:
                 requires: [ php73_install_dependencies ]
-            - php73_tests:
-                requires: [ php73_linting ]
+
+            - fan_in:
+                requires:
+                    - 'php71_testing'
+                    - 'php72_testing'
+                    - 'php73_testing'
 
 jobs:
+
+    fan_in:
+        executor: 'php71'
+        steps: [ { run: 'whoami' } ]
+
     fetch_code:
-        <<: *php56_defaults
+        executor: 'php71'
         steps:
             - checkout
             - *persist_workspace
 
-    php56_install_dependencies:
-        <<: *php56_defaults
-        environment: [ {PHP_VERSION: 'php56'} ]
-        steps:
-            - *attach_workspace
-
-            - restore_cache: { keys: [ 'v1-php56-deps-{{ checksum "composer.json" }}', 'v1-php56-deps' ] }
-
-            - run:
-                name: 'Install PHP dependencies'
-                command: 'composer --no-interaction --no-progress install && composer show'
-
-            - save_cache: { key: 'v1-php56-deps-{{ checksum "composer.json" }}', paths: [ 'vendor' ] }
-
-            - *persist_workspace
-
-    php56_linting:
-        <<: *php56_defaults
-        <<: *run_sniff_steps
-        environment: [ {PHP_VERSION: 'php56'} ]
-
-    php56_tests:
-        <<: *php56_defaults
-        <<: *run_tests_steps
-        environment: [ {PHP_VERSION: 'php56'} ]
-
     php71_install_dependencies:
-        <<: *php71_defaults
-        environment: [ {PHP_VERSION: 'php71'} ]
+        executor: 'php71'
         steps:
-            - *attach_workspace
+            - attach_workspace:
+                at: '.'
 
             - restore_cache: { keys: [ 'v1-php71-deps-{{ checksum "composer.json" }}', 'v1-php71-deps' ] }
 
@@ -138,21 +106,17 @@ jobs:
 
             - *persist_workspace
 
-    php71_linting:
-        <<: *php71_defaults
-        <<: *run_sniff_steps
-        environment: [ {PHP_VERSION: 'php71'} ]
-
-    php71_tests:
-        <<: *php71_defaults
-        <<: *run_tests_steps
-        environment: [ {PHP_VERSION: 'php71'} ]
+    php71_testing:
+        executor: 'php71'
+        steps:
+            - php--run-static-analysis
+            - php--run-unit-tests
 
     php72_install_dependencies:
-        <<: *php72_defaults
-        environment: [ {PHP_VERSION: 'php72'} ]
+        executor: 'php72'
         steps:
-            - *attach_workspace
+            - attach_workspace:
+                at: '.'
 
             - restore_cache: { keys: [ 'v1-php72-deps-{{ checksum "composer.json" }}', 'v1-php72-deps' ] }
 
@@ -164,21 +128,18 @@ jobs:
 
             - *persist_workspace
 
-    php72_linting:
-        <<: *php72_defaults
-        <<: *run_sniff_steps
-        environment: [ {PHP_VERSION: 'php72'} ]
-
-    php72_tests:
-        <<: *php72_defaults
-        <<: *run_tests_steps
-        environment: [ {PHP_VERSION: 'php72'} ]
+    php72_testing:
+        executor: 'php72'
+        steps:
+            - php--run-static-analysis
+            - php--run-unit-tests
 
     php73_install_dependencies:
-        <<: *php73_defaults
+        executor: 'php73'
         environment: [ {PHP_VERSION: 'php73'} ]
         steps:
-            - *attach_workspace
+            - attach_workspace:
+                at: '.'
 
             - restore_cache: { keys: [ 'v1-php73-deps-{{ checksum "composer.json" }}', 'v1-php73-deps' ] }
 
@@ -190,12 +151,8 @@ jobs:
 
             - *persist_workspace
 
-    php73_linting:
-        <<: *php73_defaults
-        <<: *run_sniff_steps
-        environment: [ {PHP_VERSION: 'php73'} ]
-
-    php73_tests:
-        <<: *php73_defaults
-        <<: *run_tests_steps
-        environment: [ {PHP_VERSION: 'php73'} ]
+    php73_testing:
+        executor: 'php73'
+        steps:
+            - php--run-static-analysis
+            - php--run-unit-tests

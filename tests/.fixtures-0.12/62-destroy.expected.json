@@ -1,0 +1,583 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "destroy",
+            "name": "cert",
+            "type": "tls_cert_request",
+            "fully_qualified_name": "tls_cert_request.cert",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "cert_request_pem": {
+                    "name": "cert_request_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "-----BEGIN CERTIFICATE REQUEST-----\ntesting1\n-----END CERTIFICATE REQUEST-----\n"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "dns_names": {
+                    "name": "dns_names",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "e53138b6f80195bb35cf3ed14d405e8b620d1294"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "ip_addresses": {
+                    "name": "ip_addresses",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "key_algorithm": {
+                    "name": "key_algorithm",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "RSA"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "private_key_pem": {
+                    "name": "private_key_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "d0a6837b6c4bf341d993e385b2090a4f567905e1"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "subject": {
+                    "name": "subject",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "block",
+                        "value": null
+                    }
+                }
+            }
+        },
+        {
+            "action": "destroy",
+            "name": "cert",
+            "type": "tls_locally_signed_cert",
+            "fully_qualified_name": "tls_locally_signed_cert.cert",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "allowed_uses": {
+                    "name": "allowed_uses",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "ca_cert_pem": {
+                    "name": "ca_cert_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "e391ea022c4cbe02fb5ad816e878c4bfe8724f15"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "ca_key_algorithm": {
+                    "name": "ca_key_algorithm",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "RSA"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "ca_private_key_pem": {
+                    "name": "ca_private_key_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "3ccf21cdbbf3d64f63cc3e18ebf5ca24661b3aca"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "cert_pem": {
+                    "name": "cert_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "-----BEGIN CERTIFICATE-----\ntesting2\n-----END CERTIFICATE-----\n"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "cert_request_pem": {
+                    "name": "cert_request_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "e7050729bffae102efdf962dd09d0eaf99468dfc"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "early_renewal_hours": {
+                    "name": "early_renewal_hours",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "number",
+                        "value": "0"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "204851858782430959296080468168713899418"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "validity_end_time": {
+                    "name": "validity_end_time",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "2039-08-22T09:44:13.7247-05:00"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "validity_period_hours": {
+                    "name": "validity_period_hours",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "number",
+                        "value": "175200"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "validity_start_time": {
+                    "name": "validity_start_time",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "2019-08-27T10:44:13.7247-04:00"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                }
+            }
+        },
+        {
+            "action": "destroy",
+            "name": "ca",
+            "type": "tls_private_key",
+            "fully_qualified_name": "tls_private_key.ca",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "algorithm": {
+                    "name": "algorithm",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "RSA"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "ecdsa_curve": {
+                    "name": "ecdsa_curve",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "P256"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "d56df96241445b19d876e7a78be80026da5ec6f2"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "private_key_pem": {
+                    "name": "private_key_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "-----BEGIN RSA PRIVATE KEY-----\ntesting3\n-----END RSA PRIVATE KEY-----\n"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "public_key_fingerprint_md5": {
+                    "name": "public_key_fingerprint_md5",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "85:4a:f0:c3:57:28:0b:a8:8b:63:27:07:6d:50:46:9c"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "public_key_openssh": {
+                    "name": "public_key_openssh",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "ssh-rsa testing4\n"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "public_key_pem": {
+                    "name": "public_key_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "-----BEGIN PUBLIC KEY-----\ntesting5\n-----END PUBLIC KEY-----\n"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "rsa_bits": {
+                    "name": "rsa_bits",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "number",
+                        "value": "2048"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                }
+            }
+        },
+        {
+            "action": "destroy",
+            "name": "cert",
+            "type": "tls_private_key",
+            "fully_qualified_name": "tls_private_key.cert",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "algorithm": {
+                    "name": "algorithm",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "RSA"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "ecdsa_curve": {
+                    "name": "ecdsa_curve",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "P256"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "d3e74520324610d76a19f5fff537d86acf685864"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "private_key_pem": {
+                    "name": "private_key_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "-----BEGIN RSA PRIVATE KEY-----\ntesting6\n-----END RSA PRIVATE KEY-----\n"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "public_key_fingerprint_md5": {
+                    "name": "public_key_fingerprint_md5",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "fb:70:f9:48:90:c2:39:64:63:2a:c0:84:83:c6:9a:0d"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "public_key_openssh": {
+                    "name": "public_key_openssh",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "ssh-rsa testing7\n"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "public_key_pem": {
+                    "name": "public_key_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "-----BEGIN PUBLIC KEY-----\ntesting8\n-----END PUBLIC KEY-----\n"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "rsa_bits": {
+                    "name": "rsa_bits",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "number",
+                        "value": "2048"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                }
+            }
+        },
+        {
+            "action": "destroy",
+            "name": "ca",
+            "type": "tls_self_signed_cert",
+            "fully_qualified_name": "tls_self_signed_cert.ca",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "allowed_uses": {
+                    "name": "allowed_uses",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "cert_pem": {
+                    "name": "cert_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "-----BEGIN CERTIFICATE-----\ntesting9\n-----END CERTIFICATE-----\n"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "early_renewal_hours": {
+                    "name": "early_renewal_hours",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "number",
+                        "value": "0"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "328725920180760640719877433704161709126"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "is_ca_certificate": {
+                    "name": "is_ca_certificate",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "bool",
+                        "value": "true"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "key_algorithm": {
+                    "name": "key_algorithm",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "RSA"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "private_key_pem": {
+                    "name": "private_key_pem",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "3ccf21cdbbf3d64f63cc3e18ebf5ca24661b3aca"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "validity_end_time": {
+                    "name": "validity_end_time",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "2039-08-22T09:44:13.701973-05:00"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "validity_period_hours": {
+                    "name": "validity_period_hours",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "number",
+                        "value": "175200"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "validity_start_time": {
+                    "name": "validity_start_time",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "2019-08-27T10:44:13.701973-04:00"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "subject": {
+                    "name": "subject",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "block",
+                        "value": null
+                    }
+                }
+            }
+        }
+    ],
+    "modules": []
+}

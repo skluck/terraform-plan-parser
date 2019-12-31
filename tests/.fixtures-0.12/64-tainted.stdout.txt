@@ -1,0 +1,97 @@
+[0m[1mRefreshing Terraform state in-memory prior to plan...[0m
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+[0m
+[0m[1mtls_private_key.cert: Refreshing state... [id=d3e74520324610d76a19f5fff537d86acf685864][0m
+[0m[1mtls_private_key.ca: Refreshing state... [id=7bb7e8123d487e12d7bb9e4d271421ac5e71613f][0m
+[0m[1mtls_cert_request.cert: Refreshing state... [id=5d0d46133da75f5b678b43561799201563de8e8d][0m
+[0m[1mtls_self_signed_cert.ca: Refreshing state... [id=272568354176656725449567750822544305064][0m
+[0m[1mtls_locally_signed_cert.cert: Refreshing state... [id=181745533546588601139903980299099941214][0m
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+[31m-[0m/[32m+[0m destroy and then create replacement
+[0m
+Terraform will perform the following actions:
+
+[1m  # tls_locally_signed_cert.cert[0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m [0mresource "tls_locally_signed_cert" "cert" {
+        [1m[0mallowed_uses[0m[0m          = [
+            "key_encipherment",
+            "digital_signature",
+        ]
+      [33m~[0m [0m[1m[0mca_cert_pem[0m[0m           = "edaf1e650e6aea770713e408bcd55a83065435c8" [33m->[0m [0m(known after apply) [31m# forces replacement[0m[0m
+        [1m[0mca_key_algorithm[0m[0m      = "RSA"
+      [33m~[0m [0m[1m[0mca_private_key_pem[0m[0m    = "a8b52345bf26605dbea00661b447449ebf327ef0" [33m->[0m [0m(known after apply) [31m# forces replacement[0m[0m
+      [33m~[0m [0m[1m[0mcert_pem[0m[0m              = <<~EOT
+            -----BEGIN CERTIFICATE-----
+            dummy value 1
+            -----END CERTIFICATE-----
+        EOT [33m->[0m [0m(known after apply)
+        [1m[0mcert_request_pem[0m[0m      = "9fd9d71c882f74db90fedb4322c460557066f558"
+        [1m[0mearly_renewal_hours[0m[0m   = 0
+      [33m~[0m [0m[1m[0mid[0m[0m                    = "181745533546588601139903980299099941214" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mvalidity_end_time[0m[0m     = "2039-12-25T15:39:19.529804-05:00" [33m->[0m [0m(known after apply)
+        [1m[0mvalidity_period_hours[0m[0m = 175200
+      [33m~[0m [0m[1m[0mvalidity_start_time[0m[0m   = "2019-12-30T15:39:19.529804-05:00" [33m->[0m [0m(known after apply)
+    }
+
+[1m  # tls_private_key.ca[0m is tainted, so must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m [0mresource "tls_private_key" "ca" {
+        [1m[0malgorithm[0m[0m                  = "RSA"
+        [1m[0mecdsa_curve[0m[0m                = "P256"
+      [33m~[0m [0m[1m[0mid[0m[0m                         = "7bb7e8123d487e12d7bb9e4d271421ac5e71613f" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mprivate_key_pem[0m[0m            = <<~EOT
+            -----BEGIN RSA PRIVATE KEY-----
+            dummy value 2
+            -----END RSA PRIVATE KEY-----
+        EOT [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mpublic_key_fingerprint_md5[0m[0m = "3b:4b:43:7a:f0:1d:9f:b8:f6:be:1c:99:1a:c0:e2:72" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mpublic_key_openssh[0m[0m         = <<~EOT
+            ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6DciiOl9qDbp3ZbTTPGiQwQuMiCPKgCkPvIL9tveCLO+meYJ0zKWdZCM2z8NsulKwt1jhvkQZ6vMNzSzUnqVCdT8ncqu1RQ/j0QqZMKKVMIxKhhW4Ssye0QQnOp/BKQAlqllm5UiSwFv8DvKD4XK/jWs+9+PYNWJZF1OlX1ouewZBtWi7DS0T8oOPSdliQZR7YMReszjIL2tbIMD3nkTPf+yffbFV75anRDwHnemcECjv9vEF5ss02MNjIsDIyffgsSWKvt+11foF0ryrt1dh5/hxUXpSUcu0l/2wLSYoic+hRBYUH7XB6HthYL/CbVHK7AcsBM+vwWOgYp/GJx0T
+        EOT [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mpublic_key_pem[0m[0m             = <<~EOT
+            -----BEGIN PUBLIC KEY-----
+            dummy value 3
+            -----END PUBLIC KEY-----
+        EOT [33m->[0m [0m(known after apply)
+        [1m[0mrsa_bits[0m[0m                   = 2048
+    }
+
+[1m  # tls_self_signed_cert.ca[0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m [0mresource "tls_self_signed_cert" "ca" {
+        [1m[0mallowed_uses[0m[0m          = [
+            "cert_signing",
+            "key_encipherment",
+            "digital_signature",
+        ]
+      [33m~[0m [0m[1m[0mcert_pem[0m[0m              = <<~EOT
+            -----BEGIN CERTIFICATE-----
+            dummy value 4
+            -----END CERTIFICATE-----
+        EOT [33m->[0m [0m(known after apply)
+        [1m[0mearly_renewal_hours[0m[0m   = 0
+      [33m~[0m [0m[1m[0mid[0m[0m                    = "272568354176656725449567750822544305064" [33m->[0m [0m(known after apply)
+        [1m[0mis_ca_certificate[0m[0m     = true
+        [1m[0mkey_algorithm[0m[0m         = "RSA"
+      [33m~[0m [0m[1m[0mprivate_key_pem[0m[0m       = "a8b52345bf26605dbea00661b447449ebf327ef0" [33m->[0m [0m(known after apply) [31m# forces replacement[0m[0m
+      [33m~[0m [0m[1m[0mvalidity_end_time[0m[0m     = "2039-12-25T15:39:19.51342-05:00" [33m->[0m [0m(known after apply)
+        [1m[0mvalidity_period_hours[0m[0m = 175200
+      [33m~[0m [0m[1m[0mvalidity_start_time[0m[0m   = "2019-12-30T15:39:19.51342-05:00" [33m->[0m [0m(known after apply)
+
+      [33m~[0m [0msubject {
+            [1m[0mcommon_name[0m[0m  = "My Test App - CA"
+            [1m[0morganization[0m[0m = "Acme Company"
+        }
+    }
+
+[0m[1mPlan:[0m 3 to add, 0 to change, 3 to destroy.[0m
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
+

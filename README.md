@@ -9,11 +9,20 @@ This is a PHP library for parsing output from `terraform plan`.
 
 It will attempt to parse out **changed attributes** of modified resources from `terraform plan` as well as **used modules** from `terraform init`.
 
+It supports both Terraform 0.11 and Terraform 0.12:
+
+- [`Terraform11OutputParser`](src/Terraform11OutputParser.php)
+- [`Terraform12OutputParser`](src/Terraform12OutputParser.php)
+
+Terraform 0.12 supports native JSON output of plan files, however it is not as complete as the stdout and so we must
+continue to parse it.
+
 ## Table of Contents
 
 - [Use Case](#use-case)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Data Structure](#data-structure)
 
 ## Use Case
 
@@ -115,9 +124,13 @@ This library is inspired and based on similar libraries for other languages. Che
 
 ## Installation
 
+This package requires PHP 7.1 or higher. The CI workflow tests against PHP 7.1, 7.2, and 7.3. It has no runtime
+dependencies.
+
 Download this package with composer:
+
 ```
-composer require skluck/terraform-plan-parser
+composer require skluck/terraform-plan-parser ~1.1
 ```
 
 ## Usage
@@ -126,9 +139,16 @@ composer require skluck/terraform-plan-parser
 <?php
 
 use SK\TerraformParser\TerraformOutputParser;
+use SK\TerraformParser\Terraform11OutputParser;
+use SK\TerraformParser\Terraform12OutputParser;
 
 $filename = '/path/to/terrraform/output';
 $parser = new TerraformOutputParser;
+
+// It is also possible to use the desired version of Terraform directly:
+// $parser = new Terraform11OutputParser;
+// $parser = new Terraform12OutputParser;
+
 $output = $parser->parseFile($filename);
 
 var_export($output);
@@ -217,3 +237,82 @@ echo json_encode($output, JSON_PRETTY_PRINT);
 //     ]
 // }
 ```
+
+## Data Structure
+
+The response of parsing terraform plan will always be an array of the following structure:
+```
+{
+    "errors": array<string>
+    "changedResources": array<ResourceChange>
+    "modules": array<[name: string, source: string: version: ?string]>
+}
+```
+
+The parser may successfully parse some resources, but still contain errors for others. So you should check both `errors`
+and `changedResources` to determine your failure states. Generally I would recommend only failing if `errors` is
+non-empty, and `changedResources` is empty, or if `errors` has some obscene number of messages.
+
+**A Special Note about Modules:**  
+This parser will attempt to find the "root" module from [Terragrunt](https://github.com/gruntwork-io/terragrunt) output.
+It can be important information to know if the primary module is from a remote source (such as git or the
+Terraform Registry) or a local directory.
+
+### [`ResourceChange`](./src/Change/ResourceChange.php)
+
+This represents individual resources in Terraform and has the following structure:
+
+- `$resourceChange->action(): string`
+  > The action being performed on the resource such as `create`, `destroy`, `replace`, `update`, or `read`.
+
+- `$resourceChange->name(): string`
+  > The name given to the resource in the Terraform code.
+
+- `$resourceChange->type(): string`
+  > The type of terraform resource such as [`aws_s3_bucket`](https://www.terraform.io/docs/providers/aws/r/s3_bucket.html).
+
+- `$resourceChange->fullyQualifiedName(): string`
+  > The full proper Terraform path to the resource, which will match the path in terraform state.
+
+- `$resourceChange->modulePath(): string`
+  > Path that includes only modules and does not include the resource type or name.
+  > - Example Full Path: `module.mymodule1.module.mymodule2.aws_s3_bucket.mybucket`
+  > - Module Path: `mymodule1.mymodule2`
+
+- `$resourceChange->isTainted(): string`
+  > If the resource was tainted, causing it to be recreated.
+
+- `$resourceChange->isNew(): string`
+  > If the resource is new (always false for Terraform 0.12).
+
+- `$resourceChange->attributes(): array<AttributeChange>`
+  > A list of attributes for this resource (see below).
+
+### [`AttributeChange`](./src/Change/AttributeChange.php)
+
+This represents individual attributes on resources. The parser will determine the type and if possible the old and
+new values of this attribute.
+
+- `$attrChange->name(): string`
+  > The name of the attribute as determined by the Terraform resource (See your Terraform Provider documentation).
+
+- `$attrChange->forceNewResource(): bool`
+  > Whether this attribute is the cause of the resource being recreated.
+
+- `$attrChange->oldValue(): ?array`
+  > May be null, or an array of the `type` and `value`.  
+  > For multiline blocks, maps, lists, and strings `value` is always null.
+  >
+  > Possible values for `type`:
+  > - `unknown`
+  > - `computed`
+  > - `null`
+  > - `number`
+  > - `bool`
+  > - `string`
+  > - `list`
+  > - `map`
+  > - `block`
+
+- `$attrChange->oldValue(): ?newValue`
+  > See above.

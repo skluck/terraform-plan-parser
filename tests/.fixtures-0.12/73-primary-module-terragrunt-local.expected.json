@@ -1,0 +1,46 @@
+{
+    "errors": [],
+    "changedResources": [],
+    "modules": [
+        {
+            "name": "beanstalk_application",
+            "source": "git::https://git.rockfin.com/terraform/aws-beanstalk-tf.git?ref=fix-new-create",
+            "version": "fix-new-create"
+        },
+        {
+            "name": "beanstalk_application.application",
+            "source": ".terraform/modules/beanstalk_application/modules/application",
+            "version": null
+        },
+        {
+            "name": "beanstalk_application.dns",
+            "source": ".terraform/modules/beanstalk_application/modules/dns-record",
+            "version": null
+        },
+        {
+            "name": "beanstalk_application.environment",
+            "source": ".terraform/modules/beanstalk_application/modules/environment",
+            "version": null
+        },
+        {
+            "name": "beanstalk_application.instance_role",
+            "source": ".terraform/modules/beanstalk_application/modules/beanstalk-role",
+            "version": null
+        },
+        {
+            "name": "beanstalk_application.service_role",
+            "source": ".terraform/modules/beanstalk_application/modules/beanstalk-service-role",
+            "version": null
+        },
+        {
+            "name": "environment",
+            "source": "git::https://git.rockfin.com/terraform/aws-beanstalk-tf.git?ref=fix-new-create",
+            "version": "fix-new-create"
+        },
+        {
+            "name": "root",
+            "source": "file:///build/modules/beanstalk-bluegreen",
+            "version": null
+        }
+    ]
+}
