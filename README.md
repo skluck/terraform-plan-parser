@@ -124,12 +124,13 @@ This library is inspired and based on similar libraries for other languages. Che
 
 ## Installation
 
-This package requires PHP 7.1 or higher. The CI workflow tests against PHP 7.1, 7.2, and 7.3.
+This package requires PHP 7.1 or higher. The CI workflow tests against PHP 7.1, 7.2, and 7.3. It has no runtime
+dependencies.
 
 Download this package with composer:
 
 ```
-composer require skluck/terraform-plan-parser
+composer require skluck/terraform-plan-parser ~1.1
 ```
 
 ## Usage
