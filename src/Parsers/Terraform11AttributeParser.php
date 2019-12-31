@@ -5,11 +5,12 @@
  * For full license information, please view the LICENSE distributed with this source code.
  */
 
-namespace SK\TerraformParser;
+namespace SK\TerraformParser\Parsers;
 
 use SK\TerraformParser\Change\AttributeChange;
+use SK\TerraformParser\ErrorHandlingTrait;
 
-class AttributeParser
+class Terraform11AttributeParser
 {
     use ErrorHandlingTrait;
 
@@ -45,7 +46,7 @@ class AttributeParser
         $end = $parsed['end'];
 
         $change = new AttributeChange($name);
-        
+
         if (substr($data, strlen(self::FORCES_NEW_RESOURCE_SUFFIX) * -1) === self::FORCES_NEW_RESOURCE_SUFFIX) {
             $change->withForceNewResource(true);
         }
