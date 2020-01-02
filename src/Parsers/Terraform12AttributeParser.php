@@ -83,7 +83,6 @@ class Terraform12AttributeParser
         }
 
         if (preg_match(self::BLOCK_LINE_REGEX, $line) === 1) {
-
             return self::MULTILINE_OPENERS['{'];
         }
 

@@ -274,7 +274,10 @@ class Terraform11OutputParser implements TerraformPlanParserInterface
                 $next = trim($next);
                 if (strpos($next, 'Getting source ') === 0) {
                     $line = substr($line, 2);
-                    if (preg_match(self::MODULE_NAME_REGEX, $line, $matches1) === 1 && preg_match(self::MODULE_SOURCE_REGEX, $next, $matches2) === 1) {
+                    if (
+                        preg_match(self::MODULE_NAME_REGEX, $line, $matches1) === 1 &&
+                        preg_match(self::MODULE_SOURCE_REGEX, $next, $matches2) === 1
+                    ) {
                         $module = array_pop($matches1);
                         $source = array_pop($matches2);
 
