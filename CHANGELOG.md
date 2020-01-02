@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/).
 > Sections: (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`)
 
+## [1.1.1] - 2020-01-02
+
+### Fixed
+- Terraform 0.12 resources that use `+/-` for replacement are now parsed correctly (In addition to `-/+`).
+- Terraform 0.12 attribute blocks that use `# forces replacement` are now recognized properly.
+- Data resources are now processed correctly in Terraform 0.12, which may sometimes have extra spaces before the brace.
+- Resources that are `updated in-place` are now supported in addition to `updated`.
+
 ## [1.1.0] - 2019-12-31
 
 ### Added
