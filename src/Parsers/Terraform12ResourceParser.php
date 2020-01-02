@@ -40,6 +40,7 @@ class Terraform12ResourceParser
         '+' => 'create',
         '-' => 'destroy',
         '-/+' => 'replace',
+        '+/-' => 'replace',
         '~' => 'update',
         '<=' => 'read'
     ];

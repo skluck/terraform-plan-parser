@@ -83,6 +83,7 @@ class Terraform12AttributeParser
         }
 
         if (preg_match(self::BLOCK_LINE_REGEX, $line) === 1) {
+
             return self::MULTILINE_OPENERS['{'];
         }
 
@@ -194,23 +195,28 @@ class Terraform12AttributeParser
         $firstLine = array_shift($lines);
         $lastLine = array_pop($lines);
 
-        $name = $this->parseMultiline($firstLine, $lastLine);
+        $forceNew = false;
+
+        // It is possible for the "forces new" indicator to be on start or end of block
+        // So this is the 1st check
+        $suffixIndex = strlen(self::FORCES_NEW_RESOURCE_SUFFIX) * -1;
+        if (substr($firstLine, $suffixIndex) === self::FORCES_NEW_RESOURCE_SUFFIX) {
+            $forceNew = true;
+            $firstLine = substr($firstLine, 0, $suffixIndex);
+        }
+
+        $name = $this->parseMultiline($firstLine);
         if (!$name) {
             return null;
         }
 
         $change = new AttributeChange($name);
 
-        $suffixIndex = strlen(self::FORCES_NEW_RESOURCE_SUFFIX) * -1;
 
         // It is possible for the "forces new" indicator to be on start or end of block
-        if (substr($firstLine, $suffixIndex) === self::FORCES_NEW_RESOURCE_SUFFIX) {
-            $change->withForceNewResource(true);
-            $firstLine = substr($firstLine, 0, $suffixIndex);
-        }
-
+        // So this is the 2nd check
         if (substr($lastLine, $suffixIndex) === self::FORCES_NEW_RESOURCE_SUFFIX) {
-            $change->withForceNewResource(true);
+            $forceNew = true;
         }
 
         $type = self::TYPE_UNKNOWN;
@@ -228,6 +234,8 @@ class Terraform12AttributeParser
             // A bit wonky. This would be a computed string thru a function
             $type = self::TYPE_STRING;
         }
+
+        $change->withForceNewResource($forceNew);
 
         // We currently record no values for multilines
         $change->withNewValue($type, null);
