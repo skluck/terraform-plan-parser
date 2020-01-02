@@ -21,7 +21,7 @@ class Terraform12ResourceParser
             '"([^.]+)"' .         # type
         '\ ' .
             '"([^ ]+)"' .         # name
-        '\ {' .
+        '\ {1,}\{' .
         '$/';
 
     const COMMENT_LINE_REGEX =
@@ -33,7 +33,7 @@ class Terraform12ResourceParser
         '\ ' .
             '(?:will|must) be' .
         '\ ' .
-            '([^ ]+)' .             # type
+            '([^\#]+)' .             # type
         '$/';
 
     const ACTIONS = [
@@ -49,6 +49,7 @@ class Terraform12ResourceParser
         'destroyed' => 'destroy',
         'replaced' => 'replace',
         'updated' => 'update',
+        'updated in-place' => 'update',
         'read during apply' => 'read'
     ];
 
@@ -70,7 +71,7 @@ class Terraform12ResourceParser
     public function shouldIgnoreLine(string $line): bool
     {
         // Not necessary information
-        if ($line === self::MODULE_USELESS_COMMENT) {
+        if (ltrim($line) === self::MODULE_USELESS_COMMENT) {
             return true;
         }
 

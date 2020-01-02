@@ -35,5 +35,8 @@ Terraform will perform the following actions:
       + name  = "aws-elasticbeanstalk-service-role"
     }
 
+    resource "myresource" "is_bad" {
+      - id = "arn:aws:iam::0000aaaa1111bbbb"
+    }
 
 Plan: 1 to add, 0 to change, 1 to destroy.

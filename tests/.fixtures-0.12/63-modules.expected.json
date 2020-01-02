@@ -1,8 +1,6 @@
 {
     "errors": [
-        "Failed to parse resource name (line 23)",
-        "Failed to parse resource name (line 24)",
-        "Failed to parse resource name (line 25)"
+        "Failed to parse resource name (line 30)"
     ],
     "changedResources": [
         {
@@ -134,6 +132,35 @@
                     "new": {
                         "type": "null",
                         "value": null
+                    }
+                }
+            }
+        },
+        {
+            "action": "read",
+            "name": "selected[0]",
+            "type": "aws_iam_role",
+            "fully_qualified_name": "module.mymodule1.module.mymodule2.data.aws_iam_role.selected[0]",
+            "module_path": "my.my",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "arn": {
+                    "name": "arn",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "name": {
+                    "name": "name",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "aws-elasticbeanstalk-service-role"
                     }
                 }
             }
