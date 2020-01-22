@@ -271,6 +271,9 @@ class Terraform12OutputParser
                 $isInMultiline = $closingTag;
                 $multiline = [$line];
 
+            } elseif ($this->attributeParser->shouldIgnoreLine($line)) {
+                // Ignore useless attributes (unchanged)
+
             } elseif ($this->attributeParser->isStandardAttribute($line)) {
                 // easy. single-line property
                 if ($lastChange && ($attribute = $this->attributeParser->parseLineForAttribute($line))) {

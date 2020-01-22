@@ -17,6 +17,8 @@ class Terraform12AttributeParser
     const ATTRIBUTE_LINE_REGEX = '/^ {6,}((\~|\-|\+) )?(.+) +[=]{1} /';
     const BLOCK_LINE_REGEX = '/^ {6,}((\~|\-|\+) )?(.+) +\{$/';
 
+    const USELESS_BLOCK_REGEX = '/^ {6,}((\~|\-|\+) )?(.+) +\{\}$/';
+
     const OLD_NEW_SEPARATOR = ' -> ';
     const FORCES_NEW_RESOURCE_SUFFIX = ' # forces replacement';
 
@@ -39,6 +41,28 @@ class Terraform12AttributeParser
         '['      => '        ]',
         '<<~EOT' => '        EOT',
     ];
+
+    /**
+     * Empty blocks are unchanged, and should be ignored.
+     *
+     * Example:
+     *
+     * >
+     * > + timeouts {}
+     * >
+     *
+     * @param string $line
+     *
+     * @return bool
+     */
+    public function shouldIgnoreLine(string $line): bool
+    {
+        if (preg_match(self::USELESS_BLOCK_REGEX, $line) === 1) {
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * Example:
