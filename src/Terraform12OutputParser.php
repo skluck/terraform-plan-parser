@@ -27,7 +27,7 @@ class Terraform12OutputParser
     const MODULE_VERSION_REGEX = '/\?ref\=(.+)/';
 
     const PRIMARY_MODULE_START_STRING = "Downloading Terraform configurations from ";
-    const PRIMARY_MODULE_REGEX = '/Downloading Terraform configurations from ([^ ]+) into/';
+    const PRIMARY_MODULE_REGEX = '/Downloading Terraform configurations from ([^\s]+) into/';
 
     const END_RESOURCE = '    }';
 
@@ -179,7 +179,7 @@ class Terraform12OutputParser
             return '';
         }
 
-        $end = strpos($input, self::MODULES_START_STRING);
+        $end = strpos($input, self::MODULES_END_STRING);
         if ($end !== false) {
             $input = substr($input, 0, $end);
         } else {

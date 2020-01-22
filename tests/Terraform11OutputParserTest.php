@@ -69,6 +69,7 @@ class Terraform11OutputParserTest extends TestCase
             'standard'            => '50-modules',
             'with-versions'       => '51-modules-with-versions',
             'with-primary-remote' => '52-primary-module-terragrunt',
+            'as-submodule'        => '53-primary-module-as-submodule',
         ];
 
         return array_map(function ($case) use ($fixturesDir) {

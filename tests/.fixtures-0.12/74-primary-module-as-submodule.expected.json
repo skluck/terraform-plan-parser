@@ -1,0 +1,11 @@
+{
+    "errors": [],
+    "changedResources": [],
+    "modules": [
+        {
+            "name": "root",
+            "source": "git::https://git.example.com/terraform/my-module//modules/component1?ref=2.0.0",
+            "version": "2.0.0"
+        }
+    ]
+}

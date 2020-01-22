@@ -24,7 +24,7 @@ class Terraform11OutputParser implements TerraformPlanParserInterface
     const MODULES_END_STRING = "\nInitializing provider plugins...";
     const MODULE_NAME_REGEX = '/^(module\.(?:.+))/';
     const MODULE_SOURCE_REGEX = '/^Getting source "(.+)"/';
-    const MODULE_VERSION_REGEX = '/\?ref\=(.+)/';
+    const MODULE_VERSION_REGEX = '/\?ref\=([^\s]+)/';
 
     const PRIMARY_MODULE_START_STRING = "\nCopying configuration from ";
     const PRIMARY_MODULE_REGEX = '/^Copying configuration from "(.+)"/';
