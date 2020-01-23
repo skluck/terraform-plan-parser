@@ -1,0 +1,22 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "destroy",
+            "name": "ecs_task",
+            "type": "aws_iam_role",
+            "fully_qualified_name": "aws_iam_role.ecs_task",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": []
+        }
+    ],
+    "modules": [
+        {
+            "name": "root",
+            "source": "git::https://git.example.com/myterraform/module-ecs.git//modules/ecs-api",
+            "version": "4.2.0"
+        }
+    ]
+}

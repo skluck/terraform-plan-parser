@@ -9,7 +9,7 @@
         },
         {
             "name": "root",
-            "source": "git::https://git.example.com/terraform/cloudfront-waf-tf.git?ref=2.3.1",
+            "source": "git::https://git.example.com/terraform/cloudfront-waf-tf.git",
             "version": "2.3.1"
         }
     ]

@@ -4,7 +4,7 @@
     "modules": [
         {
             "name": "root",
-            "source": "git::https://git.example.com/terraform/my-module//modules/component1?ref=master",
+            "source": "git::https://git.example.com/terraform/my-module//modules/component1",
             "version": "master"
         }
     ]

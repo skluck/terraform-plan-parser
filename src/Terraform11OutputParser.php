@@ -286,6 +286,17 @@ class Terraform11OutputParser implements TerraformPlanParserInterface
                             $version = array_pop($matches);
                         }
 
+                        // Remove after ?ref= from source, so source only contains path and/or subpaths
+                        if ($found = strpos($source, '?ref=')) {
+                            $source = substr($source, 0, $found);
+                        }
+
+                        // If users mistakenly added //subpath AFTER the ?ref= then move it from version to source.
+                        if ($found = strpos($version, '//')) {
+                            $source = $source . substr($version, $found);
+                            $version = substr($version, 0, $found);
+                        }
+
                         $modules[] = [
                             'name' => $module,
                             'source' => $source,
@@ -320,6 +331,17 @@ class Terraform11OutputParser implements TerraformPlanParserInterface
                 $version = null;
                 if (preg_match(self::MODULE_VERSION_REGEX, $source, $matches) === 1) {
                     $version = array_pop($matches);
+                }
+
+                // Remove after ?ref= from source, so source only contains path and/or subpaths
+                if ($found = strpos($source, '?ref=')) {
+                    $source = substr($source, 0, $found);
+                }
+
+                // If users mistakenly added //subpath AFTER the ?ref= then move it from version to source.
+                if ($found = strpos($version, '//')) {
+                    $source = $source . substr($version, $found);
+                    $version = substr($version, 0, $found);
                 }
 
                 return [
