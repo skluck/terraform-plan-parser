@@ -9,7 +9,7 @@
         },
         {
             "name": "root",
-            "source": "git::https://git.example.com/terraform/mymodule.git?ref=3.1.1",
+            "source": "git::https://git.example.com/terraform/mymodule.git",
             "version": "3.1.1"
         }
     ]

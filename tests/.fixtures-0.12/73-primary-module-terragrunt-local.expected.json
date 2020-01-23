@@ -4,7 +4,7 @@
     "modules": [
         {
             "name": "beanstalk_application",
-            "source": "git::https://git.rockfin.com/terraform/aws-beanstalk-tf.git?ref=fix-new-create",
+            "source": "git::https://git.rockfin.com/terraform/aws-beanstalk-tf.git",
             "version": "fix-new-create"
         },
         {
@@ -34,7 +34,7 @@
         },
         {
             "name": "environment",
-            "source": "git::https://git.rockfin.com/terraform/aws-beanstalk-tf.git?ref=fix-new-create",
+            "source": "git::https://git.rockfin.com/terraform/aws-beanstalk-tf.git",
             "version": "fix-new-create"
         },
         {

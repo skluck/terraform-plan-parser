@@ -292,6 +292,7 @@ class Terraform11OutputParser implements TerraformPlanParserInterface
                         }
 
                         // If users mistakenly added //subpath AFTER the ?ref= then move it from version to source.
+                        // This is invalid in terraform 0.12 code.
                         if ($found = strpos($version, '//')) {
                             $source = $source . substr($version, $found);
                             $version = substr($version, 0, $found);
@@ -339,6 +340,7 @@ class Terraform11OutputParser implements TerraformPlanParserInterface
                 }
 
                 // If users mistakenly added //subpath AFTER the ?ref= then move it from version to source.
+                // This is invalid in terraform 0.12 code.
                 if ($found = strpos($version, '//')) {
                     $source = $source . substr($version, $found);
                     $version = substr($version, 0, $found);

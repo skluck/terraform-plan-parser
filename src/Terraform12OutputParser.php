@@ -346,6 +346,11 @@ class Terraform12OutputParser
                     $version = array_pop($matches);
                 }
 
+                // Remove after ?ref= from source, so source only contains path and/or subpaths
+                if ($found = strpos($source, '?ref=')) {
+                    $source = substr($source, 0, $found);
+                }
+
                 $modules[] = [
                     'name' => $module,
                     'source' => $source,
@@ -378,6 +383,11 @@ class Terraform12OutputParser
                 $version = null;
                 if (preg_match(self::MODULE_VERSION_REGEX, $source, $matches) === 1) {
                     $version = array_pop($matches);
+                }
+
+                // Remove after ?ref= from source, so source only contains path and/or subpaths
+                if ($found = strpos($source, '?ref=')) {
+                    $source = substr($source, 0, $found);
                 }
 
                 return [
