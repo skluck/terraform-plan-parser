@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/).
 > Sections: (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`)
 
+## [1.2.0] - 2020-01-23
+
+### Fixed
+
+- Terraform 0.12 Attributes with empty blocks will no longer raise errors. They will be skipped and not reported
+  since they do not represent a change.
+  > Example output of a plan:
+  > ```
+  >   - resource "aws_lb_listener" "listener" {
+  >       - arn = "example"
+  >
+  >       - timeouts {}
+  >     }
+  > ```
+
+### Changed
+- The version of a submodule will now be removed from module sources (This includes everything after `?ref=`).
+- If a module subpath has been added **after** the `?ref=` version, it will now be removed from the version and appended
+  to the source. This affects Terraform 0.11 only as this is invalid syntax in Terraform 0.12.
+
 ## [1.1.1] - 2020-01-02
 
 ### Fixed

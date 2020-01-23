@@ -111,7 +111,7 @@ into this:
         },
         {
             "name": "root",
-            "source": "git::https://git.example.com/terraform/module.git?ref=2.3.1",
+            "source": "git::https://git.example.com/terraform/module.git",
             "version": "2.3.1"
         }
     ]
@@ -171,7 +171,7 @@ var_export($output);
 //         },
 //         {
 //             "name": "root",
-//             "source": "git::https://git.example.com/terraform/mymodule2.git?ref=2.3.1",
+//             "source": "git::https://git.example.com/terraform/mymodule2.git",
 //             "version": "2.3.1"
 //         }
 //     ]
@@ -231,7 +231,7 @@ echo json_encode($output, JSON_PRETTY_PRINT);
 //         },
 //         {
 //             "name": "root",
-//             "source": "git::https://git.example.com/terraform/mymodule2.git?ref=2.3.1",
+//             "source": "git::https://git.example.com/terraform/mymodule2.git",
 //             "version": "2.3.1"
 //         }
 //     ]
