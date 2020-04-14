@@ -21,6 +21,7 @@ class Terraform12AttributeParser
 
     const OLD_NEW_SEPARATOR = ' -> ';
     const FORCES_NEW_RESOURCE_SUFFIX = ' # forces replacement';
+    const WHITESPACE_SUFFIX = ' # whitespace changes';
 
     const TYPE_STRING = 'string';
     const TYPE_COMPUTED = 'computed';
@@ -93,10 +94,7 @@ class Terraform12AttributeParser
      */
     public function isOpeningMultiLineTag($line): ?string
     {
-        $suffixIndex = strlen(self::FORCES_NEW_RESOURCE_SUFFIX) * -1;
-        if (substr($line, $suffixIndex) === self::FORCES_NEW_RESOURCE_SUFFIX) {
-            $line = substr($line, 0, $suffixIndex);
-        }
+        $line = $this->cleanLineFromSuffixes($line);
 
         if (preg_match(self::ATTRIBUTE_LINE_REGEX, $line) === 1) {
             foreach (array_keys(self::MULTILINE_OPENERS) as $opener) {
@@ -125,10 +123,7 @@ class Terraform12AttributeParser
      */
     public function isStandardAttribute($line)
     {
-        $suffixIndex = strlen(self::FORCES_NEW_RESOURCE_SUFFIX) * -1;
-        if (substr($line, $suffixIndex) === self::FORCES_NEW_RESOURCE_SUFFIX) {
-            $line = substr($line, 0, $suffixIndex);
-        }
+        $line = $this->cleanLineFromSuffixes($line);
 
         if (preg_match(self::ATTRIBUTE_LINE_REGEX, $line) !== 1) {
             return false;
@@ -410,6 +405,26 @@ class Terraform12AttributeParser
         }
 
         return null;
+    }
+
+    /**
+     * @param string $line
+     *
+     * @return line
+     */
+    private function cleanLineFromSuffixes($line)
+    {
+        $suffixIndex = strlen(self::FORCES_NEW_RESOURCE_SUFFIX) * -1;
+        if (substr($line, $suffixIndex) === self::FORCES_NEW_RESOURCE_SUFFIX) {
+            $line = substr($line, 0, $suffixIndex);
+        }
+
+        $suffixIndex = strlen(self::WHITESPACE_SUFFIX) * -1;
+        if (substr($line, $suffixIndex) === self::WHITESPACE_SUFFIX) {
+            $line = substr($line, 0, $suffixIndex);
+        }
+
+        return $line;
     }
 
     /**

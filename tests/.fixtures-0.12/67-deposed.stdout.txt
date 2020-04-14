@@ -1,0 +1,74 @@
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+------------------------------------------------------------------------
+
+Terraform will perform the following actions:
+
+  # aws_alb_target_group.ecs[0] (deposed object 08221b78) will be destroyed
+  - resource "aws_alb_target_group" "ecs" {
+      - arn                                = "arn:aws:elasticloadbalancing:us-west-2:0001000200030004:targetgroup/ecs-myapp/abcdefxyz" -> null
+      - deregistration_delay               = 10 -> null
+      - id                                 = "arn:aws:elasticloadbalancing:us-west-2:0001000200030004:targetgroup/ecs-myapp/abcdefxyz" -> null
+      - name                               = "ecs-myapp" -> null
+      - tags                               = {
+          - "application"  = "myapp"
+          - "environment"  = "test"
+          - "iac"          = "terraform"
+          - "owner-email"  = "terraform@example.com"
+        } -> null
+
+      - health_check {
+          - enabled             = true -> null
+          - healthy_threshold   = 2 -> null
+          - interval            = 15 -> null
+          - matcher             = "200" -> null
+          - path                = "/healthcheck" -> null
+          - port                = "traffic-port" -> null
+          - protocol            = "HTTP" -> null
+          - timeout             = 5 -> null
+          - unhealthy_threshold = 4 -> null
+        }
+
+      - stickiness {
+          - cookie_duration = 86400 -> null
+          - enabled         = false -> null
+          - type            = "lb_cookie" -> null
+        }
+    }
+
+  # aws_ecs_service.default will be created
+  + resource "aws_ecs_service" "default" {
+      + cluster                            = "arn:aws:ecs:us-west-2:0001000200030004:cluster/test-cluster-0001000200030004-us-west-2"
+      + deployment_maximum_percent         = 200
+      + deployment_minimum_healthy_percent = 100
+      + desired_count                      = 1
+      + launch_type                        = "FARGATE"
+      + platform_version                   = (known after apply)
+      + task_definition                    = "arn:aws:ecs:us-west-2:0001000200030004:task-definition/myapp:7"
+
+      + deployment_controller {
+          + type = "ECS"
+        }
+
+      + load_balancer {
+          + container_name   = "web"
+          + container_port   = 80
+          + target_group_arn = "arn:aws:elasticloadbalancing:us-west-2:0001000200030004:targetgroup/ecs-myapp/abcdefxyz"
+        }
+
+      + network_configuration {
+          + assign_public_ip = false
+          + security_groups  = [
+              + "sg-1234512345",
+            ]
+          + subnets          = [
+              + "subnet-abcdefabcdef",
+              + "subnet-xyzxyzxyzxyz",
+              + "subnet-abcxyz123456",
+            ]
+        }
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.

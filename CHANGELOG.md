@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/).
 > Sections: (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`)
 
+## [1.2.1] - 2020-04-14
+
+### Fixed
+
+- Terraform 0.12 Attributes containing a suffix of `# whitespace changes` will no longer raise errors.
+  > Example output of a plan:
+  > ```
+  > -/+ resource "aws_sns_topic" "sns_topic" {
+  >       ~ arn                                      = "arn:aws:sns:us-east-2:my-resource" -> (known after apply)
+  >       ~ delivery_policy                          = jsonencode( # whitespace changes
+  >             {
+  >                 http = {
+  >                     defaultHealthyRetryPolicy    = {
+  >                         maxDelayTarget     = 20
+  >                         numRetries         = 3
+  >                     }
+  >                 }
+  >             }
+  >         )
+  >     }
+  > ```
+
+- Terraform 0.12 Resources containing `(deposed object XXXXXXXX)` will no longer raise errors.
+  > Example output of a plan:
+  > ```
+  > # aws_alb_target_group.ecs[0] (deposed object 08221b78) will be destroyed
+  > - resource "aws_alb_target_group" "ecs" {
+  >     - arn    = "arn:aws:elasticloadbalancing:us-west-2:my-resource" -> null
+  >     - name   = "ecs-myapp" -> null
+  >   }
+  > ```
+
 ## [1.2.0] - 2020-01-23
 
 ### Fixed

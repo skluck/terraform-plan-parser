@@ -1,0 +1,193 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "destroy",
+            "name": "ecs[0]",
+            "type": "aws_alb_target_group",
+            "fully_qualified_name": "aws_alb_target_group.ecs[0]",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "arn": {
+                    "name": "arn",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "arn:aws:elasticloadbalancing:us-west-2:0001000200030004:targetgroup/ecs-myapp/abcdefxyz"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "deregistration_delay": {
+                    "name": "deregistration_delay",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "number",
+                        "value": "10"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "arn:aws:elasticloadbalancing:us-west-2:0001000200030004:targetgroup/ecs-myapp/abcdefxyz"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "name": {
+                    "name": "name",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "ecs-myapp"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "tags": {
+                    "name": "tags",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "map",
+                        "value": null
+                    }
+                },
+                "health_check": {
+                    "name": "health_check",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "block",
+                        "value": null
+                    }
+                },
+                "stickiness": {
+                    "name": "stickiness",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "block",
+                        "value": null
+                    }
+                }
+            }
+        },
+        {
+            "action": "create",
+            "name": "default",
+            "type": "aws_ecs_service",
+            "fully_qualified_name": "aws_ecs_service.default",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "cluster": {
+                    "name": "cluster",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "arn:aws:ecs:us-west-2:0001000200030004:cluster/test-cluster-0001000200030004-us-west-2"
+                    }
+                },
+                "deployment_maximum_percent": {
+                    "name": "deployment_maximum_percent",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "number",
+                        "value": "200"
+                    }
+                },
+                "deployment_minimum_healthy_percent": {
+                    "name": "deployment_minimum_healthy_percent",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "number",
+                        "value": "100"
+                    }
+                },
+                "desired_count": {
+                    "name": "desired_count",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "number",
+                        "value": "1"
+                    }
+                },
+                "launch_type": {
+                    "name": "launch_type",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "FARGATE"
+                    }
+                },
+                "platform_version": {
+                    "name": "platform_version",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "task_definition": {
+                    "name": "task_definition",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "arn:aws:ecs:us-west-2:0001000200030004:task-definition/myapp:7"
+                    }
+                },
+                "deployment_controller": {
+                    "name": "deployment_controller",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "block",
+                        "value": null
+                    }
+                },
+                "load_balancer": {
+                    "name": "load_balancer",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "block",
+                        "value": null
+                    }
+                },
+                "network_configuration": {
+                    "name": "network_configuration",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "block",
+                        "value": null
+                    }
+                }
+            }
+        }
+    ],
+    "modules": []
+}
