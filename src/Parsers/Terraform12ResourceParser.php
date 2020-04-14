@@ -28,8 +28,9 @@ class Terraform12ResourceParser
         '/^' .
             '#{1}' .
         '\ ' .
-            '([^ ]+)' .             # full name
-            '( is tainted\, so)?' . # tainted (optional)
+            '([^ ]+)' .                            # full name
+            '( is tainted\, so)?' .                # tainted (optional)
+            '( \(deposed object [a-z0-9]+\))?' .   # is deposed (optional)
         '\ ' .
             '(?:will|must) be' .
         '\ ' .
@@ -118,7 +119,8 @@ class Terraform12ResourceParser
 
         $name = $matches[0];
         $isTainted = $matches[1] ? true : false;
-        $symbol = $matches[2];
+        $isDeposed = $matches[2] ? true : false;
+        $symbol = $matches[3];
 
         return $this->parseResource($symbol, $name, $isTainted);
     }
