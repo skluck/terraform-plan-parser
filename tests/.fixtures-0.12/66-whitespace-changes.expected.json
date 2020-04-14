@@ -1,0 +1,62 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "replace",
+            "name": "default",
+            "type": "aws_ecr_lifecycle_policy",
+            "fully_qualified_name": "aws_ecr_lifecycle_policy.default",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "my-policy-name"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "policy": {
+                    "name": "policy",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": null
+                    }
+                },
+                "registry_id": {
+                    "name": "registry_id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "0001000200030004"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "repository": {
+                    "name": "repository",
+                    "force_new_resource": true,
+                    "old": {
+                        "type": "string",
+                        "value": "repo-name-1"
+                    },
+                    "new": {
+                        "type": "string",
+                        "value": "repo-name-2"
+                    }
+                }
+            }
+        }
+    ],
+    "modules": []
+}

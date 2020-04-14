@@ -43,6 +43,7 @@ class Terraform12OutputParserTest extends TestCase
             'with-modules' => '63-modules',
             'tainted'      => '64-tainted',
             'no-changes'   => '65-no-changes',
+            'whitespace'   => '66-whitespace-changes',
         ];
 
         return array_map(function ($case) use ($fixturesDir) {
