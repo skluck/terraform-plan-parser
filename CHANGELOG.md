@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/).
 > Sections: (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`)
 
+## [1.3.0] - 2021-02-03
+
+### Changed
+- Added support for PHP 8.
+- Updated unit tests to PHP Unit 9.
+
 ## [1.2.1] - 2020-04-14
 
 ### Fixed
