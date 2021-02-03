@@ -1,16 +1,6 @@
 version: 2.1
 
 executors:
-  php71:
-    working_directory: '~/project'
-    docker:
-      - image: 'circleci/php:7.1'
-
-  php72:
-    working_directory: '~/project'
-    docker:
-      - image: 'circleci/php:7.2'
-
   php73:
     working_directory: '~/project'
     docker:
@@ -20,6 +10,11 @@ executors:
     working_directory: '~/project'
     docker:
       - image: 'circleci/php:7.4'
+
+  php80:
+    working_directory: '~/project'
+    docker:
+      - image: 'circleci/php:8.0'
 
 commands:
     php--run-unit-tests:
@@ -57,82 +52,38 @@ workflows:
         jobs:
             - fetch_code
 
-            - php71_install_dependencies:
-                requires: [ fetch_code ]
-            - php71_testing:
-                requires: [ php71_install_dependencies ]
-
-            - php72_install_dependencies:
-                requires: [ fetch_code ]
-            - php72_testing:
-                requires: [ php72_install_dependencies ]
-
             - php73_install_dependencies:
                 requires: [ fetch_code ]
             - php73_testing:
                 requires: [ php73_install_dependencies ]
 
+            - php74_install_dependencies:
+                requires: [ fetch_code ]
+            - php74_testing:
+                requires: [ php74_install_dependencies ]
+
+            - php80_install_dependencies:
+                requires: [ fetch_code ]
+            - php80_testing:
+                requires: [ php80_install_dependencies ]
+
             - fan_in:
                 requires:
-                    - 'php71_testing'
-                    - 'php72_testing'
                     - 'php73_testing'
+                    - 'php74_testing'
+                    - 'php80_testing'
 
 jobs:
 
     fan_in:
-        executor: 'php71'
+        executor: 'php73'
         steps: [ { run: 'whoami' } ]
 
     fetch_code:
-        executor: 'php71'
+        executor: 'php73'
         steps:
             - checkout
             - *persist_workspace
-
-    php71_install_dependencies:
-        executor: 'php71'
-        steps:
-            - attach_workspace:
-                at: '.'
-
-            - restore_cache: { keys: [ 'v1-php71-deps-{{ checksum "composer.json" }}', 'v1-php71-deps' ] }
-
-            - run:
-                name: 'Install PHP dependencies'
-                command: 'composer --no-interaction --no-progress install && composer show'
-
-            - save_cache: { key: 'v1-php71-deps-{{ checksum "composer.json" }}', paths: [ 'vendor' ] }
-
-            - *persist_workspace
-
-    php71_testing:
-        executor: 'php71'
-        steps:
-            - php--run-static-analysis
-            - php--run-unit-tests
-
-    php72_install_dependencies:
-        executor: 'php72'
-        steps:
-            - attach_workspace:
-                at: '.'
-
-            - restore_cache: { keys: [ 'v1-php72-deps-{{ checksum "composer.json" }}', 'v1-php72-deps' ] }
-
-            - run:
-                name: 'Install PHP dependencies'
-                command: 'composer --no-interaction --no-progress install && composer show'
-
-            - save_cache: { key: 'v1-php72-deps-{{ checksum "composer.json" }}', paths: [ 'vendor' ] }
-
-            - *persist_workspace
-
-    php72_testing:
-        executor: 'php72'
-        steps:
-            - php--run-static-analysis
-            - php--run-unit-tests
 
     php73_install_dependencies:
         executor: 'php73'
@@ -153,6 +104,52 @@ jobs:
 
     php73_testing:
         executor: 'php73'
+        steps:
+            - php--run-static-analysis
+            - php--run-unit-tests
+
+    php74_install_dependencies:
+        executor: 'php74'
+        environment: [ {PHP_VERSION: 'php74'} ]
+        steps:
+            - attach_workspace:
+                at: '.'
+
+            - restore_cache: { keys: [ 'v1-php74-deps-{{ checksum "composer.json" }}', 'v1-php74-deps' ] }
+
+            - run:
+                name: 'Install PHP dependencies'
+                command: 'composer --no-interaction --no-progress install && composer show'
+
+            - save_cache: { key: 'v1-php74-deps-{{ checksum "composer.json" }}', paths: [ 'vendor' ] }
+
+            - *persist_workspace
+
+    php74_testing:
+        executor: 'php74'
+        steps:
+            - php--run-static-analysis
+            - php--run-unit-tests
+
+    php80_install_dependencies:
+        executor: 'php80'
+        environment: [ {PHP_VERSION: 'php80'} ]
+        steps:
+            - attach_workspace:
+                at: '.'
+
+            - restore_cache: { keys: [ 'v1-php80-deps-{{ checksum "composer.json" }}', 'v1-php80-deps' ] }
+
+            - run:
+                name: 'Install PHP dependencies'
+                command: 'composer --no-interaction --no-progress install && composer show'
+
+            - save_cache: { key: 'v1-php80-deps-{{ checksum "composer.json" }}', paths: [ 'vendor' ] }
+
+            - *persist_workspace
+
+    php80_testing:
+        executor: 'php80'
         steps:
             - php--run-static-analysis
             - php--run-unit-tests

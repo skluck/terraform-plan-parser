@@ -2,5 +2,6 @@
 /composer.lock
 
 /.phplint-cache
+/.phpunit/
 
 /temp*

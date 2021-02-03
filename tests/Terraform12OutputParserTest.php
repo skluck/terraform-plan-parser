@@ -2,7 +2,7 @@
 
 namespace SK\TerraformParser;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 
 class Terraform12OutputParserTest extends TestCase
 {
