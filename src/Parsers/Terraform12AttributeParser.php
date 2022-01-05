@@ -52,6 +52,12 @@ class Terraform12AttributeParser
      * > + timeouts {}
      * >
      *
+     * In Terraform 0.13+ unchanged blocks are not empty but rendered like this:
+     *
+     * > # (7 unchanged attributes hidden)
+     * >
+     * > # (1 unchanged block hidden)
+     *
      * @param string $line
      *
      * @return bool

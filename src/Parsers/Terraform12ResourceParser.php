@@ -61,11 +61,18 @@ class Terraform12ResourceParser
         '/';
 
     const MODULE_USELESS_COMMENT = '# (config refers to values not yet known)';
+    const UNCHANGED_REGEX = '/^\# \([\d]+ unchanged [a-z]+ hidden\)$/';
 
     const ERR_FAILED_PARSE = 'Failed to parse resource header';
     const ERR_FAILED_PARSE_COMMENT = 'Failed to parse resource comment';
 
     /**
+     * In Terraform 0.13+ unchanged blocks are not empty but rendered like this:
+     *
+     * > # (7 unchanged attributes hidden)
+     * >
+     * > # (1 unchanged block hidden)
+     *
      * @param string $line
      *
      * @return bool
@@ -74,6 +81,11 @@ class Terraform12ResourceParser
     {
         // Not necessary information
         if (ltrim($line) === self::MODULE_USELESS_COMMENT) {
+            return true;
+        }
+
+        // Not necessary information
+        if (preg_match(self::UNCHANGED_REGEX, ltrim($line)) === 1) {
             return true;
         }
 

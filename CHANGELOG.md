@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/).
 > Sections: (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`)
 
+## [1.3.1] - 2022-01-05
+
+### Fixed
+- Fixed parsing of unchanged blocks used in Terraform 0.13 and above:
+  > Example output of a plan:
+  > ```
+  > -/+ resource "aws_sns_topic" "sns_topic" {
+  >       ~ name   = "from this" ->  to this"
+  >
+  >       # (2 unchanged attributes hidden)
+  >
+  >       # (1 unchanged block hidden)
+  > }
+  > ```
+
 ## [1.3.0] - 2021-02-03
 
 ### Changed

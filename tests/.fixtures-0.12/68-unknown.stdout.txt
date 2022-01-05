@@ -1,0 +1,2094 @@
+[0;33m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
+[0;33m┃  UPDATING TERRAFORM                                                      ┃[0m
+[0;33m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛[0m
+Current version: "0.11.13"
+Switching to "0.12"
+[0;33m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
+[0;33m┃  UPDATING TERRAGRUNT                                                     ┃[0m
+[0;33m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛[0m
+Current version: "0.18.2"
+Switching to "0.22"
+[0;33m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
+[0;33m┃  INSTRUCTIONS               "--no-instructions" to suppress this message ┃[0m
+[0;33m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛[0m
+Terragrunt is a thin wrapper for Terraform that provides extra tools for keeping your Terraform
+configurations DRY, working with multiple Terraform modules, and managing remote state.
+
+Each terragrunt module you execute should have a hierarchy that follows this specification:
+
+[0;m- ./[0m[0;36m$account_number[0m[0;m/[0m[0;36m$region_name[0m[0;m/[0m[0;36m$environment_name[0m[0;m/[0m[0;36m$module_name[0m
+
+Parameters:
+
+[0;32m- [0m[0;36m$account_number   [0m[0;32m: AWS account[0m
+[0;32m                      Set with $AWS_ACCOUNT or --account "$account_number"[0m
+[0;m[0m
+[0;32m- [0m[0;36m$region_name      [0m[0;32m: AWS region name or "_global" for region-less services (such as IAM or Route53)[0m
+[0;32m                      Set with $AWS_REGION or --region "$region_name"[0m
+[0;32m                      Override with $HAL_METADATA_REGION ("region" build parameter)[0m
+
+[0;32m- [0m[0;36m$environment_name [0m[0;32m: dev, test, beta, prod, etc (Do not use "-aws" suffix)[0m
+[0;32m                      Automatically set with $HAL_ENV[0m
+[0;32m                      Override with --environment "$environment_name"[0m
+
+[0;32m- [0m[0;36m$module_name      [0m[0;32m: The name of the infrastructure module to run[0m
+[0;32m                      Set with $HAL_METADATA_MODULE ("module" build parameter) or --module "$module_name"[0m
+
+Other options:
+- Prefix a value to "$account_number" with $AWS_ACCOUNT_PREFIX
+- Prefix a value to "$environment_name" with $ENVIRONMENT_PREFIX
+
+Destroying infrastructure:
+- Set $HAL_METADATA_DESTROY to any non-empty value such as "1" ("destroy" build parameter)
+  This will trigger a terragrunt destroy.
+
+Running commands other than plan|apply|destroy:
+- Run a custom terragrunt command by setting $HAL_METADATA_CUSTOM_COMMAND ("custom_command" build parameter)
+- To run a custom command during deploy, set $HAL_METADATA_DEPLOY_COMMAND ("deploy_command" push parameter)
+
+Adding targets to run commands against a subset of resources:
+- Set $HAL_METADATA_PLAN_TARGET ("plan_target" build parameter) and Hal will automatically set -target="your_value".
+- Use $HAL_METADATA_PLAN_TARGET_1 ("plan_target_1 build parameter") to set many targets (1 through 10).
+
+------------------------------------------------------------------------------------------------------------------------
+
+For multi-module projects $HAL_METADATA_MODULE is always required and should not be hardcoded.
+- Set "module" as a required build parameter under Hal > Select Your Application > Manage Application > Edit Application
+
+Examples of projects with this infrastructure layout:
+- [0;32mhttps://git.rockfin.com/terraform/terraform-starter-kit[0m
+- [0;32mhttps://github.com/gruntwork-io/terragrunt-infrastructure-live-example[0m
+
+[0;33m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
+[0;33m┃  TERRAFORM VERSION                                                       ┃[0m
+[0;33m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛[0m
+Terraform v0.12.28
+
+Your version of Terraform is out of date! The latest version
+is 0.13.3. You can update by downloading from https://www.terraform.io/downloads.html
+terragrunt version v0.22.5
+[0;33m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
+[0;33m┃  VALIDATE PARAMETERS                                                     ┃[0m
+[0;33m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛[0m
+Terraform state prefix: 808835449166.us-west-2.sandbox.vpc-us-west-2
+
+[0;33m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
+[0;33m┃  VALIDATE INFRASTRUCTURE PROJECT                                         ┃[0m
+[0;33m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛[0m
+Terragrunt project found: /build/808835449166/us-west-2/sandbox/vpc-us-west-2
+
+[0;33m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
+[0;33m┃  PREPARE INFRASTRUCTURE PROJECT                                          ┃[0m
+[0;33m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛[0m
+
+>> Configuring base terragrunt configuration
+No base terragrunt.hcl found in "/build/808835449166"
+Setting base "terragrunt.hcl"
+
+>> Configuring module terragrunt configuration
+Found module: git::https://git.rockfin.com/terraform/aws-vpc-tf.git
+Found version: 2.5.0
+
+Setting module "terragrunt.hcl"
+
+>> Configuring Backend
+Setting backend to "remote-api"
+[0;33m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
+[0;33m┃  TERRAFORM VALIDATE                                                      ┃[0m
+[0;33m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛[0m
+[terragrunt] 2020/09/24 14:54:19 Reading Terragrunt config file at /build/808835449166/us-west-2/sandbox/vpc-us-west-2/terragrunt.hcl
+[terragrunt] [/build/808835449166/us-west-2/sandbox/vpc-us-west-2] 2020/09/24 14:54:19 Detected 1 Hooks
+[terragrunt] [/build/808835449166/us-west-2/sandbox/vpc-us-west-2] 2020/09/24 14:54:19 Running command: terraform --version
+[terragrunt] 2020/09/24 14:54:19 WARNING: no double-slash (//) found in source URL /terraform/aws-vpc-tf.git. Relative paths in downloaded Terraform code may not work.
+[terragrunt] 2020/09/24 14:54:19 Downloading Terraform configurations from git::https://git.rockfin.com/terraform/aws-vpc-tf.git?ref=2.5.0 into /build/808835449166/us-west-2/sandbox/vpc-us-west-2/.terragrunt-****************************************-8JpqXGQPWM3f7yXR21WE
+[terragrunt] [/build/808835449166/us-west-2/sandbox/vpc-us-west-2] 2020/09/24 14:54:20 Detected 1 Hooks
+[terragrunt] [/build/808835449166/us-west-2/sandbox/vpc-us-west-2] 2020/09/24 14:54:20 Executing hook: add_backend
+[terragrunt] [/build/808835449166/us-west-2/sandbox/vpc-us-west-2] 2020/09/24 14:54:20 Running command: cp /build/808835449166/us-west-2/sandbox/vpc-us-west-2/backend.tf /build/808835449166/us-west-2/sandbox/vpc-us-west-2/.terragrunt-****************************************-8JpqXGQPWM3f7yXR21WE/backend.tf
+[terragrunt] 2020/09/24 14:54:20 Copying files from /build/808835449166/us-west-2/sandbox/vpc-us-west-2 into /build/808835449166/us-west-2/sandbox/vpc-us-west-2/.terragrunt-****************************************-8JpqXGQPWM3f7yXR21WE
+[terragrunt] 2020/09/24 14:54:20 Setting working directory to /build/808835449166/us-west-2/sandbox/vpc-us-west-2/.terragrunt-****************************************-8JpqXGQPWM3f7yXR21WE
+[terragrunt] [/build/808835449166/us-west-2/sandbox/vpc-us-west-2] 2020/09/24 14:54:20 Running command: terraform init -backend-config=/terraform/backend.tfvars -lock-timeout=5m
+[0m[1mInitializing modules...[0m
+Downloading git::https://git.rockfin.com/terraform/aws-tags-tf.git?ref=1.1.0 for tags...
+- tags in .terraform/modules/tags
+
+[0m[1mInitializing the backend...[0m
+[0m[32m
+Successfully configured the backend "http"! Terraform will automatically
+use this backend unless the backend configuration changes.[0m
+
+[0m[1mInitializing provider plugins...[0m
+- Checking for available provider plugins...
+- Downloading plugin for provider "aws" (hashicorp/aws) 2.66.0...
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[terragrunt] [/build/808835449166/us-west-2/sandbox/vpc-us-west-2] 2020/09/24 14:54:24 Detected 1 Hooks
+[terragrunt] [/build/808835449166/us-west-2/sandbox/vpc-us-west-2] 2020/09/24 14:54:24 Executing hook: add_backend
+[terragrunt] [/build/808835449166/us-west-2/sandbox/vpc-us-west-2] 2020/09/24 14:54:24 Running command: cp /build/808835449166/us-west-2/sandbox/vpc-us-west-2/backend.tf /build/808835449166/us-west-2/sandbox/vpc-us-west-2/.terragrunt-****************************************-8JpqXGQPWM3f7yXR21WE/backend.tf
+[terragrunt] 2020/09/24 14:54:24 Running command: terraform validate
+[32m[1mSuccess![0m The configuration is valid.
+[0m
+[terragrunt] 2020/09/24 14:54:27 Detected 1 Hooks
+[0;33m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
+[0;33m┃  TERRAFORM PLAN                                                          ┃[0m
+[0;33m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛[0m
+Running: terragrunt plan
+[terragrunt] 2020/09/24 14:54:27 Reading Terragrunt config file at /build/808835449166/us-west-2/sandbox/vpc-us-west-2/terragrunt.hcl
+[terragrunt] [/build/808835449166/us-west-2/sandbox/vpc-us-west-2] 2020/09/24 14:54:27 Detected 1 Hooks
+[terragrunt] [/build/808835449166/us-west-2/sandbox/vpc-us-west-2] 2020/09/24 14:54:27 Running command: terraform --version
+[terragrunt] 2020/09/24 14:54:27 WARNING: no double-slash (//) found in source URL /terraform/aws-vpc-tf.git. Relative paths in downloaded Terraform code may not work.
+[terragrunt] 2020/09/24 14:54:27 Terraform files in /build/808835449166/us-west-2/sandbox/vpc-us-west-2/.terragrunt-****************************************-8JpqXGQPWM3f7yXR21WE are up to date. Will not download again.
+[terragrunt] 2020/09/24 14:54:27 Copying files from /build/808835449166/us-west-2/sandbox/vpc-us-west-2 into /build/808835449166/us-west-2/sandbox/vpc-us-west-2/.terragrunt-****************************************-8JpqXGQPWM3f7yXR21WE
+[terragrunt] 2020/09/24 14:54:27 Setting working directory to /build/808835449166/us-west-2/sandbox/vpc-us-west-2/.terragrunt-****************************************-8JpqXGQPWM3f7yXR21WE
+[terragrunt] 2020/09/24 14:54:27 Skipping var-file /build/808835449166/us-west-2/sandbox/vpc-us-west-2/ignore as it does not exist
+[terragrunt] 2020/09/24 14:54:27 Running command: terraform plan -lock-timeout=5m -var-file=/build/808835449166/us-west-2/sandbox/vpc-us-west-2/../../../account.tfvars -var-file=/build/808835449166/us-west-2/sandbox/vpc-us-west-2/../../region.tfvars -out=/build/808835449166/us-west-2/sandbox/vpc-us-west-2/terraform.tfplan
+[0m[1mRefreshing Terraform state in-memory prior to plan...[0m
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+[0m
+[0m[1mdata.aws_caller_identity.current: Refreshing state...[0m
+[0m[1maws_eip.nat_gateway_1_eip: Refreshing state... [id=eipalloc-029cec7a02c99667d][0m
+[0m[1maws_eip.nat_gateway_2_eip: Refreshing state... [id=eipalloc-0c13cf6a24891885c][0m
+[0m[1maws_eip.nat_gateway_3_eip: Refreshing state... [id=eipalloc-05d130ceaffaaaec0][0m
+[0m[1mdata.aws_availability_zones.available: Refreshing state...[0m
+[0m[1maws_vpc.main: Refreshing state... [id=vpc-0030b6853e96d7efc][0m
+[0m[1maws_flow_log.vpc_flow_log: Refreshing state... [id=fl-0d93d2fad78bb38c2][0m
+[0m[1maws_route_table.private_route_table_az2: Refreshing state... [id=rtb-0c71a2421a6024437][0m
+[0m[1maws_cloudwatch_log_group.vpc_flow_log_group: Refreshing state... [id=/vpc/flowlogs/vpc-0030b6853e96d7efc][0m
+[0m[1maws_subnet.private_pers_subnet_az1: Refreshing state... [id=subnet-08b27a7ded5754330][0m
+[0m[1maws_route_table.private_route_table_az1: Refreshing state... [id=rtb-00303dfb7fd01f618][0m
+[0m[1maws_subnet.private_subnet_az3: Refreshing state... [id=subnet-09588513908254371][0m
+[0m[1maws_subnet.public_subnet_az2: Refreshing state... [id=subnet-09bd7f30ada5f9849][0m
+[0m[1maws_route_table.private_route_table_az3: Refreshing state... [id=rtb-0634c94d430ed2b0e][0m
+[0m[1maws_subnet.private_pers_subnet_az2: Refreshing state... [id=subnet-0a695426755179955][0m
+[0m[1maws_subnet.private_subnet_az2: Refreshing state... [id=subnet-0e5344f39b8763c35][0m
+[0m[1maws_internet_gateway.main: Refreshing state... [id=igw-0991017857c058a66][0m
+[0m[1maws_subnet.public_subnet_az1: Refreshing state... [id=subnet-0cdadf5b7f6217ff5][0m
+[0m[1maws_subnet.private_pers_subnet_az3: Refreshing state... [id=subnet-009ba77014a063b99][0m
+[0m[1maws_subnet.private_subnet_az1: Refreshing state... [id=subnet-04a59f5b9238e0c5c][0m
+[0m[1maws_subnet.public_subnet_az3: Refreshing state... [id=subnet-010d334b048615059][0m
+[0m[1maws_ssm_parameter.private_route_table_az2: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_az2][0m
+[0m[1maws_ssm_parameter.private_route_table_az1: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_az1][0m
+[0m[1maws_vpc_endpoint.private_s3: Refreshing state... [id=vpce-0f5cad223b2b34ef8][0m
+[0m[1maws_ssm_parameter.private_route_tables: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_tables][0m
+[0m[1maws_vpc_endpoint.private_dynamodb: Refreshing state... [id=vpce-0c92539874f03621e][0m
+[0m[1maws_ssm_parameter.private_route_table_az3: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_az3][0m
+[0m[1maws_ssm_parameter.public_subnet_az2: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az2][0m
+[0m[1maws_route_table_association.public_2: Refreshing state... [id=rtbassoc-06c35810be0794b14][0m
+[0m[1maws_route_table_association.private_2: Refreshing state... [id=rtbassoc-0d9787688fd7acd5b][0m
+[0m[1maws_ssm_parameter.private_subnet_az2: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az2][0m
+[0m[1maws_route_table_association.private_3: Refreshing state... [id=rtbassoc-0186d8a4a99c423a2][0m
+[0m[1maws_ssm_parameter.private_subnet_az3: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az3][0m
+[0m[1maws_route_table_association.private_pers_1: Refreshing state... [id=rtbassoc-03c26ebce6d6a9abd][0m
+[0m[1maws_ssm_parameter.private_pers_subnet_az1: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az1][0m
+[0m[1maws_route_table_association.private_pers_2: Refreshing state... [id=rtbassoc-0c0ca29ceb82fe8ed][0m
+[0m[1maws_ssm_parameter.private_pers_subnet_az2: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az2][0m
+[0m[1maws_default_route_table.main: Refreshing state... [id=rtb-05e603e8c7880b18c][0m
+[0m[1maws_nat_gateway.nat_gateway_2: Refreshing state... [id=nat-0a25450086574284c][0m
+[0m[1maws_ssm_parameter.private_pers_subnet_az3: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az3][0m
+[0m[1maws_route_table_association.private_pers_3: Refreshing state... [id=rtbassoc-01c6836bf300c4606][0m
+[0m[1maws_ssm_parameter.private_pers_subnets: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_pers_subnets][0m
+[0m[1maws_route_table_association.public_1: Refreshing state... [id=rtbassoc-00586326fb9ecef3b][0m
+[0m[1maws_ssm_parameter.public_subnet_az1: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az1][0m
+[0m[1maws_nat_gateway.nat_gateway_1: Refreshing state... [id=nat-0fbd6e6d454bd8246][0m
+[0m[1maws_ssm_parameter.public_subnet_az3: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az3][0m
+[0m[1maws_route_table_association.public_3: Refreshing state... [id=rtbassoc-0b6dc4a709493a4f9][0m
+[0m[1maws_network_acl.main: Refreshing state... [id=acl-0ed446c94d06fb71a][0m
+[0m[1maws_ssm_parameter.public_subnets: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/routetable/public_subnets][0m
+[0m[1maws_nat_gateway.nat_gateway_3: Refreshing state... [id=nat-0e9a9a8fe2bb8fb76][0m
+[0m[1maws_default_network_acl.default: Refreshing state... [id=acl-0f6aec8448e6887f4][0m
+[0m[1maws_ssm_parameter.private_subnets: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_subnets][0m
+[0m[1maws_ssm_parameter.private_subnet_az1: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az1][0m
+[0m[1maws_route_table_association.private_1: Refreshing state... [id=rtbassoc-0a66e5b963b4de2a2][0m
+[0m[1maws_route.private_route_nat_az2: Refreshing state... [id=r-rtb-0c71a2421a60244371080289494][0m
+[0m[1maws_vpc_endpoint.public_dynamodb: Refreshing state... [id=vpce-020d0edbd0c1d4159][0m
+[0m[1maws_ssm_parameter.route_table_public: Refreshing state... [id=/iac/vpc/vpc-0030b6853e96d7efc/routetable/public][0m
+[0m[1maws_vpc_endpoint.public_s3: Refreshing state... [id=vpce-0e0076e5f697b3d45][0m
+[0m[1maws_route.private_route_nat_az1: Refreshing state... [id=r-rtb-00303dfb7fd01f6181080289494][0m
+[0m[1maws_route.private_route_nat_az3: Refreshing state... [id=r-rtb-0634c94d430ed2b0e1080289494][0m
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  [32m+[0m create
+  [33m~[0m update in-place
+[31m-[0m/[32m+[0m destroy and then create replacement
+[0m
+Terraform will perform the following actions:
+
+[1m  # aws_cloudwatch_log_group.vpc_flow_log_group[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_cloudwatch_log_group" "vpc_flow_log_group" {
+        [1m[0marn[0m[0m               = "arn:aws:logs:us-west-2:808835449166:log-group:/vpc/flowlogs/vpc-0030b6853e96d7efc:*"
+        [1m[0mid[0m[0m                = "/vpc/flowlogs/vpc-0030b6853e96d7efc"
+        [1m[0mname[0m[0m              = "/vpc/flowlogs/vpc-0030b6853e96d7efc"
+      [33m~[0m [0m[1m[0mretention_in_days[0m[0m = 0 [33m->[0m [0m7
+      [33m~[0m [0m[1m[0mtags[0m[0m              = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+    }
+
+[1m  # aws_default_network_acl.default[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_default_network_acl" "default" {
+        [1m[0mdefault_network_acl_id[0m[0m = "acl-0f6aec8448e6887f4"
+        [1m[0mid[0m[0m                     = "acl-0f6aec8448e6887f4"
+        [1m[0mowner_id[0m[0m               = "808835449166"
+      [33m~[0m [0m[1m[0msubnet_ids[0m[0m             = [
+          [31m-[0m [0m"subnet-009ba77014a063b99",
+          [31m-[0m [0m"subnet-04a59f5b9238e0c5c",
+          [31m-[0m [0m"subnet-08b27a7ded5754330",
+          [31m-[0m [0m"subnet-09588513908254371",
+          [31m-[0m [0m"subnet-0a695426755179955",
+          [31m-[0m [0m"subnet-0e5344f39b8763c35",
+        ] [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mtags[0m[0m                   = {
+            "Description"                   = "Default Network ACL for vpc-0030b6853e96d7efc - Only contains private subnets"
+            "Name"                          = "Terratest Sandbox VPC"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m                 = "vpc-0030b6853e96d7efc"
+
+        egress {
+            [1m[0maction[0m[0m     = "allow"
+            [1m[0mcidr_block[0m[0m = "0.0.0.0/0"
+            [1m[0mfrom_port[0m[0m  = 0
+            [1m[0micmp_code[0m[0m  = 0
+            [1m[0micmp_type[0m[0m  = 0
+            [1m[0mprotocol[0m[0m   = "-1"
+            [1m[0mrule_no[0m[0m    = 100
+            [1m[0mto_port[0m[0m    = 0
+        }
+
+        ingress {
+            [1m[0maction[0m[0m     = "allow"
+            [1m[0mcidr_block[0m[0m = "0.0.0.0/0"
+            [1m[0mfrom_port[0m[0m  = 0
+            [1m[0micmp_code[0m[0m  = 0
+            [1m[0micmp_type[0m[0m  = 0
+            [1m[0mprotocol[0m[0m   = "-1"
+            [1m[0mrule_no[0m[0m    = 1000
+            [1m[0mto_port[0m[0m    = 0
+        }
+    }
+
+[1m  # aws_default_route_table.main[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_default_route_table" "main" {
+        [1m[0mdefault_route_table_id[0m[0m = "rtb-05e603e8c7880b18c"
+        [1m[0mid[0m[0m                     = "rtb-05e603e8c7880b18c"
+        [1m[0mowner_id[0m[0m               = "808835449166"
+        [1m[0mpropagating_vgws[0m[0m       = []
+        [1m[0mroute[0m[0m                  = [
+            {
+                cidr_block                = "0.0.0.0/0"
+                egress_only_gateway_id    = ""
+                gateway_id                = "igw-0991017857c058a66"
+                instance_id               = ""
+                ipv6_cidr_block           = ""
+                nat_gateway_id            = ""
+                network_interface_id      = ""
+                transit_gateway_id        = ""
+                vpc_peering_connection_id = ""
+            },
+        ]
+      [33m~[0m [0m[1m[0mtags[0m[0m                   = {
+            "Name"                          = "vpc-0030b6853e96d7efc-public-route-table"
+            "Tier"                          = "Public"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m                 = "vpc-0030b6853e96d7efc"
+    }
+
+[1m  # aws_default_security_group.default[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_default_security_group" "default" {
+      [32m+[0m [0m[1m[0marn[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0megress[0m[0m                 = []
+      [32m+[0m [0m[1m[0mid[0m[0m                     = (known after apply)
+      [32m+[0m [0m[1m[0mingress[0m[0m                = []
+      [32m+[0m [0m[1m[0mname[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0mowner_id[0m[0m               = (known after apply)
+      [32m+[0m [0m[1m[0mrevoke_rules_on_delete[0m[0m = false
+      [32m+[0m [0m[1m[0mtags[0m[0m                   = {
+          [32m+[0m [0m"Name"                          = "vpc-0030b6853e96d7efc-default-security-group"
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+      [32m+[0m [0m[1m[0mvpc_id[0m[0m                 = "vpc-0030b6853e96d7efc"
+    }
+
+[1m  # aws_eip.nat_gateway_1_eip[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_eip" "nat_gateway_1_eip" {
+        [1m[0massociation_id[0m[0m    = "eipassoc-0f2716d5c821c624b"
+        [1m[0mdomain[0m[0m            = "vpc"
+        [1m[0mid[0m[0m                = "eipalloc-029cec7a02c99667d"
+        [1m[0mnetwork_interface[0m[0m = "eni-03a23aa1f710974de"
+        [1m[0mprivate_dns[0m[0m       = "ip-10-151-1-192.us-west-2.compute.internal"
+        [1m[0mprivate_ip[0m[0m        = "10.151.1.192"
+        [1m[0mpublic_dns[0m[0m        = "ec2-52-25-10-103.us-west-2.compute.amazonaws.com"
+        [1m[0mpublic_ip[0m[0m         = "52.25.10.103"
+        [1m[0mpublic_ipv4_pool[0m[0m  = "amazon"
+      [33m~[0m [0m[1m[0mtags[0m[0m              = {
+            "Description"                   = "Terratest Sandbox VPC"
+            "Name"                          = "Terratest Sandbox VPC"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc[0m[0m               = true
+
+        timeouts {}
+    }
+
+[1m  # aws_eip.nat_gateway_2_eip[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_eip" "nat_gateway_2_eip" {
+        [1m[0massociation_id[0m[0m    = "eipassoc-06f531e169e51376e"
+        [1m[0mdomain[0m[0m            = "vpc"
+        [1m[0mid[0m[0m                = "eipalloc-0c13cf6a24891885c"
+        [1m[0mnetwork_interface[0m[0m = "eni-0dba24db4a19b8cf3"
+        [1m[0mprivate_dns[0m[0m       = "ip-10-151-4-28.us-west-2.compute.internal"
+        [1m[0mprivate_ip[0m[0m        = "10.151.4.28"
+        [1m[0mpublic_dns[0m[0m        = "ec2-52-10-38-215.us-west-2.compute.amazonaws.com"
+        [1m[0mpublic_ip[0m[0m         = "52.10.38.215"
+        [1m[0mpublic_ipv4_pool[0m[0m  = "amazon"
+      [33m~[0m [0m[1m[0mtags[0m[0m              = {
+            "Description"                   = "Terratest Sandbox VPC"
+            "Name"                          = "Terratest Sandbox VPC"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc[0m[0m               = true
+
+        timeouts {}
+    }
+
+[1m  # aws_eip.nat_gateway_3_eip[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_eip" "nat_gateway_3_eip" {
+        [1m[0massociation_id[0m[0m    = "eipassoc-0529325e21d1246ab"
+        [1m[0mdomain[0m[0m            = "vpc"
+        [1m[0mid[0m[0m                = "eipalloc-05d130ceaffaaaec0"
+        [1m[0mnetwork_interface[0m[0m = "eni-0887133237615abf5"
+        [1m[0mprivate_dns[0m[0m       = "ip-10-151-9-40.us-west-2.compute.internal"
+        [1m[0mprivate_ip[0m[0m        = "10.151.9.40"
+        [1m[0mpublic_dns[0m[0m        = "ec2-52-35-212-124.us-west-2.compute.amazonaws.com"
+        [1m[0mpublic_ip[0m[0m         = "52.35.212.124"
+        [1m[0mpublic_ipv4_pool[0m[0m  = "amazon"
+      [33m~[0m [0m[1m[0mtags[0m[0m              = {
+            "Description"                   = "Terratest Sandbox VPC"
+            "Name"                          = "Terratest Sandbox VPC"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc[0m[0m               = true
+
+        timeouts {}
+    }
+
+[1m  # aws_flow_log.vpc_flow_log[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_flow_log" "vpc_flow_log" {
+        [1m[0mid[0m[0m                       = "fl-0d93d2fad78bb38c2"
+        [1m[0mlog_destination[0m[0m          = "arn:aws:s3:::rockfin-security-vpc-flow-logs-808835449166-us-east-2"
+        [1m[0mlog_destination_type[0m[0m     = "s3"
+        [1m[0mlog_format[0m[0m               = "${version} ${account-id} ${interface-id} ${srcaddr} ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} ${end} ${action} ${log-status}"
+        [1m[0mmax_aggregation_interval[0m[0m = 600
+      [33m~[0m [0m[1m[0mtags[0m[0m                     = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtraffic_type[0m[0m             = "ALL"
+        [1m[0mvpc_id[0m[0m                   = "vpc-0030b6853e96d7efc"
+    }
+
+[1m  # aws_flow_log.vpc_flow_log_cloudwatch[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_flow_log" "vpc_flow_log_cloudwatch" {
+      [32m+[0m [0m[1m[0miam_role_arn[0m[0m             = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m                       = (known after apply)
+      [32m+[0m [0m[1m[0mlog_destination[0m[0m          = "arn:aws:logs:us-west-2:808835449166:log-group:/vpc/flowlogs/vpc-0030b6853e96d7efc"
+      [32m+[0m [0m[1m[0mlog_destination_type[0m[0m     = "cloud-watch-logs"
+      [32m+[0m [0m[1m[0mlog_format[0m[0m               = (known after apply)
+      [32m+[0m [0m[1m[0mlog_group_name[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mmax_aggregation_interval[0m[0m = 600
+      [32m+[0m [0m[1m[0mtags[0m[0m                     = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+      [32m+[0m [0m[1m[0mtraffic_type[0m[0m             = "ALL"
+      [32m+[0m [0m[1m[0mvpc_id[0m[0m                   = "vpc-0030b6853e96d7efc"
+    }
+
+[1m  # aws_iam_role.vpc_flow_role[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_role" "vpc_flow_role" {
+      [32m+[0m [0m[1m[0marn[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0massume_role_policy[0m[0m    = jsonencode(
+            {
+              [32m+[0m [0mStatement = [
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction    = "sts:AssumeRole"
+                      [32m+[0m [0mEffect    = "Allow"
+                      [32m+[0m [0mPrincipal = {
+                          [32m+[0m [0mService = "vpc-flow-logs.amazonaws.com"
+                        }
+                      [32m+[0m [0mSid       = ""
+                    },
+                ]
+              [32m+[0m [0mVersion   = "2012-10-17"
+            }
+        )
+      [32m+[0m [0m[1m[0mcreate_date[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mforce_detach_policies[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mmax_session_duration[0m[0m  = 3600
+      [32m+[0m [0m[1m[0mname[0m[0m                  = "role-vpc-0030b6853e96d7efc-vpc-logs"
+      [32m+[0m [0m[1m[0mpath[0m[0m                  = "/iac/vpc/"
+      [32m+[0m [0m[1m[0mtags[0m[0m                  = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+      [32m+[0m [0m[1m[0munique_id[0m[0m             = (known after apply)
+    }
+
+[1m  # aws_iam_role_policy.vpc_flow_log_policy[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_role_policy" "vpc_flow_log_policy" {
+      [32m+[0m [0m[1m[0mid[0m[0m     = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m   = "policy-vpc-flow-log"
+      [32m+[0m [0m[1m[0mpolicy[0m[0m = jsonencode(
+            {
+              [32m+[0m [0mStatement = [
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction   = [
+                          [32m+[0m [0m"logs:CreateLogGroup",
+                          [32m+[0m [0m"logs:CreateLogStream",
+                          [32m+[0m [0m"logs:PutLogEvents",
+                          [32m+[0m [0m"logs:DescribeLogGroups",
+                          [32m+[0m [0m"logs:DescribeLogStreams",
+                          [32m+[0m [0m"iam:PassRole",
+                        ]
+                      [32m+[0m [0mEffect   = "Allow"
+                      [32m+[0m [0mResource = "*"
+                    },
+                ]
+              [32m+[0m [0mVersion   = "2012-10-17"
+            }
+        )
+      [32m+[0m [0m[1m[0mrole[0m[0m   = (known after apply)
+    }
+
+[1m  # aws_internet_gateway.main[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_internet_gateway" "main" {
+        [1m[0mid[0m[0m       = "igw-0991017857c058a66"
+        [1m[0mowner_id[0m[0m = "808835449166"
+      [33m~[0m [0m[1m[0mtags[0m[0m     = {
+            "Name"                          = "vpc-0030b6853e96d7efc-igw"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m   = "vpc-0030b6853e96d7efc"
+    }
+
+[1m  # aws_nat_gateway.nat_gateway_1[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_nat_gateway" "nat_gateway_1" {
+        [1m[0mallocation_id[0m[0m        = "eipalloc-029cec7a02c99667d"
+        [1m[0mid[0m[0m                   = "nat-0fbd6e6d454bd8246"
+        [1m[0mnetwork_interface_id[0m[0m = "eni-03a23aa1f710974de"
+        [1m[0mprivate_ip[0m[0m           = "10.151.1.192"
+        [1m[0mpublic_ip[0m[0m            = "52.25.10.103"
+        [1m[0msubnet_id[0m[0m            = "subnet-0cdadf5b7f6217ff5"
+      [33m~[0m [0m[1m[0mtags[0m[0m                 = {
+            "Name"                          = "vpc-0030b6853e96d7efc-nat-gateway-az1"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+    }
+
+[1m  # aws_nat_gateway.nat_gateway_2[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_nat_gateway" "nat_gateway_2" {
+        [1m[0mallocation_id[0m[0m        = "eipalloc-0c13cf6a24891885c"
+        [1m[0mid[0m[0m                   = "nat-0a25450086574284c"
+        [1m[0mnetwork_interface_id[0m[0m = "eni-0dba24db4a19b8cf3"
+        [1m[0mprivate_ip[0m[0m           = "10.151.4.28"
+        [1m[0mpublic_ip[0m[0m            = "52.10.38.215"
+        [1m[0msubnet_id[0m[0m            = "subnet-09bd7f30ada5f9849"
+      [33m~[0m [0m[1m[0mtags[0m[0m                 = {
+            "Name"                          = "vpc-0030b6853e96d7efc-nat-gateway-az2"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+    }
+
+[1m  # aws_nat_gateway.nat_gateway_3[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_nat_gateway" "nat_gateway_3" {
+        [1m[0mallocation_id[0m[0m        = "eipalloc-05d130ceaffaaaec0"
+        [1m[0mid[0m[0m                   = "nat-0e9a9a8fe2bb8fb76"
+        [1m[0mnetwork_interface_id[0m[0m = "eni-0887133237615abf5"
+        [1m[0mprivate_ip[0m[0m           = "10.151.9.40"
+        [1m[0mpublic_ip[0m[0m            = "52.35.212.124"
+        [1m[0msubnet_id[0m[0m            = "subnet-010d334b048615059"
+      [33m~[0m [0m[1m[0mtags[0m[0m                 = {
+            "Name"                          = "vpc-0030b6853e96d7efc-nat-gateway-az3"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+    }
+
+[1m  # aws_network_acl.main[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_network_acl" "main" {
+        [1m[0megress[0m[0m     = [
+            {
+                action          = "allow"
+                cidr_block      = "0.0.0.0/0"
+                from_port       = 0
+                icmp_code       = 0
+                icmp_type       = 0
+                ipv6_cidr_block = ""
+                protocol        = "-1"
+                rule_no         = 100
+                to_port         = 0
+            },
+        ]
+        [1m[0mid[0m[0m         = "acl-0ed446c94d06fb71a"
+        [1m[0mingress[0m[0m    = [
+            {
+                action          = "allow"
+                cidr_block      = "0.0.0.0/0"
+                from_port       = 0
+                icmp_code       = 0
+                icmp_type       = 0
+                ipv6_cidr_block = ""
+                protocol        = "-1"
+                rule_no         = 1000
+                to_port         = 0
+            },
+            {
+                action          = "allow"
+                cidr_block      = "12.165.188.0/24"
+                from_port       = 22
+                icmp_code       = 0
+                icmp_type       = 0
+                ipv6_cidr_block = ""
+                protocol        = "6"
+                rule_no         = 10
+                to_port         = 22
+            },
+            {
+                action          = "allow"
+                cidr_block      = "12.165.188.0/24"
+                from_port       = 3389
+                icmp_code       = 0
+                icmp_type       = 0
+                ipv6_cidr_block = ""
+                protocol        = "6"
+                rule_no         = 40
+                to_port         = 3389
+            },
+            {
+                action          = "allow"
+                cidr_block      = "162.252.136.0/21"
+                from_port       = 22
+                icmp_code       = 0
+                icmp_type       = 0
+                ipv6_cidr_block = ""
+                protocol        = "6"
+                rule_no         = 20
+                to_port         = 22
+            },
+            {
+                action          = "allow"
+                cidr_block      = "162.252.136.0/21"
+                from_port       = 3389
+                icmp_code       = 0
+                icmp_type       = 0
+                ipv6_cidr_block = ""
+                protocol        = "6"
+                rule_no         = 50
+                to_port         = 3389
+            },
+            {
+                action          = "deny"
+                cidr_block      = "0.0.0.0/0"
+                from_port       = 22
+                icmp_code       = 0
+                icmp_type       = 0
+                ipv6_cidr_block = ""
+                protocol        = "6"
+                rule_no         = 30
+                to_port         = 22
+            },
+            {
+                action          = "deny"
+                cidr_block      = "0.0.0.0/0"
+                from_port       = 3389
+                icmp_code       = 0
+                icmp_type       = 0
+                ipv6_cidr_block = ""
+                protocol        = "6"
+                rule_no         = 60
+                to_port         = 3389
+            },
+        ]
+        [1m[0mowner_id[0m[0m   = "808835449166"
+        [1m[0msubnet_ids[0m[0m = [
+            "subnet-010d334b048615059",
+            "subnet-09bd7f30ada5f9849",
+            "subnet-0cdadf5b7f6217ff5",
+        ]
+      [33m~[0m [0m[1m[0mtags[0m[0m       = {
+            "Description"                   = "Denies inbound SSH and RDP in vpc-0030b6853e96d7efc unless the originate from QL IP Blocks"
+            "Name"                          = "Terratest Sandbox VPC"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m     = "vpc-0030b6853e96d7efc"
+    }
+
+[1m  # aws_route_table.private_route_table_az1[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_route_table" "private_route_table_az1" {
+        [1m[0mid[0m[0m               = "rtb-00303dfb7fd01f618"
+        [1m[0mowner_id[0m[0m         = "808835449166"
+        [1m[0mpropagating_vgws[0m[0m = []
+        [1m[0mroute[0m[0m            = [
+            {
+                cidr_block                = "0.0.0.0/0"
+                egress_only_gateway_id    = ""
+                gateway_id                = ""
+                instance_id               = ""
+                ipv6_cidr_block           = ""
+                nat_gateway_id            = "nat-0fbd6e6d454bd8246"
+                network_interface_id      = ""
+                transit_gateway_id        = ""
+                vpc_peering_connection_id = ""
+            },
+        ]
+      [33m~[0m [0m[1m[0mtags[0m[0m             = {
+            "Name"                          = "vpc-0030b6853e96d7efc-private-route-table-az1"
+            "Tier"                          = "Private"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m           = "vpc-0030b6853e96d7efc"
+    }
+
+[1m  # aws_route_table.private_route_table_az2[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_route_table" "private_route_table_az2" {
+        [1m[0mid[0m[0m               = "rtb-0c71a2421a6024437"
+        [1m[0mowner_id[0m[0m         = "808835449166"
+        [1m[0mpropagating_vgws[0m[0m = []
+        [1m[0mroute[0m[0m            = [
+            {
+                cidr_block                = "0.0.0.0/0"
+                egress_only_gateway_id    = ""
+                gateway_id                = ""
+                instance_id               = ""
+                ipv6_cidr_block           = ""
+                nat_gateway_id            = "nat-0a25450086574284c"
+                network_interface_id      = ""
+                transit_gateway_id        = ""
+                vpc_peering_connection_id = ""
+            },
+        ]
+      [33m~[0m [0m[1m[0mtags[0m[0m             = {
+            "Name"                          = "vpc-0030b6853e96d7efc-private-route-table-az2"
+            "Tier"                          = "Private"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m           = "vpc-0030b6853e96d7efc"
+    }
+
+[1m  # aws_route_table.private_route_table_az3[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_route_table" "private_route_table_az3" {
+        [1m[0mid[0m[0m               = "rtb-0634c94d430ed2b0e"
+        [1m[0mowner_id[0m[0m         = "808835449166"
+        [1m[0mpropagating_vgws[0m[0m = []
+        [1m[0mroute[0m[0m            = [
+            {
+                cidr_block                = "0.0.0.0/0"
+                egress_only_gateway_id    = ""
+                gateway_id                = ""
+                instance_id               = ""
+                ipv6_cidr_block           = ""
+                nat_gateway_id            = "nat-0e9a9a8fe2bb8fb76"
+                network_interface_id      = ""
+                transit_gateway_id        = ""
+                vpc_peering_connection_id = ""
+            },
+        ]
+      [33m~[0m [0m[1m[0mtags[0m[0m             = {
+            "Name"                          = "vpc-0030b6853e96d7efc-private-route-table-az3"
+            "Tier"                          = "Private"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m           = "vpc-0030b6853e96d7efc"
+    }
+
+[1m  # aws_route_table_association.private_pers_1[0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_route_table_association" "private_pers_1" {
+      [33m~[0m [0m[1m[0mid[0m[0m             = "rtbassoc-03c26ebce6d6a9abd" [33m->[0m [0m(known after apply)
+        [1m[0mroute_table_id[0m[0m = "rtb-00303dfb7fd01f618"
+      [33m~[0m [0m[1m[0msubnet_id[0m[0m      = "subnet-08b27a7ded5754330" [33m->[0m [0m(known after apply) [31m# forces replacement[0m[0m
+    }
+
+[1m  # aws_route_table_association.private_pers_2[0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_route_table_association" "private_pers_2" {
+      [33m~[0m [0m[1m[0mid[0m[0m             = "rtbassoc-0c0ca29ceb82fe8ed" [33m->[0m [0m(known after apply)
+        [1m[0mroute_table_id[0m[0m = "rtb-0c71a2421a6024437"
+      [33m~[0m [0m[1m[0msubnet_id[0m[0m      = "subnet-0a695426755179955" [33m->[0m [0m(known after apply) [31m# forces replacement[0m[0m
+    }
+
+[1m  # aws_route_table_association.private_pers_3[0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_route_table_association" "private_pers_3" {
+      [33m~[0m [0m[1m[0mid[0m[0m             = "rtbassoc-01c6836bf300c4606" [33m->[0m [0m(known after apply)
+        [1m[0mroute_table_id[0m[0m = "rtb-0634c94d430ed2b0e"
+      [33m~[0m [0m[1m[0msubnet_id[0m[0m      = "subnet-009ba77014a063b99" [33m->[0m [0m(known after apply) [31m# forces replacement[0m[0m
+    }
+
+[1m  # aws_ssm_parameter.private_pers_subnet_az1[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "private_pers_subnet_az1" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az1"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Pers Subnet AZ1"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az1"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az1"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+      [33m~[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.private_pers_subnet_az1_zone_id[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_ssm_parameter" "private_pers_subnet_az1_zone_id" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Pers Subnet AZ1 Zone ID"
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mkey_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az1_zone_id"
+      [32m+[0m [0m[1m[0mtags[0m[0m        = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+      [32m+[0m [0m[1m[0mtier[0m[0m        = "Standard"
+      [32m+[0m [0m[1m[0mtype[0m[0m        = "String"
+      [32m+[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+      [32m+[0m [0m[1m[0mversion[0m[0m     = (known after apply)
+    }
+
+[1m  # aws_ssm_parameter.private_pers_subnet_az2[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "private_pers_subnet_az2" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az2"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Pers Subnet AZ2"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az2"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az2"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+      [33m~[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.private_pers_subnet_az2_zone_id[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_ssm_parameter" "private_pers_subnet_az2_zone_id" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Pers Subnet AZ2 Zone ID"
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mkey_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az2_zone_id"
+      [32m+[0m [0m[1m[0mtags[0m[0m        = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+      [32m+[0m [0m[1m[0mtier[0m[0m        = "Standard"
+      [32m+[0m [0m[1m[0mtype[0m[0m        = "String"
+      [32m+[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+      [32m+[0m [0m[1m[0mversion[0m[0m     = (known after apply)
+    }
+
+[1m  # aws_ssm_parameter.private_pers_subnet_az3[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "private_pers_subnet_az3" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az3"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Pers Subnet AZ3"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az3"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az3"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+      [33m~[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.private_pers_subnet_az3_zone_id[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_ssm_parameter" "private_pers_subnet_az3_zone_id" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Pers Subnet AZ3 Zone ID"
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mkey_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_pers_az3_zone_id"
+      [32m+[0m [0m[1m[0mtags[0m[0m        = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+      [32m+[0m [0m[1m[0mtier[0m[0m        = "Standard"
+      [32m+[0m [0m[1m[0mtype[0m[0m        = "String"
+      [32m+[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+      [32m+[0m [0m[1m[0mversion[0m[0m     = (known after apply)
+    }
+
+[1m  # aws_ssm_parameter.private_pers_subnets[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "private_pers_subnets" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_pers_subnets"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Pers Subnets"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_pers_subnets"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_pers_subnets"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "StringList"
+      [33m~[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.private_route_table_az1[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "private_route_table_az1" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_az1"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Route Table AZ1"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_az1"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_az1"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.private_route_table_az2[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "private_route_table_az2" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_az2"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Route Table AZ2"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_az2"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_az2"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.private_route_table_az3[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "private_route_table_az3" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_az3"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Route Table AZ3"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_az3"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_az3"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.private_route_tables[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "private_route_tables" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_tables"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Route Tables"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_tables"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_tables"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "StringList"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.private_subnet_az1[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "private_subnet_az1" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az1"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Subnet AZ1"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az1"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az1"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.private_subnet_az1_zone_id[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_ssm_parameter" "private_subnet_az1_zone_id" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Subnet AZ1 Zone ID"
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mkey_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az1_zone_id"
+      [32m+[0m [0m[1m[0mtags[0m[0m        = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+      [32m+[0m [0m[1m[0mtier[0m[0m        = "Standard"
+      [32m+[0m [0m[1m[0mtype[0m[0m        = "String"
+      [32m+[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+      [32m+[0m [0m[1m[0mversion[0m[0m     = (known after apply)
+    }
+
+[1m  # aws_ssm_parameter.private_subnet_az2[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "private_subnet_az2" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az2"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Subnet AZ2"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az2"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az2"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.private_subnet_az2_zone_id[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_ssm_parameter" "private_subnet_az2_zone_id" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Subnet AZ2 Zone ID"
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mkey_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az2_zone_id"
+      [32m+[0m [0m[1m[0mtags[0m[0m        = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+      [32m+[0m [0m[1m[0mtier[0m[0m        = "Standard"
+      [32m+[0m [0m[1m[0mtype[0m[0m        = "String"
+      [32m+[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+      [32m+[0m [0m[1m[0mversion[0m[0m     = (known after apply)
+    }
+
+[1m  # aws_ssm_parameter.private_subnet_az3[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "private_subnet_az3" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az3"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Subnet AZ3"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az3"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az3"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.private_subnet_az3_zone_id[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_ssm_parameter" "private_subnet_az3_zone_id" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Subnet AZ3 Zone ID"
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mkey_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/private_az3_zone_id"
+      [32m+[0m [0m[1m[0mtags[0m[0m        = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+      [32m+[0m [0m[1m[0mtier[0m[0m        = "Standard"
+      [32m+[0m [0m[1m[0mtype[0m[0m        = "String"
+      [32m+[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+      [32m+[0m [0m[1m[0mversion[0m[0m     = (known after apply)
+    }
+
+[1m  # aws_ssm_parameter.private_subnets[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "private_subnets" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_subnets"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Subnets"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_subnets"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/private_subnets"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "StringList"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.public_subnet_az1[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "public_subnet_az1" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az1"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Public Subnet AZ1"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az1"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az1"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.public_subnet_az1_zone_id[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_ssm_parameter" "public_subnet_az1_zone_id" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Public Subnet AZ1 Zone ID"
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mkey_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az1_zone_id"
+      [32m+[0m [0m[1m[0mtags[0m[0m        = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+      [32m+[0m [0m[1m[0mtier[0m[0m        = "Standard"
+      [32m+[0m [0m[1m[0mtype[0m[0m        = "String"
+      [32m+[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+      [32m+[0m [0m[1m[0mversion[0m[0m     = (known after apply)
+    }
+
+[1m  # aws_ssm_parameter.public_subnet_az2[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "public_subnet_az2" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az2"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Public Subnet AZ2"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az2"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az2"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.public_subnet_az2_zone_id[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_ssm_parameter" "public_subnet_az2_zone_id" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Public Subnet AZ2 Zone ID"
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mkey_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az2_zone_id"
+      [32m+[0m [0m[1m[0mtags[0m[0m        = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+      [32m+[0m [0m[1m[0mtier[0m[0m        = "Standard"
+      [32m+[0m [0m[1m[0mtype[0m[0m        = "String"
+      [32m+[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+      [32m+[0m [0m[1m[0mversion[0m[0m     = (known after apply)
+    }
+
+[1m  # aws_ssm_parameter.public_subnet_az3[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "public_subnet_az3" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az3"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Public Subnet AZ3"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az3"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az3"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.public_subnet_az3_zone_id[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_ssm_parameter" "public_subnet_az3_zone_id" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Public Subnet AZ3 Zone ID"
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mkey_id[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/subnet/public_az3_zone_id"
+      [32m+[0m [0m[1m[0mtags[0m[0m        = {
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+      [32m+[0m [0m[1m[0mtier[0m[0m        = "Standard"
+      [32m+[0m [0m[1m[0mtype[0m[0m        = "String"
+      [32m+[0m [0m[1m[0mvalue[0m[0m       = (sensitive value)
+      [32m+[0m [0m[1m[0mversion[0m[0m     = (known after apply)
+    }
+
+[1m  # aws_ssm_parameter.public_subnets[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "public_subnets" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/routetable/public_subnets"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Private Subnets"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/public_subnets"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/public_subnets"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "StringList"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_ssm_parameter.route_table_public[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_ssm_parameter" "route_table_public" {
+        [1m[0marn[0m[0m         = "arn:aws:ssm:us-west-2:808835449166:parameter/iac/vpc/vpc-0030b6853e96d7efc/routetable/public"
+        [1m[0mdescription[0m[0m = "VPC - vpc-0030b6853e96d7efc - Public Route Table"
+        [1m[0mid[0m[0m          = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/public"
+        [1m[0mname[0m[0m        = "/iac/vpc/vpc-0030b6853e96d7efc/routetable/public"
+      [33m~[0m [0m[1m[0mtags[0m[0m        = {
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mtier[0m[0m        = "Standard"
+        [1m[0mtype[0m[0m        = "String"
+        [1m[0mvalue[0m[0m       = (sensitive value)
+        [1m[0mversion[0m[0m     = 1
+    }
+
+[1m  # aws_subnet.private_pers_subnet_az1[0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_subnet" "private_pers_subnet_az1" {
+      [33m~[0m [0m[1m[0marn[0m[0m                             = "arn:aws:ec2:us-west-2:808835449166:subnet/subnet-08b27a7ded5754330" [33m->[0m [0m(known after apply)
+        [1m[0massign_ipv6_address_on_creation[0m[0m = false
+        [1m[0mavailability_zone[0m[0m               = "us-west-2a"
+      [33m~[0m [0m[1m[0mavailability_zone_id[0m[0m            = "usw2-az2" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mcidr_block[0m[0m                      = "10.151.50.0/23" [33m->[0m [0m"10.151.48.0/23" [31m# forces replacement[0m[0m
+      [33m~[0m [0m[1m[0mid[0m[0m                              = "subnet-08b27a7ded5754330" [33m->[0m [0m(known after apply)
+      [32m+[0m [0m[1m[0mipv6_cidr_block[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mipv6_cidr_block_association_id[0m[0m  = (known after apply)
+        [1m[0mmap_public_ip_on_launch[0m[0m         = false
+      [33m~[0m [0m[1m[0mowner_id[0m[0m                        = "808835449166" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mtags[0m[0m                            = {
+            "Name"                          = "vpc-0030b6853e96d7efc-private-pers-az1"
+            "Tier"                          = "Private-Pers"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m                          = "vpc-0030b6853e96d7efc"
+
+      [31m-[0m [0mtimeouts {}
+    }
+
+[1m  # aws_subnet.private_pers_subnet_az2[0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_subnet" "private_pers_subnet_az2" {
+      [33m~[0m [0m[1m[0marn[0m[0m                             = "arn:aws:ec2:us-west-2:808835449166:subnet/subnet-0a695426755179955" [33m->[0m [0m(known after apply)
+        [1m[0massign_ipv6_address_on_creation[0m[0m = false
+        [1m[0mavailability_zone[0m[0m               = "us-west-2b"
+      [33m~[0m [0m[1m[0mavailability_zone_id[0m[0m            = "usw2-az1" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mcidr_block[0m[0m                      = "10.151.52.0/23" [33m->[0m [0m"10.151.50.0/23" [31m# forces replacement[0m[0m
+      [33m~[0m [0m[1m[0mid[0m[0m                              = "subnet-0a695426755179955" [33m->[0m [0m(known after apply)
+      [32m+[0m [0m[1m[0mipv6_cidr_block[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mipv6_cidr_block_association_id[0m[0m  = (known after apply)
+        [1m[0mmap_public_ip_on_launch[0m[0m         = false
+      [33m~[0m [0m[1m[0mowner_id[0m[0m                        = "808835449166" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mtags[0m[0m                            = {
+            "Name"                          = "vpc-0030b6853e96d7efc-private-pers-az2"
+            "Tier"                          = "Private-Pers"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m                          = "vpc-0030b6853e96d7efc"
+
+      [31m-[0m [0mtimeouts {}
+    }
+
+[1m  # aws_subnet.private_pers_subnet_az3[0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_subnet" "private_pers_subnet_az3" {
+      [33m~[0m [0m[1m[0marn[0m[0m                             = "arn:aws:ec2:us-west-2:808835449166:subnet/subnet-009ba77014a063b99" [33m->[0m [0m(known after apply)
+        [1m[0massign_ipv6_address_on_creation[0m[0m = false
+        [1m[0mavailability_zone[0m[0m               = "us-west-2c"
+      [33m~[0m [0m[1m[0mavailability_zone_id[0m[0m            = "usw2-az3" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mcidr_block[0m[0m                      = "10.151.54.0/23" [33m->[0m [0m"10.151.52.0/23" [31m# forces replacement[0m[0m
+      [33m~[0m [0m[1m[0mid[0m[0m                              = "subnet-009ba77014a063b99" [33m->[0m [0m(known after apply)
+      [32m+[0m [0m[1m[0mipv6_cidr_block[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mipv6_cidr_block_association_id[0m[0m  = (known after apply)
+        [1m[0mmap_public_ip_on_launch[0m[0m         = false
+      [33m~[0m [0m[1m[0mowner_id[0m[0m                        = "808835449166" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mtags[0m[0m                            = {
+            "Name"                          = "vpc-0030b6853e96d7efc-private-pers-az3"
+            "Tier"                          = "Private-Pers"
+            "app-id"                        = "000000"
+            "development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+            "module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m                          = "vpc-0030b6853e96d7efc"
+
+      [31m-[0m [0mtimeouts {}
+    }
+
+[1m  # aws_subnet.private_subnet_az1[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_subnet" "private_subnet_az1" {
+        [1m[0marn[0m[0m                             = "arn:aws:ec2:us-west-2:808835449166:subnet/subnet-04a59f5b9238e0c5c"
+        [1m[0massign_ipv6_address_on_creation[0m[0m = false
+        [1m[0mavailability_zone[0m[0m               = "us-west-2a"
+        [1m[0mavailability_zone_id[0m[0m            = "usw2-az2"
+        [1m[0mcidr_block[0m[0m                      = "10.151.16.0/21"
+        [1m[0mid[0m[0m                              = "subnet-04a59f5b9238e0c5c"
+        [1m[0mmap_public_ip_on_launch[0m[0m         = false
+        [1m[0mowner_id[0m[0m                        = "808835449166"
+      [33m~[0m [0m[1m[0mtags[0m[0m                            = {
+            "Name"                                                          = "vpc-0030b6853e96d7efc-private-az1"
+            "Tier"                                                          = "Private"
+            "app-id"                                                        = "000000"
+            "development-team-email"                                        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                                                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                                                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                                                           = "terraform"
+            "infrastructure-engineer-email"                                 = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"                                     = "cloudenablementvteam@quickenloans.com"
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-6nv60g-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-erhuad-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-f4ui3p-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ii4mvs-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-lsbzgx-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-vjijq2-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-wthdq0-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ycylby-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/role/internal-elb"                               = "" [90m->[0m [0m[90mnull[0m[0m
+            "module"                                                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                                                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                                                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m                          = "vpc-0030b6853e96d7efc"
+
+        timeouts {}
+    }
+
+[1m  # aws_subnet.private_subnet_az2[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_subnet" "private_subnet_az2" {
+        [1m[0marn[0m[0m                             = "arn:aws:ec2:us-west-2:808835449166:subnet/subnet-0e5344f39b8763c35"
+        [1m[0massign_ipv6_address_on_creation[0m[0m = false
+        [1m[0mavailability_zone[0m[0m               = "us-west-2b"
+        [1m[0mavailability_zone_id[0m[0m            = "usw2-az1"
+        [1m[0mcidr_block[0m[0m                      = "10.151.24.0/21"
+        [1m[0mid[0m[0m                              = "subnet-0e5344f39b8763c35"
+        [1m[0mmap_public_ip_on_launch[0m[0m         = false
+        [1m[0mowner_id[0m[0m                        = "808835449166"
+      [33m~[0m [0m[1m[0mtags[0m[0m                            = {
+            "Name"                                                          = "vpc-0030b6853e96d7efc-private-az2"
+            "Tier"                                                          = "Private"
+            "app-id"                                                        = "000000"
+            "development-team-email"                                        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                                                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                                                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                                                           = "terraform"
+            "infrastructure-engineer-email"                                 = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"                                     = "cloudenablementvteam@quickenloans.com"
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-6nv60g-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-f4ui3p-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ii4mvs-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-lsbzgx-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-vjijq2-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-wthdq0-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ycylby-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/role/internal-elb"                               = "" [90m->[0m [0m[90mnull[0m[0m
+            "module"                                                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                                                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                                                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m                          = "vpc-0030b6853e96d7efc"
+
+        timeouts {}
+    }
+
+[1m  # aws_subnet.private_subnet_az3[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_subnet" "private_subnet_az3" {
+        [1m[0marn[0m[0m                             = "arn:aws:ec2:us-west-2:808835449166:subnet/subnet-09588513908254371"
+        [1m[0massign_ipv6_address_on_creation[0m[0m = false
+        [1m[0mavailability_zone[0m[0m               = "us-west-2c"
+        [1m[0mavailability_zone_id[0m[0m            = "usw2-az3"
+        [1m[0mcidr_block[0m[0m                      = "10.151.32.0/21"
+        [1m[0mid[0m[0m                              = "subnet-09588513908254371"
+        [1m[0mmap_public_ip_on_launch[0m[0m         = false
+        [1m[0mowner_id[0m[0m                        = "808835449166"
+      [33m~[0m [0m[1m[0mtags[0m[0m                            = {
+            "Name"                                                          = "vpc-0030b6853e96d7efc-private-az3"
+            "Tier"                                                          = "Private"
+            "app-id"                                                        = "000000"
+            "development-team-email"                                        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                                                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                                                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                                                           = "terraform"
+            "infrastructure-engineer-email"                                 = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"                                     = "cloudenablementvteam@quickenloans.com"
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-6nv60g-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-erhuad-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-f4ui3p-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ii4mvs-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-lsbzgx-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-vjijq2-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-wthdq0-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ycylby-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/role/internal-elb"                               = "" [90m->[0m [0m[90mnull[0m[0m
+            "module"                                                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                                                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                                                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m                          = "vpc-0030b6853e96d7efc"
+
+        timeouts {}
+    }
+
+[1m  # aws_subnet.public_subnet_az1[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_subnet" "public_subnet_az1" {
+        [1m[0marn[0m[0m                             = "arn:aws:ec2:us-west-2:808835449166:subnet/subnet-0cdadf5b7f6217ff5"
+        [1m[0massign_ipv6_address_on_creation[0m[0m = false
+        [1m[0mavailability_zone[0m[0m               = "us-west-2a"
+        [1m[0mavailability_zone_id[0m[0m            = "usw2-az2"
+        [1m[0mcidr_block[0m[0m                      = "10.151.0.0/22"
+        [1m[0mid[0m[0m                              = "subnet-0cdadf5b7f6217ff5"
+        [1m[0mmap_public_ip_on_launch[0m[0m         = false
+        [1m[0mowner_id[0m[0m                        = "808835449166"
+      [33m~[0m [0m[1m[0mtags[0m[0m                            = {
+            "Name"                                                          = "vpc-0030b6853e96d7efc-public-az1"
+            "Tier"                                                          = "Public"
+            "app-id"                                                        = "000000"
+            "development-team-email"                                        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                                                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                                                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                                                           = "terraform"
+            "infrastructure-engineer-email"                                 = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"                                     = "cloudenablementvteam@quickenloans.com"
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-6nv60g-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-f4ui3p-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ii4mvs-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-lsbzgx-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-vjijq2-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-wthdq0-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ycylby-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/role/elb"                                        = "" [90m->[0m [0m[90mnull[0m[0m
+            "module"                                                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                                                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                                                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m                          = "vpc-0030b6853e96d7efc"
+
+        timeouts {}
+    }
+
+[1m  # aws_subnet.public_subnet_az2[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_subnet" "public_subnet_az2" {
+        [1m[0marn[0m[0m                             = "arn:aws:ec2:us-west-2:808835449166:subnet/subnet-09bd7f30ada5f9849"
+        [1m[0massign_ipv6_address_on_creation[0m[0m = false
+        [1m[0mavailability_zone[0m[0m               = "us-west-2b"
+        [1m[0mavailability_zone_id[0m[0m            = "usw2-az1"
+        [1m[0mcidr_block[0m[0m                      = "10.151.4.0/22"
+        [1m[0mid[0m[0m                              = "subnet-09bd7f30ada5f9849"
+        [1m[0mmap_public_ip_on_launch[0m[0m         = false
+        [1m[0mowner_id[0m[0m                        = "808835449166"
+      [33m~[0m [0m[1m[0mtags[0m[0m                            = {
+            "Name"                                                          = "vpc-0030b6853e96d7efc-public-az2"
+            "Tier"                                                          = "Public"
+            "app-id"                                                        = "000000"
+            "development-team-email"                                        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                                                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                                                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                                                           = "terraform"
+            "infrastructure-engineer-email"                                 = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"                                     = "cloudenablementvteam@quickenloans.com"
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-6nv60g-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-erhuad-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-f4ui3p-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ii4mvs-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-lsbzgx-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-vjijq2-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-wthdq0-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ycylby-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/role/elb"                                        = "" [90m->[0m [0m[90mnull[0m[0m
+            "module"                                                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                                                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                                                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m                          = "vpc-0030b6853e96d7efc"
+
+        timeouts {}
+    }
+
+[1m  # aws_subnet.public_subnet_az3[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_subnet" "public_subnet_az3" {
+        [1m[0marn[0m[0m                             = "arn:aws:ec2:us-west-2:808835449166:subnet/subnet-010d334b048615059"
+        [1m[0massign_ipv6_address_on_creation[0m[0m = false
+        [1m[0mavailability_zone[0m[0m               = "us-west-2c"
+        [1m[0mavailability_zone_id[0m[0m            = "usw2-az3"
+        [1m[0mcidr_block[0m[0m                      = "10.151.8.0/22"
+        [1m[0mid[0m[0m                              = "subnet-010d334b048615059"
+        [1m[0mmap_public_ip_on_launch[0m[0m         = false
+        [1m[0mowner_id[0m[0m                        = "808835449166"
+      [33m~[0m [0m[1m[0mtags[0m[0m                            = {
+            "Name"                                                          = "vpc-0030b6853e96d7efc-public-az3"
+            "Tier"                                                          = "Public"
+            "app-id"                                                        = "000000"
+            "development-team-email"                                        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                                                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                                                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                                                           = "terraform"
+            "infrastructure-engineer-email"                                 = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"                                     = "cloudenablementvteam@quickenloans.com"
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-6nv60g-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-erhuad-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-f4ui3p-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ii4mvs-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-lsbzgx-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-vjijq2-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-wthdq0-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ycylby-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/role/elb"                                        = "" [90m->[0m [0m[90mnull[0m[0m
+            "module"                                                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                                                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                                                = "2.5.0"
+        }
+        [1m[0mvpc_id[0m[0m                          = "vpc-0030b6853e96d7efc"
+
+        timeouts {}
+    }
+
+[1m  # aws_vpc.main[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_vpc" "main" {
+        [1m[0marn[0m[0m                              = "arn:aws:ec2:us-west-2:808835449166:vpc/vpc-0030b6853e96d7efc"
+        [1m[0massign_generated_ipv6_cidr_block[0m[0m = false
+        [1m[0mcidr_block[0m[0m                       = "10.151.0.0/18"
+        [1m[0mdefault_network_acl_id[0m[0m           = "acl-0f6aec8448e6887f4"
+        [1m[0mdefault_route_table_id[0m[0m           = "rtb-05e603e8c7880b18c"
+        [1m[0mdefault_security_group_id[0m[0m        = "sg-08f8508c87d4ab930"
+        [1m[0mdhcp_options_id[0m[0m                  = "dopt-7e268506"
+        [1m[0menable_classiclink[0m[0m               = false
+        [1m[0menable_classiclink_dns_support[0m[0m   = false
+        [1m[0menable_dns_hostnames[0m[0m             = true
+        [1m[0menable_dns_support[0m[0m               = true
+        [1m[0mid[0m[0m                               = "vpc-0030b6853e96d7efc"
+        [1m[0minstance_tenancy[0m[0m                 = "default"
+        [1m[0mmain_route_table_id[0m[0m              = "rtb-05e603e8c7880b18c"
+        [1m[0mowner_id[0m[0m                         = "808835449166"
+      [33m~[0m [0m[1m[0mtags[0m[0m                             = {
+            "Description"                                                   = "Terratest Sandbox VPC"
+            "Name"                                                          = "Terratest Sandbox VPC"
+            "app-id"                                                        = "000000"
+            "development-team-email"                                        = "cloudenablementvteam@quickenloans.com"
+          [33m~[0m [0m"environment"                                                   = "test" [33m->[0m [0m"sandbox"
+          [31m-[0m [0m"hal-app-id"                                                    = "1742" [90m->[0m [0m[90mnull[0m[0m
+            "iac"                                                           = "terraform"
+            "infrastructure-engineer-email"                                 = "bryceanderson@quickenloans.com"
+            "infrastructure-team-email"                                     = "cloudenablementvteam@quickenloans.com"
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-3fbjnw-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-54k6hx-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-5sfaet-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-6nv60g-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-7tvz8t-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-cbzjy7-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-cvvxac-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-f4ui3p-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-gwugdp-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-gz38s8-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-hibwqw-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-hkmutw-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-i1fpmj-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ii4mvs-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-lsbzgx-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-rl6nsa-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-rrpmz1-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-vjijq2-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-wm5trj-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-wthdq0-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttest-ycylby-dev-808835449166-us-west-2" = "shared" [90m->[0m [0m[90mnull[0m[0m
+          [31m-[0m [0m"kubernetes.io/cluster/ttt-dev-808835449166-us-west-2"          = "shared" [90m->[0m [0m[90mnull[0m[0m
+            "module"                                                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                                                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                                                = "2.5.0"
+        }
+    }
+
+[1m  # aws_vpc_endpoint.private_dynamodb[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_vpc_endpoint" "private_dynamodb" {
+        [1m[0mcidr_blocks[0m[0m           = [
+            "52.94.28.0/23",
+            "52.94.10.0/24",
+        ]
+        [1m[0mdns_entry[0m[0m             = []
+        [1m[0mid[0m[0m                    = "vpce-0c92539874f03621e"
+        [1m[0mnetwork_interface_ids[0m[0m = []
+        [1m[0mowner_id[0m[0m              = "808835449166"
+        [1m[0mpolicy[0m[0m                = jsonencode(
+            {
+                Statement = [
+                    {
+                        Action    = "*"
+                        Effect    = "Allow"
+                        Principal = "*"
+                        Resource  = "*"
+                    },
+                ]
+                Version   = "2008-10-17"
+            }
+        )
+        [1m[0mprefix_list_id[0m[0m        = "pl-00a54069"
+        [1m[0mprivate_dns_enabled[0m[0m   = false
+        [1m[0mrequester_managed[0m[0m     = false
+        [1m[0mroute_table_ids[0m[0m       = [
+            "rtb-00303dfb7fd01f618",
+            "rtb-0634c94d430ed2b0e",
+            "rtb-0c71a2421a6024437",
+        ]
+        [1m[0msecurity_group_ids[0m[0m    = []
+        [1m[0mservice_name[0m[0m          = "com.amazonaws.us-west-2.dynamodb"
+        [1m[0mstate[0m[0m                 = "available"
+        [1m[0msubnet_ids[0m[0m            = []
+      [33m~[0m [0m[1m[0mtags[0m[0m                  = {
+          [32m+[0m [0m"Name"                          = "vpc-0030b6853e96d7efc-private-endpoint"
+          [32m+[0m [0m"Tier"                          = "Private"
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_endpoint_type[0m[0m     = "Gateway"
+        [1m[0mvpc_id[0m[0m                = "vpc-0030b6853e96d7efc"
+
+        timeouts {}
+    }
+
+[1m  # aws_vpc_endpoint.private_s3[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_vpc_endpoint" "private_s3" {
+        [1m[0mcidr_blocks[0m[0m           = [
+            "52.218.128.0/17",
+        ]
+        [1m[0mdns_entry[0m[0m             = []
+        [1m[0mid[0m[0m                    = "vpce-0f5cad223b2b34ef8"
+        [1m[0mnetwork_interface_ids[0m[0m = []
+        [1m[0mowner_id[0m[0m              = "808835449166"
+        [1m[0mpolicy[0m[0m                = jsonencode(
+            {
+                Statement = [
+                    {
+                        Action    = "*"
+                        Effect    = "Allow"
+                        Principal = "*"
+                        Resource  = "*"
+                    },
+                ]
+                Version   = "2008-10-17"
+            }
+        )
+        [1m[0mprefix_list_id[0m[0m        = "pl-68a54001"
+        [1m[0mprivate_dns_enabled[0m[0m   = false
+        [1m[0mrequester_managed[0m[0m     = false
+        [1m[0mroute_table_ids[0m[0m       = [
+            "rtb-00303dfb7fd01f618",
+            "rtb-0634c94d430ed2b0e",
+            "rtb-0c71a2421a6024437",
+        ]
+        [1m[0msecurity_group_ids[0m[0m    = []
+        [1m[0mservice_name[0m[0m          = "com.amazonaws.us-west-2.s3"
+        [1m[0mstate[0m[0m                 = "available"
+        [1m[0msubnet_ids[0m[0m            = []
+      [33m~[0m [0m[1m[0mtags[0m[0m                  = {
+          [32m+[0m [0m"Name"                          = "vpc-0030b6853e96d7efc-private-endpoint"
+          [32m+[0m [0m"Tier"                          = "Private"
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_endpoint_type[0m[0m     = "Gateway"
+        [1m[0mvpc_id[0m[0m                = "vpc-0030b6853e96d7efc"
+
+        timeouts {}
+    }
+
+[1m  # aws_vpc_endpoint.public_dynamodb[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_vpc_endpoint" "public_dynamodb" {
+        [1m[0mcidr_blocks[0m[0m           = [
+            "52.94.28.0/23",
+            "52.94.10.0/24",
+        ]
+        [1m[0mdns_entry[0m[0m             = []
+        [1m[0mid[0m[0m                    = "vpce-020d0edbd0c1d4159"
+        [1m[0mnetwork_interface_ids[0m[0m = []
+        [1m[0mowner_id[0m[0m              = "808835449166"
+        [1m[0mpolicy[0m[0m                = jsonencode(
+            {
+                Statement = [
+                    {
+                        Action    = "*"
+                        Effect    = "Allow"
+                        Principal = "*"
+                        Resource  = "*"
+                    },
+                ]
+                Version   = "2008-10-17"
+            }
+        )
+        [1m[0mprefix_list_id[0m[0m        = "pl-00a54069"
+        [1m[0mprivate_dns_enabled[0m[0m   = false
+        [1m[0mrequester_managed[0m[0m     = false
+        [1m[0mroute_table_ids[0m[0m       = [
+            "rtb-05e603e8c7880b18c",
+        ]
+        [1m[0msecurity_group_ids[0m[0m    = []
+        [1m[0mservice_name[0m[0m          = "com.amazonaws.us-west-2.dynamodb"
+        [1m[0mstate[0m[0m                 = "available"
+        [1m[0msubnet_ids[0m[0m            = []
+      [33m~[0m [0m[1m[0mtags[0m[0m                  = {
+          [32m+[0m [0m"Name"                          = "vpc-0030b6853e96d7efc-public-endpoint"
+          [32m+[0m [0m"Tier"                          = "Public"
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_endpoint_type[0m[0m     = "Gateway"
+        [1m[0mvpc_id[0m[0m                = "vpc-0030b6853e96d7efc"
+
+        timeouts {}
+    }
+
+[1m  # aws_vpc_endpoint.public_s3[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_vpc_endpoint" "public_s3" {
+        [1m[0mcidr_blocks[0m[0m           = [
+            "52.218.128.0/17",
+        ]
+        [1m[0mdns_entry[0m[0m             = []
+        [1m[0mid[0m[0m                    = "vpce-0e0076e5f697b3d45"
+        [1m[0mnetwork_interface_ids[0m[0m = []
+        [1m[0mowner_id[0m[0m              = "808835449166"
+        [1m[0mpolicy[0m[0m                = jsonencode(
+            {
+                Statement = [
+                    {
+                        Action    = "*"
+                        Effect    = "Allow"
+                        Principal = "*"
+                        Resource  = "*"
+                    },
+                ]
+                Version   = "2008-10-17"
+            }
+        )
+        [1m[0mprefix_list_id[0m[0m        = "pl-68a54001"
+        [1m[0mprivate_dns_enabled[0m[0m   = false
+        [1m[0mrequester_managed[0m[0m     = false
+        [1m[0mroute_table_ids[0m[0m       = [
+            "rtb-05e603e8c7880b18c",
+        ]
+        [1m[0msecurity_group_ids[0m[0m    = []
+        [1m[0mservice_name[0m[0m          = "com.amazonaws.us-west-2.s3"
+        [1m[0mstate[0m[0m                 = "available"
+        [1m[0msubnet_ids[0m[0m            = []
+      [33m~[0m [0m[1m[0mtags[0m[0m                  = {
+          [32m+[0m [0m"Name"                          = "vpc-0030b6853e96d7efc-public-endpoint"
+          [32m+[0m [0m"Tier"                          = "Public"
+          [32m+[0m [0m"app-id"                        = "000000"
+          [32m+[0m [0m"development-team-email"        = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"environment"                   = "sandbox"
+          [32m+[0m [0m"iac"                           = "terraform"
+          [32m+[0m [0m"infrastructure-engineer-email" = "bryceanderson@quickenloans.com"
+          [32m+[0m [0m"infrastructure-team-email"     = "cloudenablementvteam@quickenloans.com"
+          [32m+[0m [0m"module"                        = "aws-vpc-tf"
+          [32m+[0m [0m"module_source"                 = "git::https://git.rockfin.com/terraform/aws-vpc-tf.git"
+          [32m+[0m [0m"module_version"                = "2.5.0"
+        }
+        [1m[0mvpc_endpoint_type[0m[0m     = "Gateway"
+        [1m[0mvpc_id[0m[0m                = "vpc-0030b6853e96d7efc"
+
+        timeouts {}
+    }
+
+[0m[1mPlan:[0m 19 to add, 43 to change, 6 to destroy.[0m
+[terragrunt] 2020/09/24 14:54:42 Detected 1 Hooks
+

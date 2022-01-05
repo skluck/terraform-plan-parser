@@ -4,7 +4,7 @@ namespace SK\TerraformParser;
 
 use PHPUnit\Framework\TestCase;
 
-class Terraform12OutputParserTest extends TestCase
+class Terraform012OutputParserTest extends TestCase
 {
     /**
      * @dataProvider providerTestCases

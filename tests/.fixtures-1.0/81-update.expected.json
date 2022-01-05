@@ -1,0 +1,50 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "update",
+            "name": "cert",
+            "type": "aws_acm_certificate",
+            "fully_qualified_name": "aws_acm_certificate.cert",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": "arn:aws:acm:us-east-2:000111222333:certificate/aaaabbbb-cccc-yyyy-xxxx-cc82dbe7d240"
+                    }
+                },
+                "tags": {
+                    "name": "tags",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "map",
+                        "value": null
+                    }
+                },
+                "tags_all": {
+                    "name": "tags_all",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "map",
+                        "value": null
+                    }
+                }
+            }
+        }
+    ],
+    "modules": [
+        {
+            "name": "other_module",
+            "source": "git::https://github.example.com/terraform/othermodule.git",
+            "version": "1.1.0"
+        }
+    ]
+}
