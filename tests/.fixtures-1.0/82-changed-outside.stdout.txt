@@ -1,0 +1,338 @@
+time=2022-01-06T13:58:04Z level=debug msg=Did not find any locals block: skipping evaluation.
+time=2022-01-06T13:58:04Z level=debug msg=Did not find any locals block: skipping evaluation.
+time=2022-01-06T13:58:04Z level=debug msg=Running command: terraform --version prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=debug msg=Terraform version: 1.0.11
+time=2022-01-06T13:58:04Z level=debug msg=Reading Terragrunt config file at /build/000111222333/us-east-1/prod/cloudfront/terragrunt.hcl
+time=2022-01-06T13:58:04Z level=debug msg=Did not find any locals block: skipping evaluation.
+time=2022-01-06T13:58:04Z level=debug msg=Did not find any locals block: skipping evaluation.
+time=2022-01-06T13:58:04Z level=debug msg=Detected 4 Hooks prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=warning msg=No double-slash (//) found in source URL /terraform/mymodule.git. Relative paths in downloaded Terraform code may not work.
+time=2022-01-06T13:58:04Z level=debug msg=Detected 4 Hooks prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=info msg=Executing hook: before_module_init prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=debug msg=Running command: /hooks/before-module-init  prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=debug msg=Downloading Terraform configurations from git::https://github.example.com/terraform/mymodule.git?ref=4.4.2-prod2 into /build/000111222333/us-east-1/prod/cloudfront/.terragrunt-cache/EZiShAZR-****************************************uAlbos
+time=2022-01-06T13:58:04Z level=debug msg=Detected 4 Hooks prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=info msg=Executing hook: after_module_init prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=debug msg=Running command: /hooks/after-module-init  prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=debug msg=Copying files from /build/000111222333/us-east-1/prod/cloudfront into /build/000111222333/us-east-1/prod/cloudfront/.terragrunt-cache/EZiShAZR-****************************************uAlbos
+time=2022-01-06T13:58:04Z level=debug msg=Setting working directory to /build/000111222333/us-east-1/prod/cloudfront/.terragrunt-cache/EZiShAZR-****************************************uAlbos
+time=2022-01-06T13:58:04Z level=debug msg=Generated file /build/000111222333/us-east-1/prod/cloudfront/.terragrunt-cache/EZiShAZR-****************************************uAlbos/backend.tf. prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=debug msg=Initializing remote state for the http backend prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=debug msg=Detected 4 Hooks prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=info msg=Executing hook: before_init prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=debug msg=Running command: /hooks/before-init  prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:04Z level=debug msg=Running command: terraform init -reconfigure prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+[0m[1mInitializing modules...[0m
+- cloudfront in modules/cloudfront
+- cloudfront_function in modules/cloudfront-function
+- index_lambda in modules/edge-lambda-for-directory-index
+Downloading git::https://github.example.com/terraform/othermodule.git?ref=1.1.0 for tags...
+- tags in .terraform/modules/tags
+Downloading git::https://github.example.com/terraform/bucketmodule.git?ref=4.0.0 for website...
+- website in .terraform/modules/website
+- website.bucket_policy in .terraform/modules/website/modules/bucket-policy
+- website.bucket_public_access_block in .****************************************-public-access-block
+- website.bucket_replication in .****************************************-replication
+Downloading git::https://github.example.com/terraform/iammodule.git?ref=3.0.0 for website.iam...
+- website.iam in .terraform/modules/website.iam/modules/s3-iam
+Downloading git::https://github.example.com/terraform/othermodule.git?ref=1.1.0 for website.tags...
+- website.tags in .terraform/modules/website.tags
+
+[0m[1mInitializing the backend...[0m
+[0m[32m
+Successfully configured the backend "http"! Terraform will automatically
+use this backend unless the backend configuration changes.[0m
+2022/01/06 13:58:06 [DEBUG] GET https://backend.example.com/000111222333.us-east-1.cloudfront
+
+[0m[1mInitializing provider plugins...[0m
+- Finding latest version of hashicorp/random...
+- Finding latest version of hashicorp/archive...
+- Finding hashicorp/aws versions matching ">= 3.0.0, ~> 3.6, ~> 3.20, ~> 3.50"...
+- Installing hashicorp/random v3.1.0...
+- Installed hashicorp/random v3.1.0 (signed by HashiCorp)
+- Installing hashicorp/archive v2.2.0...
+- Installed hashicorp/archive v2.2.0 (signed by HashiCorp)
+- Installing hashicorp/aws v3.70.0...
+- Installed hashicorp/aws v3.70.0 (signed by HashiCorp)
+
+Terraform has created a lock file [1m.terraform.lock.hcl[0m to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.[0m
+
+[33m[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mVersion constraints inside provider configuration blocks are deprecated[0m
+[33m│[0m [0m
+[33m│[0m [0m[0m  on .terraform/modules/website.iam/modules/s3-iam/main.tf line 3, in provider "aws":
+[33m│[0m [0m   3:   version = [4m"~> 3.20"[0m[0m
+[33m│[0m [0m
+[33m│[0m [0mTerraform 0.13 and earlier allowed provider version constraints inside the
+[33m│[0m [0mprovider configuration block, but that is now deprecated and will be
+[33m│[0m [0mremoved in a future version of Terraform. To silence this warning, move the
+[33m│[0m [0mprovider version constraint into the required_providers block.
+[33m╵[0m[0m
+[0m[0m
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+time=2022-01-06T13:58:10Z level=debug msg=Copying lock file from /build/000111222333/us-east-1/prod/cloudfront/.terragrunt-cache/EZiShAZR-****************************************uAlbos/.terraform.lock.hcl to /build/000111222333/us-east-1/prod/cloudfront prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:10Z level=debug msg=Detected 4 Hooks prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:10Z level=info msg=Executing hook: after_init prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:10Z level=debug msg=Running command: /hooks/after-init  prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:10Z level=debug msg=Detected 4 Hooks prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:10Z level=debug msg=Running command: terraform validate prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mVersion constraints inside provider configuration blocks are deprecated[0m
+[33m│[0m [0m
+[33m│[0m [0m[0m  on .terraform/modules/website.iam/modules/s3-iam/main.tf line 3, in provider "aws":
+[33m│[0m [0m   3:   version = [4m"~> 3.20"[0m[0m
+[33m│[0m [0m
+[33m│[0m [0mTerraform 0.13 and earlier allowed provider version constraints inside the
+[33m│[0m [0mprovider configuration block, but that is now deprecated and will be
+[33m│[0m [0mremoved in a future version of Terraform. To silence this warning, move the
+[33m│[0m [0mprovider version constraint into the required_providers block.
+[33m╵[0m[0m
+[32m[1mSuccess![0m The configuration is valid, but there were some
+validation warnings as shown above.
+[0m
+time=2022-01-06T13:58:14Z level=debug msg=Detected 4 Hooks prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+[0;33m┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓[0m
+[0;33m┃  TERRAFORM PLAN                                                          ┃[0m
+[0;33m┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛[0m
+Running: terragrunt plan
+time=2022-01-06T13:58:14Z level=warning msg=No double-slash (//) found in source URL /terraform/mymodule.git. Relative paths in downloaded Terraform code may not work.
+time=2022-01-06T13:58:14Z level=info msg=Executing hook: before_init prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+[0m[1mInitializing modules...[0m
+
+[0m[1mInitializing the backend...[0m
+[0m[32m
+Successfully configured the backend "http"! Terraform will automatically
+use this backend unless the backend configuration changes.[0m
+2022/01/06 13:58:16 [DEBUG] GET https://backend.example.com/000111222333.us-east-1.cloudfront
+
+[0m[1mInitializing provider plugins...[0m
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Reusing previous version of hashicorp/archive from the dependency lock file
+- Reusing previous version of hashicorp/random from the dependency lock file
+- Using previously-installed hashicorp/random v3.1.0
+- Using previously-installed hashicorp/aws v3.70.0
+- Using previously-installed hashicorp/archive v2.2.0
+
+[33m[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mVersion constraints inside provider configuration blocks are deprecated[0m
+[33m│[0m [0m
+[33m│[0m [0m[0m  on .terraform/modules/website.iam/modules/s3-iam/main.tf line 3, in provider "aws":
+[33m│[0m [0m   3:   version = [4m"~> 3.20"[0m[0m
+[33m│[0m [0m
+[33m│[0m [0mTerraform 0.13 and earlier allowed provider version constraints inside the
+[33m│[0m [0mprovider configuration block, but that is now deprecated and will be
+[33m│[0m [0mremoved in a future version of Terraform. To silence this warning, move the
+[33m│[0m [0mprovider version constraint into the required_providers block.
+[33m╵[0m[0m
+[0m[0m
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+time=2022-01-06T13:58:17Z level=info msg=Executing hook: after_init prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+time=2022-01-06T13:58:17Z level=info msg=Executing hook: before_plan prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+2022/01/06 13:58:18 [DEBUG] LOCK https://backend.example.com/000111222333.us-east-1.cloudfront
+2022/01/06 13:58:18 [DEBUG] GET https://backend.example.com/000111222333.us-east-1.cloudfront
+[0m[1mmodule.cloudfront_function[0].random_id.suffix: Refreshing state... [id=GOGHzcxSyPI][0m
+[0m[1mmodule.cloudfront.aws_cloudfront_origin_access_identity.origin_access_identity: Refreshing state... [id=ABCDJNAI9XYZ][0m
+[0m[1mmodule.cloudfront_function[0].aws_cloudfront_function.function: Refreshing state... [id=prod-abcdef-myfunction-18e187c][0m
+[0m[1mmodule.cloudfront_function[0].aws_cloudwatch_log_group.function_log_group: Refreshing state... [id=/aws/cloudfront/function/prod-abcdef-myfunction-18e187c][0m
+[0m[1maws_wafv2_ip_set.ip_whitelist[0]: Refreshing state... [id=6c7d52b6-396f-1234-abcd-c988baadaxyz][0m
+[0m[1maws_wafv2_web_acl.default[0]: Refreshing state... [id=74c158dc-4ea0-4061-abc1-0760d74837a3][0m
+[0m[1mmodule.website.aws_s3_bucket.bucket: Refreshing state... [id=website.example.com][0m
+[0m[1mmodule.website.module.bucket_public_access_block.aws_s3_bucket_public_access_block.block[0]: Refreshing state... [id=website.example.com][0m
+[0m[1mmodule.website.module.bucket_policy.aws_s3_bucket_policy.bucket_policy[0]: Refreshing state... [id=website.example.com][0m
+[0m[1mmodule.cloudfront.aws_cloudfront_distribution.default: Refreshing state... [id=E1VBABCDJACXYZ][0m
+[0m
+[1m[36mNote:[0m[1m Objects have changed outside of Terraform[0m
+
+[0mTerraform detected the following changes made outside of Terraform since the
+last "terraform apply":
+
+[1m  # module.cloudfront_function[0].aws_cloudfront_function.function[0m has been changed[0m[0m
+[0m  [33m~[0m[0m resource "aws_cloudfront_function" "function" {
+        [1m[0mid[0m[0m              = "prod-abcdef-myfunction-18e187c"
+      [32m+[0m [0m[1m[0mlive_stage_etag[0m[0m = "ETVPABCDXXYZ"
+        [1m[0mname[0m[0m            = "prod-abcdef-myfunction-18e187c"
+      [33m~[0m [0m[1m[0mstatus[0m[0m          = "UNASSOCIATED" [33m->[0m [0m"DEPLOYED"
+        [90m# (5 unchanged attributes hidden)[0m[0m
+    }
+[1m  # module.website.aws_s3_bucket.bucket[0m has been changed[0m[0m
+[0m  [33m~[0m[0m resource "aws_s3_bucket" "bucket" {
+        [1m[0mid[0m[0m                          = "website.example.com"
+        [1m[0mtags[0m[0m                        = {
+            "app-id"                        = "abcdef"
+            "development-team-email"        = "myteam@mycompany.example.com"
+            "environment"                   = "prod"
+            "iac"                           = "terraform"
+            "infrastructure-engineer-email" = "myteam@mycompany.example.com"
+            "infrastructure-team-email"     = "myteam@mycompany.example.com"
+            "module"                        = "bucketmodule"
+            "module_source"                 = "git::https://github.example.com/terraform/mymodule.git"
+            "module_version"                = "4.4.1-dev"
+        }
+        [90m# (12 unchanged attributes hidden)[0m[0m
+
+
+      [33m~[0m [0mlifecycle_rule {
+            [1m[0mid[0m[0m                                     = "multipart"
+          [32m+[0m [0m[1m[0mtags[0m[0m                                   = {}
+            [90m# (2 unchanged attributes hidden)[0m[0m
+        }
+
+
+
+        [90m# (4 unchanged blocks hidden)[0m[0m
+    }
+
+Unless you have made equivalent changes to your configuration, or ignored the
+relevant attributes using ignore_changes, the following plan may include
+actions to undo or respond to these changes.
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [33m~[0m update in-place
+[31m-[0m/[32m+[0m destroy and then create replacement
+ [36m<=[0m read (data resources)
+[0m
+Terraform will perform the following actions:
+
+[1m  # aws_wafv2_ip_set.ip_whitelist[0][0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_wafv2_ip_set" "ip_whitelist" {
+      [33m~[0m [0m[1m[0marn[0m[0m                = "arn:aws:wafv2:us-east-1:000111222333:global/ipset/prod-abcdef-mysite-allowed-ips/6c7d52b6-396f-1234-abcd-c988baadaxyz" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mdescription[0m[0m        = "IP whitelist for website.example.com" [33m->[0m [0m"IP whitelist for example2.com"
+      [33m~[0m [0m[1m[0mid[0m[0m                 = "6c7d52b6-396f-1234-abcd-c988baadaxyz" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mlock_token[0m[0m         = "e28dde9b-xyz-4ed4-abcd-1ceea1d99749" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mname[0m[0m               = "prod-abcdef-mysite-allowed-ips" [33m->[0m [0m"prod-abcdef-all-example2-allowed-ips" [31m# forces replacement[0m[0m
+      [33m~[0m [0m[1m[0mtags[0m[0m               = {
+          [33m~[0m [0m"module_version"                = "4.4.1-dev" [33m->[0m [0m"4.4.2-prod2"
+            [90m# (9 unchanged elements hidden)[0m[0m
+        }
+      [33m~[0m [0m[1m[0mtags_all[0m[0m           = {
+          [33m~[0m [0m"module_version"                = "4.4.1-dev" [33m->[0m [0m"4.4.2-prod2"
+            [90m# (9 unchanged elements hidden)[0m[0m
+        }
+        [90m# (3 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.cloudfront_function[0].aws_cloudfront_function.function[0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_cloudfront_function" "function" {
+      [33m~[0m [0m[1m[0marn[0m[0m             = "arn:aws:cloudfront::000111222333:function/prod-abcdef-myfunction-18e187c" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mcode[0m[0m            = <<-EOT
+            function handler(event) {
+            
+              var hostRedirects = {
+                "website.example.com": "https://one.example.com",
+                "subdomain.website.example.com": "https://two.example.com",
+          [32m+[0m [0m    "example2.com": "https://three.example.com"
+              };
+            
+              var request = event.request;
+              var headers = request.headers;
+              var host = request.headers.host.value;
+            
+              if( hostRedirects.hasOwnProperty( host ) ) {
+            
+                return {
+                  statusCode: 302,
+                  statusDescription: 'Found',
+                  headers: { "location": { "value": hostRedirects[ host ] } }
+                };
+            
+              }
+            
+              return request;
+            
+            }
+        EOT
+      [33m~[0m [0m[1m[0metag[0m[0m            = "ETVPABCDXXYZ" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mid[0m[0m              = "prod-abcdef-myfunction-18e187c" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mlive_stage_etag[0m[0m = "ETVPABCDXXYZ" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mname[0m[0m            = "prod-abcdef-myfunction-18e187c" [33m->[0m [0m"prod-abcdef-all-example2-function-18e187c" [31m# forces replacement[0m[0m
+      [33m~[0m [0m[1m[0mstatus[0m[0m          = "DEPLOYED" [33m->[0m [0m(known after apply)
+        [90m# (2 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.website.module.bucket_policy.aws_s3_bucket_policy.bucket_policy[0][0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_s3_bucket_policy" "bucket_policy" {
+      [33m~[0m [0m[1m[0mbucket[0m[0m = "website.example.com" [33m->[0m [0m(known after apply) [31m# forces replacement[0m[0m
+      [33m~[0m [0m[1m[0mid[0m[0m     = "website.example.com" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mpolicy[0m[0m = jsonencode(
+            {
+              [31m-[0m [0mStatement = [
+                  [31m-[0m [0m{
+                      [31m-[0m [0mAction    = [
+                          [31m-[0m [0m"s3:ListBucket",
+                          [31m-[0m [0m"s3:GetBucket*",
+                          [31m-[0m [0m"s3:GetObject*",
+                          [31m-[0m [0m"s3:PutObject*",
+                          [31m-[0m [0m"s3:DeleteObject",
+                          [31m-[0m [0m"s3:AbortMultipartUpload",
+                          [31m-[0m [0m"s3:ListMultipartUploadParts",
+                          [31m-[0m [0m"s3:ListBucketMultipartUploads",
+                        ]
+                      [31m-[0m [0mEffect    = "Allow"
+                      [31m-[0m [0mPrincipal = {
+                          [31m-[0m [0mAWS = "arn:aws:iam::000111222333:role/test-role"
+                        }
+                      [31m-[0m [0mResource  = [
+                          [31m-[0m [0m"arn:aws:s3:::website.example.com",
+                          [31m-[0m [0m"arn:aws:s3:::website.example.com/*",
+                        ]
+                    },
+                  [31m-[0m [0m{
+                      [31m-[0m [0mAction    = "s3:GetObject"
+                      [31m-[0m [0mEffect    = "Allow"
+                      [31m-[0m [0mPrincipal = {
+                          [31m-[0m [0mAWS = "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ABCDJNAI9XYZ"
+                        }
+                      [31m-[0m [0mResource  = "arn:aws:s3:::website.example.com/*"
+                      [31m-[0m [0mSid       = "grant-cloudfront-identity-access-1"
+                    },
+                  [31m-[0m [0m{
+                      [31m-[0m [0mAction    = "s3:ListBucket"
+                      [31m-[0m [0mEffect    = "Allow"
+                      [31m-[0m [0mPrincipal = {
+                          [31m-[0m [0mAWS = "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ABCDJNAI9XYZ"
+                        }
+                      [31m-[0m [0mResource  = "arn:aws:s3:::website.example.com"
+                      [31m-[0m [0mSid       = "grant-cloudfront-identity-access-2"
+                    },
+                ]
+              [31m-[0m [0mVersion   = "2012-10-17"
+            }
+        ) [33m->[0m [0m(known after apply)
+    }
+
+[1m  # module.website.module.bucket_public_access_block.aws_s3_bucket_public_access_block.block[0][0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_s3_bucket_public_access_block" "block" {
+      [33m~[0m [0m[1m[0mbucket[0m[0m                  = "website.example.com" [33m->[0m [0m(known after apply) [31m# forces replacement[0m[0m
+      [33m~[0m [0m[1m[0mid[0m[0m                      = "website.example.com" [33m->[0m [0m(known after apply)
+        [90m# (4 unchanged attributes hidden)[0m[0m
+    }
+
+[0m[1mPlan:[0m 7 to add, 2 to change, 7 to destroy.
+[0m[0m
+[1mChanges to Outputs:[0m[0m
+  [33m~[0m [0m[1m[0mcloudfront_function_arn[0m[0m = "arn:aws:cloudfront::000111222333:function/prod-abcdef-myfunction-18e187c" [33m->[0m [0m(known after apply)
+  [33m~[0m [0m[1m[0mwebsite_bucket[0m[0m          = {
+      [33m~[0m [0marn         = "arn:aws:s3:::website.example.com" [33m->[0m [0m(known after apply)
+      [33m~[0m [0mdomain_name = "website.example.com.s3.amazonaws.com" [33m->[0m [0m(known after apply)
+      [33m~[0m [0mid          = "website.example.com" [33m->[0m [0m(known after apply)
+    }
+[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mVersion constraints inside provider configuration blocks are deprecated[0m
+[33m│[0m [0m
+[33m│[0m [0m[0m  on .terraform/modules/website.iam/modules/s3-iam/main.tf line 3, in provider "aws":
+[33m│[0m [0m   3:   version = [4m"~> 3.20"[0m[0m
+[33m│[0m [0m
+[33m│[0m [0mTerraform 0.13 and earlier allowed provider version constraints inside the
+[33m│[0m [0mprovider configuration block, but that is now deprecated and will be
+[33m│[0m [0mremoved in a future version of Terraform. To silence this warning, move the
+[33m│[0m [0mprovider version constraint into the required_providers block.
+[33m╵[0m[0m
+2022/01/06 13:58:26 [DEBUG] UNLOCK https://backend.example.com/000111222333.us-east-1.cloudfront
+time=2022-01-06T13:58:26Z level=info msg=Executing hook: after_plan prefix=[/build/000111222333/us-east-1/prod/cloudfront] 
+

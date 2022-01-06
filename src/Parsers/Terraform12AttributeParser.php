@@ -41,6 +41,7 @@ class Terraform12AttributeParser
         '{'      => '        }',
         '['      => '        ]',
         '<<~EOT' => '        EOT',
+        '<<-EOT' => '        EOT',
     ];
 
     /**

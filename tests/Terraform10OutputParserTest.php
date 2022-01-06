@@ -24,8 +24,9 @@ class Terraform10OutputParserTest extends TestCase
         $fixturesDir = __DIR__ . '/.fixtures-1.0';
 
         $cases = [
-            // 'create'       => '80-create',
-            'update'       => '81-update',
+            // 'create'               => '80-create',
+            // 'update'               => '81-update',
+            'changed-outside'      => '82-changed-outside',
         ];
 
         return array_map(function ($case) use ($fixturesDir) {

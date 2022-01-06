@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/).
 > Sections: (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`)
 
+## [1.3.2] - 2022-01-06
+
+### Fixed
+- Fixed parsing of multiline blocks when Terraform uses `<<-EOT` instead of `<<~EOT`
+  > Example output of a plan:
+  > ```
+  > -/+ resource "myresource" "name" {
+  >       ~ code = <<-EOT
+  >             unchanged line
+  >           + added line
+  >         EOT
+  > }
+  > ```
+
 ## [1.3.1] - 2022-01-05
 
 ### Fixed

@@ -1,0 +1,322 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "replace",
+            "name": "ip_whitelist[0]",
+            "type": "aws_wafv2_ip_set",
+            "fully_qualified_name": "aws_wafv2_ip_set.ip_whitelist[0]",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "arn": {
+                    "name": "arn",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "arn:aws:wafv2:us-east-1:000111222333:global/ipset/prod-abcdef-mysite-allowed-ips/6c7d52b6-396f-1234-abcd-c988baadaxyz"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "description": {
+                    "name": "description",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "IP whitelist for website.example.com"
+                    },
+                    "new": {
+                        "type": "string",
+                        "value": "IP whitelist for example2.com"
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "6c7d52b6-396f-1234-abcd-c988baadaxyz"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "lock_token": {
+                    "name": "lock_token",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "e28dde9b-xyz-4ed4-abcd-1ceea1d99749"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "name": {
+                    "name": "name",
+                    "force_new_resource": true,
+                    "old": {
+                        "type": "string",
+                        "value": "prod-abcdef-mysite-allowed-ips"
+                    },
+                    "new": {
+                        "type": "string",
+                        "value": "prod-abcdef-all-example2-allowed-ips"
+                    }
+                },
+                "tags": {
+                    "name": "tags",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "map",
+                        "value": null
+                    }
+                },
+                "tags_all": {
+                    "name": "tags_all",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "map",
+                        "value": null
+                    }
+                }
+            }
+        },
+        {
+            "action": "replace",
+            "name": "function",
+            "type": "aws_cloudfront_function",
+            "fully_qualified_name": "module.cloudfront_function[0].aws_cloudfront_function.function",
+            "module_path": "cloudfront_function[0]",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "arn": {
+                    "name": "arn",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "arn:aws:cloudfront::000111222333:function/prod-abcdef-myfunction-18e187c"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "code": {
+                    "name": "code",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "unknown",
+                        "value": null
+                    }
+                },
+                "etag": {
+                    "name": "etag",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "ETVPABCDXXYZ"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "prod-abcdef-myfunction-18e187c"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "live_stage_etag": {
+                    "name": "live_stage_etag",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "ETVPABCDXXYZ"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "name": {
+                    "name": "name",
+                    "force_new_resource": true,
+                    "old": {
+                        "type": "string",
+                        "value": "prod-abcdef-myfunction-18e187c"
+                    },
+                    "new": {
+                        "type": "string",
+                        "value": "prod-abcdef-all-example2-function-18e187c"
+                    }
+                },
+                "status": {
+                    "name": "status",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "DEPLOYED"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                }
+            }
+        },
+        {
+            "action": "replace",
+            "name": "bucket_policy[0]",
+            "type": "aws_s3_bucket_policy",
+            "fully_qualified_name": "module.website.module.bucket_policy.aws_s3_bucket_policy.bucket_policy[0]",
+            "module_path": "website.bucket_policy",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "bucket": {
+                    "name": "bucket",
+                    "force_new_resource": true,
+                    "old": {
+                        "type": "string",
+                        "value": "website.example.com"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "website.example.com"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "policy": {
+                    "name": "policy",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "string",
+                        "value": null
+                    }
+                }
+            }
+        },
+        {
+            "action": "replace",
+            "name": "block[0]",
+            "type": "aws_s3_bucket_public_access_block",
+            "fully_qualified_name": "module.website.module.bucket_public_access_block.aws_s3_bucket_public_access_block.block[0]",
+            "module_path": "website.bucket_public_access_block",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "bucket": {
+                    "name": "bucket",
+                    "force_new_resource": true,
+                    "old": {
+                        "type": "string",
+                        "value": "website.example.com"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "website.example.com"
+                    },
+                    "new": {
+                        "type": "computed",
+                        "value": null
+                    }
+                }
+            }
+        }
+    ],
+    "modules": [
+        {
+            "name": "cloudfront",
+            "source": "modules/cloudfront",
+            "version": null
+        },
+        {
+            "name": "cloudfront_function",
+            "source": "modules/cloudfront-function",
+            "version": null
+        },
+        {
+            "name": "index_lambda",
+            "source": "modules/edge-lambda-for-directory-index",
+            "version": null
+        },
+        {
+            "name": "tags",
+            "source": "git::https://github.example.com/terraform/othermodule.git",
+            "version": "1.1.0"
+        },
+        {
+            "name": "website",
+            "source": "git::https://github.example.com/terraform/bucketmodule.git",
+            "version": "4.0.0"
+        },
+        {
+            "name": "website.bucket_policy",
+            "source": ".terraform/modules/website/modules/bucket-policy",
+            "version": null
+        },
+        {
+            "name": "website.bucket_public_access_block",
+            "source": ".****************************************-public-access-block",
+            "version": null
+        },
+        {
+            "name": "website.bucket_replication",
+            "source": ".****************************************-replication",
+            "version": null
+        },
+        {
+            "name": "website.iam",
+            "source": "git::https://github.example.com/terraform/iammodule.git",
+            "version": "3.0.0"
+        },
+        {
+            "name": "website.tags",
+            "source": "git::https://github.example.com/terraform/othermodule.git",
+            "version": "1.1.0"
+        },
+        {
+            "name": "root",
+            "source": "git::https://github.example.com/terraform/mymodule.git",
+            "version": "4.4.2-prod2"
+        }
+    ]
+}
