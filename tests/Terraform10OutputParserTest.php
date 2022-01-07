@@ -28,7 +28,7 @@ class Terraform10OutputParserTest extends TestCase
             'update'               => '81-update',
             'changed-outside'      => '82-changed-outside',
             'nochanges'            => '83-nochanges',
-            'whoknows'             => '84-whoknows',
+            'resource-comment'     => '84-resource-comment',
         ];
 
         return array_map(function ($case) use ($fixturesDir) {
