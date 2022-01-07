@@ -1,0 +1,76 @@
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[1maws_acm_certificate.cert (deposed object 692a6dc7): Refreshing state... [id=arn:aws:acm:us-east-1:000011112222:certificate/df234xyz-f754-abcd-9fa5-abc43cf90xyz][0m
+[0m[1maws_acm_certificate.cert: Refreshing state... [id=arn:aws:acm:us-east-1:000011112222:certificate/8b759e6b-e3cb-xyz][0m
+[0m[1maws_route53_record.cert_validation["mywebsite.example.com"]: Refreshing state... [id=Z09ABCDEFMWNBX34ONXYZ__28deff2104f47aa1dabc2aa4dff76xyz.mywebsite.example.com._CNAME][0m
+[0m[1maws_acm_certificate_validation.cert: Refreshing state... [id=2022-01-06 16:49:32.919 +0000 UTC][0m
+[0m
+[1m[36mNote:[0m[1m Objects have changed outside of Terraform[0m
+
+[0mTerraform detected the following changes made outside of Terraform since the
+last "terraform apply":
+
+[1m  # aws_acm_certificate.cert[0m has been changed[0m[0m
+[0m  [33m~[0m[0m resource "aws_acm_certificate" "cert" {
+        [1m[0mid[0m[0m                        = "arn:aws:acm:us-east-1:000011112222:certificate/8b759e6b-e3cb-xyz"
+      [33m~[0m [0m[1m[0mstatus[0m[0m                    = "PENDING_VALIDATION" [33m->[0m [0m"ISSUED"
+        [1m[0mtags[0m[0m                      = {
+            "environment"                   = "test"
+            "iac"                           = "terraform"
+        }
+        [90m# (7 unchanged attributes hidden)[0m[0m
+
+        [90m# (1 unchanged block hidden)[0m[0m
+    }
+[1m  # aws_route53_record.cert_validation["mywebsite.example.com"][0m has been changed[0m[0m
+[0m  [33m~[0m[0m resource "aws_route53_record" "cert_validation" {
+        [1m[0mid[0m[0m              = "Z09ABCDEFMWNBX34ONXYZ__28deff2104f47aa1dabc2aa4dff76xyz.mywebsite.example.com._CNAME"
+        [1m[0mname[0m[0m            = "_28deff2104f47aa1dabc2aa4dff76xyz.mywebsite.example.com"
+        [90m# (6 unchanged attributes hidden)[0m[0m
+    }
+
+Unless you have made equivalent changes to your configuration, or ignored the
+relevant attributes using ignore_changes, the following plan may include
+actions to undo or respond to these changes.
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy
+[0m
+Terraform will perform the following actions:
+
+[1m  # aws_acm_certificate.cert (deposed object 692a6dc7)[0m will be [1m[31mdestroyed[0m
+  # (left over from a partially-failed replacement of this instance)[0m
+[0m  [31m-[0m[0m resource "aws_acm_certificate" "cert" {
+      [31m-[0m [0m[1m[0marn[0m[0m                       = "arn:aws:acm:us-east-1:000011112222:certificate/df234xyz-f754-abcd-9fa5-abc43cf90xyz" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mdomain_name[0m[0m               = "mywebsite.example.com" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mdomain_validation_options[0m[0m = [
+          [31m-[0m [0m{
+              [31m-[0m [0mdomain_name           = "mywebsite.example.com"
+              [31m-[0m [0mresource_record_name  = "_e6394c5254f9c6fe.mywebsite.example.com."
+              [31m-[0m [0mresource_record_type  = "CNAME"
+              [31m-[0m [0mresource_record_value = "_309908c8118ef67.lgabcdef.acm-validations.aws."
+            },
+        ] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mid[0m[0m                        = "arn:aws:acm:us-east-1:000011112222:certificate/df234xyz-f754-abcd-9fa5-abc43cf90xyz" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mstatus[0m[0m                    = "ISSUED" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0msubject_alternative_names[0m[0m = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags[0m[0m                      = {
+          [31m-[0m [0m"environment"                   = "test"
+          [31m-[0m [0m"iac"                           = "terraform"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags_all[0m[0m                  = {
+          [31m-[0m [0m"environment"                   = "test"
+          [31m-[0m [0m"iac"                           = "terraform"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvalidation_emails[0m[0m         = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvalidation_method[0m[0m         = "DNS" [90m->[0m [0m[90mnull[0m[0m
+
+      [31m-[0m [0moptions {
+          [31m-[0m [0m[1m[0mcertificate_transparency_logging_preference[0m[0m = "ENABLED" [90m->[0m [0m[90mnull[0m[0m
+        }
+    }
+
+[0m[1mPlan:[0m 0 to add, 0 to change, 1 to destroy.

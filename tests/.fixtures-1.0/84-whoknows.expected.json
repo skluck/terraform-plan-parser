@@ -1,0 +1,131 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "destroy",
+            "name": "cert",
+            "type": "aws_acm_certificate",
+            "fully_qualified_name": "aws_acm_certificate.cert",
+            "module_path": "",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "arn": {
+                    "name": "arn",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "arn:aws:acm:us-east-1:000011112222:certificate/df234xyz-f754-abcd-9fa5-abc43cf90xyz"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "domain_name": {
+                    "name": "domain_name",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "mywebsite.example.com"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "domain_validation_options": {
+                    "name": "domain_validation_options",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "arn:aws:acm:us-east-1:000011112222:certificate/df234xyz-f754-abcd-9fa5-abc43cf90xyz"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "status": {
+                    "name": "status",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "ISSUED"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "subject_alternative_names": {
+                    "name": "subject_alternative_names",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "tags": {
+                    "name": "tags",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "map",
+                        "value": null
+                    }
+                },
+                "tags_all": {
+                    "name": "tags_all",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "map",
+                        "value": null
+                    }
+                },
+                "validation_emails": {
+                    "name": "validation_emails",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "validation_method": {
+                    "name": "validation_method",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "DNS"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "options": {
+                    "name": "options",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "block",
+                        "value": null
+                    }
+                }
+            }
+        }
+    ],
+    "modules": []
+}

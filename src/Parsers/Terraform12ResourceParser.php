@@ -61,6 +61,7 @@ class Terraform12ResourceParser
         '/';
 
     const MODULE_USELESS_COMMENT = '# (config refers to values not yet known)';
+    const MODULE_USELESS_COMMENT_2 = '# (left over from a partially-failed replacement of this instance)';
     const UNCHANGED_REGEX = '/^\# \([\d]+ unchanged [a-z]+ hidden\)$/';
 
     const ERR_FAILED_PARSE = 'Failed to parse resource header';
@@ -79,13 +80,20 @@ class Terraform12ResourceParser
      */
     public function shouldIgnoreLine(string $line): bool
     {
+        $trimmedLine = ltrim($line);
+
         // Not necessary information
-        if (ltrim($line) === self::MODULE_USELESS_COMMENT) {
+        if ($trimmedLine === self::MODULE_USELESS_COMMENT) {
             return true;
         }
 
         // Not necessary information
-        if (preg_match(self::UNCHANGED_REGEX, ltrim($line)) === 1) {
+        if ($trimmedLine === self::MODULE_USELESS_COMMENT_2) {
+            return true;
+        }
+
+        // Not necessary information
+        if (preg_match(self::UNCHANGED_REGEX, $trimmedLine) === 1) {
             return true;
         }
 

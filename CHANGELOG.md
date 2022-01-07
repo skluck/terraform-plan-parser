@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/).
 > Sections: (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`)
 
+## [1.3.3] - 2022-01-07
+
+### Fixed
+- Prevent error when no changes are necessary for Terraform to run (Terraform 0.13+).
+- Prevent error from recording when erroneous comment block `left over from a partially-failed` exists.
+  > Example output of a plan:
+  > ```
+  > Terraform will perform the following actions:
+  > 
+  >   # aws_acm_certificate.cert (deposed object 692a6dc7) will be destroyed
+  >   # (left over from a partially-failed replacement of this instance)
+  >   - resource "aws_acm_certificate" "cert" {
+  >       - status = "ISSUED" -> null
+  >     }
+  > ```
+
 ## [1.3.2] - 2022-01-06
 
 ### Fixed

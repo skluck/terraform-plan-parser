@@ -17,6 +17,9 @@ class Terraform12OutputParser
     use ErrorHandlingTrait;
 
     const NO_CHANGES_STRING = "\nNo changes. Infrastructure is up-to-date.\n";
+    # New in Terraform 0.13+
+    const NO_CHANGES_STRING_ALT = "\nNo changes. Your infrastructure matches the configuration.\n";
+
     const CONTENT_START_STRING = "\nTerraform will perform the following actions:\n";
     const CONTENT_END_STRING = "\nPlan:";
 
@@ -83,6 +86,14 @@ class Terraform12OutputParser
         $input = $this->sanitizeWindowsLineEndings($input);
 
         if (strpos($input, self::NO_CHANGES_STRING) !== false) {
+            return [
+                'errors' => $this->errors(),
+                'changedResources' => [],
+                'modules' => [],
+            ];
+        }
+
+        if (strpos($input, self::NO_CHANGES_STRING_ALT) !== false) {
             return [
                 'errors' => $this->errors(),
                 'changedResources' => [],

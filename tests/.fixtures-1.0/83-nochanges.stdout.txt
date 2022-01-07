@@ -1,0 +1,23 @@
+[0m[1mInitializing modules...[0m
+
+[0m[1mInitializing the backend...[0m
+[0m[32m
+Successfully configured the backend "http"! Terraform will automatically
+use this backend unless the backend configuration changes.[0m
+
+[0m[1mInitializing provider plugins...[0m
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Reusing previous version of hashicorp/random from the dependency lock file
+- Using previously-installed hashicorp/random v3.1.0
+- Using previously-installed hashicorp/aws v3.70.0
+
+[0m[1m[32mTerraform has been successfully initialized![0m[32m[0m
+[0m[1mrandom_pet.three: Refreshing state... [id=freely-emerging-mudfish][0m
+[0m[1mrandom_shuffle.example: Refreshing state... [id=-][0m
+[0m[1maws_cloudwatch_event_bus.main: Refreshing state... [id=arn:aws:events:us-east-2:000011112222:event-bus/my-event-bus][0m
+
+[0m[1m[32mNo changes.[0m[1m Your infrastructure matches the configuration.[0m
+
+[0mTerraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.
+
