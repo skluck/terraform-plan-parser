@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [1.3.4] - 2022-01-13
 
+### Fixed
 - Prevent parsing error when terraform debug output is contained in output.
 
 ## [1.3.3] - 2022-01-07
