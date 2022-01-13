@@ -1,0 +1,55 @@
+Successfully configured the backend "http"! Terraform will automatically
+use this backend unless the backend configuration changes.[0m
+
+[0m[1mInitializing provider plugins...[0m
+- Reusing previous version of hashicorp/null from the dependency lock file
+- Reusing previous version of hashicorp/template from the dependency lock file
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Using previously-installed hashicorp/null v3.1.0
+- Using previously-installed hashicorp/template v2.2.0
+- Using previously-installed hashicorp/aws v2.70.1
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [31m-[0m destroy
+[0m
+Terraform will perform the following actions:
+
+[1m  # module.aurora.aws_rds_cluster.cluster_with_encryption_serverless[0][0m will be [1m[31mdestroyed[0m[0m
+[0m  [31m-[0m[0m resource "aws_rds_cluster" "cluster_with_encryption_serverless" {
+      [31m-[0m [0m[1m[0mapply_immediately[0m[0m                   = true [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags[0m[0m                                = {
+          [31m-[0m [0m"environment"                   = "dev"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvpc_security_group_ids[0m[0m              = [
+          [31m-[0m [0m"sg-xyzabc123",
+        ] [90m->[0m [0m[90mnull[0m[0m
+
+      [31m-[0m [0mscaling_configuration {
+          [31m-[0m [0m[1m[0mauto_pause[0m[0m               = true [90m->[0m [0m[90mnull[0m[0m
+        }
+    }
+
+2022/01/01 15:35:36 [DEBUG] UNLOCK https://mybackend.example.com/000111222333.us-east-2.dev.aurora-mysql
+[1m  # module.aurora.aws_security_group.cluster[0m will be [1m[31mdestroyed[0m[0m
+[0m  [31m-[0m[0m resource "aws_security_group" "cluster" {
+      [31m-[0m [0m[1m[0megress[0m[0m                 = [] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mid[0m[0m                     = "sg-xyzabc123" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mingress[0m[0m                = [
+          [31m-[0m [0m{
+              [31m-[0m [0mcidr_blocks      = [
+                  [31m-[0m [0m"127.0.0.1/32",
+                ]
+              [31m-[0m [0mdescription      = ""
+            },
+        ] [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mowner_id[0m[0m               = "000111222333" [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mrevoke_rules_on_delete[0m[0m = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mtags[0m[0m                   = {
+          [31m-[0m [0m"environment"                   = "dev"
+        } [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mvpc_id[0m[0m                 = "vpc-01a1598edb83c153c" [90m->[0m [0m[90mnull[0m[0m
+    }
+
+
+[0m[1mPlan:[0m 0 to add, 0 to change, 6 to destroy.

@@ -63,6 +63,7 @@ class Terraform12ResourceParser
     const MODULE_USELESS_COMMENT = '# (config refers to values not yet known)';
     const MODULE_USELESS_COMMENT_2 = '# (left over from a partially-failed replacement of this instance)';
     const UNCHANGED_REGEX = '/^\# \([\d]+ unchanged [a-z]+ hidden\)$/';
+    const DEBUG_OUTPUT_LINE_REGEX = '/^[\d\/]+ [\d:]+ \[DEBUG\]/';
 
     const ERR_FAILED_PARSE = 'Failed to parse resource header';
     const ERR_FAILED_PARSE_COMMENT = 'Failed to parse resource comment';
@@ -89,6 +90,11 @@ class Terraform12ResourceParser
 
         // Not necessary information
         if ($trimmedLine === self::MODULE_USELESS_COMMENT_2) {
+            return true;
+        }
+
+        // Not necessary information
+        if (preg_match(self::DEBUG_OUTPUT_LINE_REGEX, $trimmedLine) === 1) {
             return true;
         }
 

@@ -1,0 +1,142 @@
+{
+    "errors": [],
+    "changedResources": [
+        {
+            "action": "destroy",
+            "name": "cluster_with_encryption_serverless[0]",
+            "type": "aws_rds_cluster",
+            "fully_qualified_name": "module.aurora.aws_rds_cluster.cluster_with_encryption_serverless[0]",
+            "module_path": "aurora",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "apply_immediately": {
+                    "name": "apply_immediately",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "bool",
+                        "value": "true"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "tags": {
+                    "name": "tags",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "map",
+                        "value": null
+                    }
+                },
+                "vpc_security_group_ids": {
+                    "name": "vpc_security_group_ids",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "scaling_configuration": {
+                    "name": "scaling_configuration",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "block",
+                        "value": null
+                    }
+                }
+            }
+        },
+        {
+            "action": "destroy",
+            "name": "cluster",
+            "type": "aws_security_group",
+            "fully_qualified_name": "module.aurora.aws_security_group.cluster",
+            "module_path": "aurora",
+            "is_new": false,
+            "is_tainted": false,
+            "attributes": {
+                "egress": {
+                    "name": "egress",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "id": {
+                    "name": "id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "sg-xyzabc123"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "ingress": {
+                    "name": "ingress",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "list",
+                        "value": null
+                    }
+                },
+                "owner_id": {
+                    "name": "owner_id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "000111222333"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "revoke_rules_on_delete": {
+                    "name": "revoke_rules_on_delete",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "bool",
+                        "value": "false"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                },
+                "tags": {
+                    "name": "tags",
+                    "force_new_resource": false,
+                    "old": null,
+                    "new": {
+                        "type": "map",
+                        "value": null
+                    }
+                },
+                "vpc_id": {
+                    "name": "vpc_id",
+                    "force_new_resource": false,
+                    "old": {
+                        "type": "string",
+                        "value": "vpc-01a1598edb83c153c"
+                    },
+                    "new": {
+                        "type": "null",
+                        "value": null
+                    }
+                }
+            }
+        }
+    ],
+    "modules": []
+}
