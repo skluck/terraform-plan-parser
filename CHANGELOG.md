@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/).
 > Sections: (`Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`)
 
+## [1.3.6] - 2022-01-28
+
+### Fixed
+- Prevent parsing error when an empty plan is generated for Terraform 0.13+ where there is an output-only change.
+  > Example output of a plan:
+  > ```
+  > # aws_lambda_function.default has been changed
+  > ~ resource "aws_lambda_function" "default" {
+  >       # (2 unchanged blocks hidden)
+  >   }
+  >
+  > Unless you have made equivalent changes to your configuration, or ignored the
+  > relevant attributes using ignore_changes, the following plan may include
+  > actions to undo or respond to these changes.
+  > 
+  > ─────────────────────────────────────────────────────────────────────────────
+  > 
+  > Changes to Outputs:
+  >   ~ lambda_source_code_size = 100 -> 101
+  > ```
+
 ## [1.3.4] - 2022-01-13
 
 ### Fixed

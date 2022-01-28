@@ -1,0 +1,49 @@
+[1m[36mNote:[0m[1m Objects have changed outside of Terraform[0m
+
+[0mTerraform detected the following changes made outside of Terraform since the
+last "terraform apply":
+
+[1m  # aws_lambda_function.default[0m has been changed[0m[0m
+[0m  [33m~[0m[0m resource "aws_lambda_function" "default" {
+        [1m[0mid[0m[0m                             = "prod-123456-myservice"
+      [33m~[0m [0m[1m[0mlast_modified[0m[0m                  = "2022-01-26T01:40:57.000+0000" [33m->[0m [0m"2022-01-26T14:31:40.000+0000"
+      [33m~[0m [0m[1m[0msource_code_size[0m[0m               = 2830 [33m->[0m [0m2397
+        [1m[0mtags[0m[0m                           = {
+            "app-id"                        = "123456"
+            "environment"                   = "prod"
+            "iac"                           = "terraform"
+        }
+        [90m# (17 unchanged attributes hidden)[0m[0m
+
+      [32m+[0m [0menvironment {
+          [32m+[0m [0m[1m[0mvariables[0m[0m = {
+              [32m+[0m [0m"ExampleVar" = "myenvvar"
+            }
+        }
+
+
+        [90m# (2 unchanged blocks hidden)[0m[0m
+    }
+
+Unless you have made equivalent changes to your configuration, or ignored the
+relevant attributes using ignore_changes, the following plan may include
+actions to undo or respond to these changes.
+[90m
+─────────────────────────────────────────────────────────────────────────────[0m
+[0m
+[1mChanges to Outputs:[0m[0m
+  [33m~[0m [0m[1m[0mlambda_source_code_size[0m[0m = 2830 [33m->[0m [0m2397
+
+You can apply this plan to save these new output values to the Terraform
+state, without changing any real infrastructure.
+[33m╷[0m[0m
+[33m│[0m [0m[1m[33mWarning: [0m[0m[1mVersion constraints inside provider configuration blocks are deprecated[0m
+[33m│[0m [0m
+[33m│[0m [0m[0m  on .terraform/modules/lambda_iam_module/modules/lambda-iam/main.tf line 3, in provider "aws":
+[33m│[0m [0m   3:   version = [4m"~> 3.20"[0m[0m
+[33m│[0m [0m
+[33m│[0m [0mTerraform 0.13 and earlier allowed provider version constraints inside the
+[33m│[0m [0mprovider configuration block, but that is now deprecated and will be
+[33m│[0m [0mremoved in a future version of Terraform. To silence this warning, move the
+[33m│[0m [0mprovider version constraint into the required_providers block.
+[33m╵[0m[0m

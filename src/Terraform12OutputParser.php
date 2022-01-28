@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright (c) 2019 Steve Kluck
+ * @copyright (c) 2022 Steve Kluck
  *
  * For full license information, please view the LICENSE distributed with this source code.
  */
@@ -19,6 +19,7 @@ class Terraform12OutputParser
     const NO_CHANGES_STRING = "\nNo changes. Infrastructure is up-to-date.\n";
     # New in Terraform 0.13+
     const NO_CHANGES_STRING_ALT = "\nNo changes. Your infrastructure matches the configuration.\n";
+    const NO_CHANGES_OUTPUT_ONLY = "\nYou can apply this plan to save these new output values to the Terraform\nstate, without changing any real infrastructure.\n";
 
     const CONTENT_START_STRING = "\nTerraform will perform the following actions:\n";
     const CONTENT_END_STRING = "\nPlan:";
@@ -85,15 +86,7 @@ class Terraform12OutputParser
         $input = $this->stripANSICodes($input);
         $input = $this->sanitizeWindowsLineEndings($input);
 
-        if (strpos($input, self::NO_CHANGES_STRING) !== false) {
-            return [
-                'errors' => $this->errors(),
-                'changedResources' => [],
-                'modules' => [],
-            ];
-        }
-
-        if (strpos($input, self::NO_CHANGES_STRING_ALT) !== false) {
+        if ($this->isNoChangesPlan($input)) {
             return [
                 'errors' => $this->errors(),
                 'changedResources' => [],
@@ -371,6 +364,30 @@ class Terraform12OutputParser
         }
 
         return $modules;
+    }
+
+    /**
+     * @param string $input
+     *
+     * @return bool
+     */
+    private function isNoChangesPlan($input)
+    {
+        if (strpos($input, self::NO_CHANGES_STRING) !== false) {
+            return true;
+        }
+
+        // Terraform 0.13+ where absolutely no changes (not even to outputs)
+        if (strpos($input, self::NO_CHANGES_STRING_ALT) !== false) {
+            return true;
+        }
+
+        // Terraform 0.13+ where output only changes (may have "changes outside of terraform")
+        if (strpos($input, self::NO_CHANGES_OUTPUT_ONLY) !== false) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
